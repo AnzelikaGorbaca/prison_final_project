@@ -1,0 +1,40 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
+</head>
+<body class="container">
+<h1 th:text="${pageName}"></h1>
+
+<div class="col-md-3"></div>
+<div class="col-md-4">
+    <form th:object="${prisoner}" method="post" th:action="@{/prisoner}">
+        <div class="mb-3">
+            <label for="exampleInputName" class="form-label">Name</label>
+            <input type="text" class="form-control" required th:field="*{name}" id="exampleInputName"
+                   aria-describedby="nameHelp">
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputSurname" class="form-label">Surname</label>
+            <input type="text" class="form-control" required th:field="*{surname}" id="exampleInputSurname"
+                   aria-describedby="usernameHelp">
+            <div id="usernameHelp" class="form-text"></div>
+            <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="text-danger"></span>
+
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPersonalCode" class="form-label">Personal Code</label>
+            <input type="text" th:field="*{personalCode}" required class="form-control" id="exampleInputPersonalCode">
+            <span th:if="${#fields.hasErrors('personalCode')}" th:errors="*{personalCode}" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputAddress" class="form-label">Address</label>
+            <input type="text" th:field="*{address}" required class="form-control" id="exampleInputAddress">
+            <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+</body>
+</html>
