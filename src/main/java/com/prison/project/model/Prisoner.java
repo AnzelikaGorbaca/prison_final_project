@@ -13,7 +13,7 @@ import java.util.Set;
 public class Prisoner {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name = "prisoner_id")
     private Long id;
     @NotBlank(message = "Name is required")
@@ -27,15 +27,18 @@ public class Prisoner {
     private String address;
 
 
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(name = "prisoner_crime_punishment", joinColumns = @JoinColumn(name = "prisoner_id"),
-//            inverseJoinColumns = @JoinColumn(name = "crime_id"))
-//    private Set<Crime> crimes;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "prisoner_crime_punishment", joinColumns = @JoinColumn(name = "prisoner_id"),
+            inverseJoinColumns = @JoinColumn(name = "crime_id"))
+    private Set<Crime> crimes;
+
+
 //
 //    @ManyToMany(cascade = CascadeType.ALL)
 //    @JoinTable(name = "prisoner_crime_punishment", joinColumns = @JoinColumn(name = "prisoner_id"),
 //            inverseJoinColumns = @JoinColumn(name = "punishment_id"))
-//    private Punishment punishment;
+//
+//      private Punishment punishment;
 
 
 }
