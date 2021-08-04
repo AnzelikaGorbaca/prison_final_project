@@ -1,11 +1,12 @@
 package com.prison.project.model;
 
 
-
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import java.util.Collection;
+
+import static javax.persistence.FetchType.EAGER;
 
 @Data
 @Entity
@@ -16,6 +17,6 @@ public class Punishment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "punishment_id")
     private Long id;
-//    @NotBlank(message = "Imprisonment duration is required")
+    //    @NotBlank(message = "Imprisonment duration is required")
     private int imprisonmentMonths;
 }
