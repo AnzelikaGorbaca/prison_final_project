@@ -20,7 +20,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping(value = "/prison-management-system/prisoners", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/prison-management-system", produces = APPLICATION_JSON_VALUE)
 public class PrisonerController {
 
     private final CreatePrisonerService createPrisonerService;
@@ -29,7 +29,7 @@ public class PrisonerController {
     private final UpdatePrisonerService updatePrisonerService;
 
 
-    @GetMapping
+    @GetMapping ("/prisoners")
     public String prisonerIndex(Model model) {
         model.addAttribute("pageName", "All Prisoners");
         model.addAttribute("prisoners", getPrisonerService.getAll());
@@ -43,7 +43,7 @@ public class PrisonerController {
         return "prisoner-add";
     }
 
-    @PostMapping //("/prisoner-add")
+    @PostMapping
     public String register(@Valid Prisoner prisoner, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "prisoner-add";
@@ -51,16 +51,16 @@ public class PrisonerController {
 
         createPrisonerService.registerPrisoner(prisoner);
 
-        return "redirect:/prisoners";//redirect to main
+        return "redirect:/prison-management-system";
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("prisoners/delete/{id}")
     public String deletePrisonerById(@PathVariable("id") Long id, Model model) {
         deletePrisonerService.deletePrisoner(id);
-        return "redirect:/prisoners";
+        return "redirect:/prison-management-system/prisoners";
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("prisoners/edit/{id}")
     public String editPrisonerById(@PathVariable("id") Long id, Model model) {
         model.addAttribute("pageName", "Edit Prisoner Profile");
 
@@ -70,7 +70,7 @@ public class PrisonerController {
         return "prisoner-edit";
     }
 
-    @PostMapping("/update/{id}")
+    @PostMapping("prisoners/update/{id}")
     public String updatePrisoner(@PathVariable("id") Long id, @Valid Prisoner prisoner, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "prisoner-edit";
@@ -78,7 +78,7 @@ public class PrisonerController {
 
        updatePrisonerService.updatePrisoner(id,prisoner);
 
-        return "redirect:/prisoners";
+        return "redirect:/prison-management-system/prisoners";
     }
 
 }
