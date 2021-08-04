@@ -8,7 +8,7 @@
 
 <div class="col-md-3"></div>
 <div class="col-md-4">
-    <form th:object="${prisoner}" method="post" th:action="@{/prisoner}">
+    <form th:object="${prisoner}" method="post" th:action="@{/prisoners}">
         <div class="mb-3">
             <label for="exampleInputName" class="form-label">Name</label>
             <input type="text" class="form-control" required th:field="*{name}" id="exampleInputName"
