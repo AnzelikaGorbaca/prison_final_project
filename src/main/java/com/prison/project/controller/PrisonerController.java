@@ -20,7 +20,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping(value = "/prisoner", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/prisoners", produces = APPLICATION_JSON_VALUE)
 public class PrisonerController {
 
     private final CreatePrisonerService createPrisonerService;
@@ -51,13 +51,13 @@ public class PrisonerController {
 
         createPrisonerService.registerPrisoner(prisoner);
 
-        return "redirect:/prisoner";//redirect to main
+        return "redirect:/prisoners";//redirect to main
     }
 
     @GetMapping("/delete/{id}")
     public String deletePrisonerById(@PathVariable("id") Long id, Model model) {
         deletePrisonerService.deletePrisoner(id);
-        return "redirect:/prisoner";
+        return "redirect:/prisoners";
     }
 
     @GetMapping("/edit/{id}")
@@ -78,7 +78,7 @@ public class PrisonerController {
 
        updatePrisonerService.updatePrisoner(id,prisoner);
 
-        return "redirect:/prisoner";
+        return "redirect:/prisoners";
     }
 
 }
