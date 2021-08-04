@@ -32,7 +32,7 @@ public class StaffController {
     @GetMapping
     public String staffStart(Model model) {
         model.addAttribute("pageName", "All Staff");
-        model.addAttribute("staff", getStaffService.findAllStaff());
+        model.addAttribute("staffs", getStaffService.findAllStaff());
         return "staff-index";
     }
 
@@ -44,7 +44,7 @@ public class StaffController {
     @GetMapping("/delete/{id}")
     public String deleteStaffById(@PathVariable("id") Long id, Model model) {
         deleteStaffService.deleteStaff(id);
-        return "redirect:/staffs";
+        return "redirect:/prison-management-system/staffs";
     }
 
     @GetMapping("/edit/{id}")
@@ -63,7 +63,7 @@ public class StaffController {
             return "staff-add";
         }
         createStaffService.registerStaff(staff);
-        return "staff-index";
+        return staffStart(model);
     }
 
     @PostMapping("/update/{id}")
@@ -72,7 +72,7 @@ public class StaffController {
             return "staff-edit";
         }
         updateStaffService.updateStaff(id,staff);
-        return "redirect:/staffs";
+        return staffStart(model);
     }
 
 
