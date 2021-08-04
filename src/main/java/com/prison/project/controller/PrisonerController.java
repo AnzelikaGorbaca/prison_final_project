@@ -20,7 +20,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping(value = "/prisoners", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/prison-management-system/prisoners", produces = APPLICATION_JSON_VALUE)
 public class PrisonerController {
 
     private final CreatePrisonerService createPrisonerService;
