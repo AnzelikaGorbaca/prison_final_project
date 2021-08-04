@@ -20,7 +20,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping(value = "/prison-management-system", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/prison-management-system/prisoners", produces = APPLICATION_JSON_VALUE)
 public class PrisonerController {
 
     private final CreatePrisonerService createPrisonerService;
@@ -29,7 +29,7 @@ public class PrisonerController {
     private final UpdatePrisonerService updatePrisonerService;
 
 
-    @GetMapping ("/prisoners")
+    @GetMapping
     public String prisonerIndex(Model model) {
         model.addAttribute("pageName", "All Prisoners");
         model.addAttribute("prisoners", getPrisonerService.getAll());
@@ -51,16 +51,16 @@ public class PrisonerController {
 
         createPrisonerService.registerPrisoner(prisoner);
 
-        return "redirect:/prison-management-system";
+        return "redirect:/prison-management-system/prisoners";
     }
 
-    @GetMapping("prisoners/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deletePrisonerById(@PathVariable("id") Long id, Model model) {
         deletePrisonerService.deletePrisoner(id);
         return "redirect:/prison-management-system/prisoners";
     }
 
-    @GetMapping("prisoners/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String editPrisonerById(@PathVariable("id") Long id, Model model) {
         model.addAttribute("pageName", "Edit Prisoner Profile");
 
@@ -70,7 +70,7 @@ public class PrisonerController {
         return "prisoner-edit";
     }
 
-    @PostMapping("prisoners/update/{id}")
+    @PostMapping("/update/{id}")
     public String updatePrisoner(@PathVariable("id") Long id, @Valid Prisoner prisoner, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "prisoner-edit";
