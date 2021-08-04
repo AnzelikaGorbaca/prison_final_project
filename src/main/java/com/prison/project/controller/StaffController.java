@@ -1,6 +1,5 @@
 package com.prison.project.controller;
 
-import com.prison.project.model.Prisoner;
 import com.prison.project.model.Staff;
 import com.prison.project.service.staff.CreateStaffService;
 import com.prison.project.service.staff.DeleteStaffService;
@@ -36,11 +35,12 @@ public class StaffController {
         return "staff-index";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/staff-add")
     public String staffAdd(Model map, Staff staff) {
         map.addAttribute("pageName", "Add New Staff Member");
         return "staff-add";
     }
+
     @GetMapping("/delete/{id}")
     public String deleteStaffById(@PathVariable("id") Long id, Model model) {
         deleteStaffService.deleteStaff(id);

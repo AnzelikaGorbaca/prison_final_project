@@ -53,7 +53,7 @@ public class CrimeController {
 
     @GetMapping("/update/{id}")
     public String updateCrimeById(@PathVariable("id")Long id, Model model){
-       model.addAttribute("crime","Edit crime");
+       model.addAttribute("pageName","Edit Crime");
        Crime crime = getCrimeService.getCrimeById(id);
        model.addAttribute("crime", crime);
 
