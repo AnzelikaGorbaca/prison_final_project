@@ -28,7 +28,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping(value = "/prison-management-system/staffs", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/prison-management-system/staffs")
 public class StaffController {
 
     private final CreateStaffService createStaffService;
