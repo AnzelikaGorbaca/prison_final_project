@@ -17,4 +17,7 @@ public class Crime {
     @NotBlank(message = "Crime Description required")
     @Column (name = "Crime_description")
     private String crimeDescription;
+
+
+
 }

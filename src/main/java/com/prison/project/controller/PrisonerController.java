@@ -1,20 +1,24 @@
 package com.prison.project.controller;
 
+import com.prison.project.model.Crime;
 import com.prison.project.model.Prisoner;
+import com.prison.project.model.Punishment;
+import com.prison.project.service.crime.GetCrimeService;
 import com.prison.project.service.prisoner.CreatePrisonerService;
 import com.prison.project.service.prisoner.DeletePrisonerService;
 import com.prison.project.service.prisoner.GetPrisonerService;
 import com.prison.project.service.prisoner.UpdatePrisonerService;
+import com.prison.project.service.punishment.GetPunishmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.util.List;
+import java.util.Set;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -27,6 +31,8 @@ public class PrisonerController {
     private final DeletePrisonerService deletePrisonerService;
     private final GetPrisonerService getPrisonerService;
     private final UpdatePrisonerService updatePrisonerService;
+    private final GetCrimeService getCrimeService;
+    private final GetPunishmentService getPunishmentService;
 
 
     @GetMapping
@@ -37,8 +43,14 @@ public class PrisonerController {
     }
 
     @GetMapping ("/prisoner-add")
-    public String signUp(Model map, Prisoner prisoner) {
+    public String signUp(Model map, Prisoner prisoner, Model model) {
         map.addAttribute("pageName", "Add New Prisoner");
+
+        List <Punishment> punishmentList = getPunishmentService.getAllPunishments();
+        List<Crime> crimeList = getCrimeService.getAllCrime();
+
+        model.addAttribute("crimeList", crimeList);
+        model.addAttribute("punishmentList", punishmentList);
 
         return "prisoner-add";
     }
@@ -51,7 +63,8 @@ public class PrisonerController {
 
         createPrisonerService.registerPrisoner(prisoner);
 
-        return "redirect:/prison-management-system/prisoners";
+
+        return prisonerIndex(model);//"redirect:/prison-management-system/prisoners";
     }
 
     @GetMapping("/delete/{id}")
@@ -65,6 +78,11 @@ public class PrisonerController {
         model.addAttribute("pageName", "Edit Prisoner Profile");
 
         Prisoner prisoner = getPrisonerService.getPrisonerById(id);
+        List <Punishment> punishmentList = getPunishmentService.getAllPunishments();
+        List<Crime> crimeList = getCrimeService.getAllCrime();
+
+        model.addAttribute("crimeList", crimeList);
+        model.addAttribute("punishmentList", punishmentList);
         model.addAttribute("prisoner", prisoner);
 
         return "prisoner-edit";
@@ -78,7 +96,7 @@ public class PrisonerController {
 
        updatePrisonerService.updatePrisoner(id,prisoner);
 
-        return "redirect:/prison-management-system/prisoners";
+        return prisonerIndex(model);//"redirect:/prison-management-system/prisoners";
     }
 
 }

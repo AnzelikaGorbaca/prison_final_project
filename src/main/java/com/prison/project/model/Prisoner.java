@@ -1,5 +1,6 @@
 package com.prison.project.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
@@ -48,9 +49,12 @@ public class Prisoner {
             joinColumns = @JoinColumn(
                     name = "prisoner_id"),
             inverseJoinColumns = @JoinColumn(name = "crime_id"))
-    private Set<Crime> crimes;
+    private List<Crime> crimes;
+
+
 
     @OneToOne
     @JoinColumn(name = "punishment_id")
     private Punishment punishment;
 }
+
