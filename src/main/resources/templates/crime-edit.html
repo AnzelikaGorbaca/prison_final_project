@@ -74,6 +74,7 @@
             <label for="exampleCrime" class="form-label">Crime</label>
             <input type="text" class="form-control" required th:field="*{crimeDescription}" id="exampleCrime">
             <span th:if="${#fields.hasErrors('crimeDescription')}" th:errors="*{crimeDescription}" class="text-danger"></span>
+            <span th:text="${errorFromController}" class="text-danger"></span>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

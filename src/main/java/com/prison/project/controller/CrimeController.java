@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -47,6 +48,14 @@ public class CrimeController {
         if(result.hasErrors()) {
             return "crime-add";
         }
+        List<Crime> crimeList = getCrimeService.getAllCrime();
+        for (Crime c : crimeList){
+            if (crime.getCrimeDescription().equals(c.getCrimeDescription())){
+                model.addAttribute("errorFromController", "Crime " + c.getCrimeDescription() + " already exists");
+                return "crime-add";
+            }
+        }
+
         createCrimeService.registerCrime(crime);
         return crimeIndex(model);
     }
@@ -64,6 +73,13 @@ public class CrimeController {
     public String updateCrime(@PathVariable("id") Long id, @Valid Crime crime, BindingResult result, Model model){
         if(result.hasErrors()){
             return "crime-edit";
+        }
+        List<Crime> crimeList = getCrimeService.getAllCrime();
+        for (Crime c : crimeList){
+            if (crime.getCrimeDescription().equals(c.getCrimeDescription())){
+                model.addAttribute("errorFromController", "Crime " + c.getCrimeDescription() + " already exists");
+                return "crime-add";
+            }
         }
         updateCrimeService.updateCrime(id, crime);
         return crimeIndex(model);
