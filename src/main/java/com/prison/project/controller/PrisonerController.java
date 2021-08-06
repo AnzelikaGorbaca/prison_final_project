@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Set;
 
@@ -61,6 +62,14 @@ public class PrisonerController {
             return "prisoner-add";
         }
 
+        List<Prisoner> prisonerList = getPrisonerService.getAll();
+        for (Prisoner p : prisonerList) {
+            if (prisoner.getPersonalCode().contains(p.getPersonalCode())) {
+                model.addAttribute("errorFromController", "Prisoner with personal code " + p.getPersonalCode() + " already exists");
+                return "prisoner-add";
+            }
+        }
+
         createPrisonerService.registerPrisoner(prisoner);
 
 
@@ -94,7 +103,18 @@ public class PrisonerController {
             return "prisoner-edit";
         }
 
-       updatePrisonerService.updatePrisoner(id,prisoner);
+        try {
+            updatePrisonerService.updatePrisoner(id, prisoner);
+        } catch (RuntimeException e) {
+            if (e.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
+                if ((e.getCause().getCause()).getLocalizedMessage().contains("Duplicate entry")) {
+
+                    String errorMessage = ((e.getCause().getCause()).getLocalizedMessage().substring(15, 30));
+                    model.addAttribute("errorFromController", "Prisoner with personal code " + errorMessage + " already exists");
+                    return "prisoner-edit";
+                }
+            }
+        }
 
         return prisonerIndex(model);//"redirect:/prison-management-system/prisoners";
     }
