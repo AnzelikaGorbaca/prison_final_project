@@ -1,14 +1,11 @@
 package com.prison.project.controller;
 
-import com.prison.project.exception.BadRequestException;
-import com.prison.project.model.Prisoner;
 import com.prison.project.model.Staff;
 import com.prison.project.service.staff.CreateStaffService;
 import com.prison.project.service.staff.DeleteStaffService;
 import com.prison.project.service.staff.GetStaffService;
 import com.prison.project.service.staff.UpdateStaffService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.jdbc.support.SQLErrorCodesFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,15 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Controller
@@ -47,6 +40,11 @@ public class StaffController {
     @GetMapping("/staff-add")
     public String staffAdd(Model map, Staff staff) {
         map.addAttribute("pageName", "Add New Staff Member");
+
+        List<String> occupationList = List.of("Director", "Junior Guard", "Chief guard", "Utilities manager",
+                "Guard", "Senior Guard", "Security Director", "Accountant", "Facility Manager", "Visitors coordinator").stream().sorted().collect(Collectors.toList());
+        map.addAttribute("occupationList",occupationList);
+
         return "staff-add";
     }
 
@@ -62,6 +60,10 @@ public class StaffController {
 
         Staff staff = getStaffService.findStaffById(id);
         model.addAttribute("staff", staff);
+
+        List<String> occupationList = List.of("Director", "Junior Guard", "Chief guard", "Utilities manager",
+                "Guard", "Senior Guard", "Security Director", "Accountant", "Facility Manager", "Visitors coordinator").stream().sorted().collect(Collectors.toList());
+        model.addAttribute("occupationList",occupationList);
 
         return "staff-edit";
 

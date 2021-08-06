@@ -31,15 +31,15 @@ public class Staff {
     private String occupation;
 
     @NotBlank(message = "Personal code is required")
-    @Column(unique=true) //message = "This personal code is already in the system")
+    @Column(unique=true)
     @Pattern(regexp="^([0-9]{6}(\\-)[0-9]{5})$",message="Personal code format 000000-00000")
     private String personalCode;
 
     @NotBlank(message = "Phone number is required")
-    @Length(max=13, message = "Phone number format 0037100000000")
-
+    @Length(max=13,min=13, message = "Phone number format 00CountryCode00000000 e.g. 0037100000000")
     private String phoneNumber;
 
     @NotBlank(message = "Address is required")
+    @Length(min=10, message = "Please enter full address")
     private String address;
 }
