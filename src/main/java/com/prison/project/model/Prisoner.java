@@ -26,7 +26,8 @@ public class Prisoner {
     private String name;
     @NotBlank(message = "Surname is required")
     private String surname;
-    @Column(unique=true) //message = "This personal code is already in the system")
+    @NotBlank(message = "Personal code is required")
+    @Column(unique=true)
     @Pattern(regexp="^([0-9]{6}(\\-)[0-9]{5})$",message="Personal code format 000000-00000")
     private String personalCode;
     @NotBlank(message = "Address is required")
