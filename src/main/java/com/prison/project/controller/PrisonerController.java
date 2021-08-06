@@ -9,16 +9,21 @@ import com.prison.project.service.prisoner.DeletePrisonerService;
 import com.prison.project.service.prisoner.GetPrisonerService;
 import com.prison.project.service.prisoner.UpdatePrisonerService;
 import com.prison.project.service.punishment.GetPunishmentService;
+import com.prison.project.utilities.FileUploadUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
+import java.io.IOException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -57,7 +62,8 @@ public class PrisonerController {
     }
 
     @PostMapping
-    public String register(@Valid Prisoner prisoner, BindingResult result, Model model) {
+    public String register(@Valid Prisoner prisoner, @RequestParam("image") MultipartFile multipartFile,
+                           BindingResult result, Model model) throws IOException {
         if (result.hasErrors()) {
             return "prisoner-add";
         }
@@ -70,9 +76,13 @@ public class PrisonerController {
             }
         }
 
-        createPrisonerService.registerPrisoner(prisoner);
+        String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
+        prisoner.setPhoto(fileName);
+        Prisoner savedPrisoner = createPrisonerService.registerPrisoner(prisoner);
+        String uploadDir = "prisoner-photos/" + savedPrisoner.getId();
+        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 
-
+        //createPrisonerService.registerPrisoner(prisoner);
         return prisonerIndex(model);//"redirect:/prison-management-system/prisoners";
     }
 

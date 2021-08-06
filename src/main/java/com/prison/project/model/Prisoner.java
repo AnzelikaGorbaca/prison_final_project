@@ -33,6 +33,8 @@ public class Prisoner {
     @NotBlank(message = "Address is required")
     private String address;
 
+    private String photo;
+
 //    @ManyToMany(fetch = EAGER)
 //    @JoinTable(
 //            name = "crime_prisoner",
