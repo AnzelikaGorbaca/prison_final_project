@@ -98,11 +98,20 @@
             <input type="text" th:field="*{phoneNumber}" required class="form-control" id="exampleInputPhoneNumber">
             <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="text-danger"></span>
         </div>
+
         <div class="mb-3">
-            <label for="exampleInputOccupation" class="form-label">Occupation</label>
-            <input type="text" th:field="*{occupation}" required class="form-control" id="exampleInputOccupation">
+            <label for="exampleInputOccupation" class="form-label">Choose Occupation</label>
+            <select th:field="*{occupation}" required class="form-control" id="exampleInputOccupation">
+                <option
+                        th:each="occupation : ${occupationList}"
+                        th:value="${occupation}"
+                        th:text="${occupation}">
+
+                </option>
+            </select>
             <span th:if="${#fields.hasErrors('occupation')}" th:errors="*{occupation}" class="text-danger"></span>
         </div>
+
         <div class="mb-3">
             <label for="exampleInputAddress" class="form-label">Address</label>
             <input type="text" th:field="*{address}" required class="form-control" id="exampleInputAddress">
