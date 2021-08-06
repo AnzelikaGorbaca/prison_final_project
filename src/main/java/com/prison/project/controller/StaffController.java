@@ -73,16 +73,15 @@ public class StaffController {
         if (result.hasErrors()) {
             return "staff-add";
         }
-        List<Staff> staffList = getStaffService.findAllStaff();
-        for (Staff s : staffList) {
-            if (staff.getPersonalCode().contains(s.getPersonalCode())) {
-                model.addAttribute("errorFromController", "Staff member with personal code " + s.getPersonalCode() + " already exists");
-                return "staff-add";
+            List<Staff> staffList = getStaffService.findAllStaff();
+            for (Staff s : staffList) {
+                if (staff.getPersonalCode().contains(s.getPersonalCode())) {
+                    model.addAttribute("errorFromController", "Staff member with personal code " + s.getPersonalCode() + " already exists");
+                    return "staff-add";
+                }
             }
-        }
+        createStaffService.registerStaff(staff);
         return staffStart(model);
-
-
     }
 
     @PostMapping("/update/{id}")
