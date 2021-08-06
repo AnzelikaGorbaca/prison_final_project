@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -72,44 +73,35 @@ public class StaffController {
         if (result.hasErrors()) {
             return "staff-add";
         }
-        try {
-            createStaffService.registerStaff(staff);
-        } catch (Exception e) {
-            if (e.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
-                if (((SQLIntegrityConstraintViolationException) e.getCause().getCause()).getLocalizedMessage().contains("Duplicate entry")) { //SQL error code 1062
-//                    throw new BadRequestException("MessageHERERRRRRR");                                                    //SQL state 2300
-
-                    String errorMessage = (((SQLIntegrityConstraintViolationException) e.getCause().getCause()).getLocalizedMessage().substring(15,30));
-                    model.addAttribute("pageName", "Staff member with personal code " +errorMessage+ " already exists");
-
-                    return "staff-unique";
-                }
+        List<Staff> staffList = getStaffService.findAllStaff();
+        for (Staff s : staffList) {
+            if (staff.getPersonalCode().contains(s.getPersonalCode())) {
+                model.addAttribute("errorFromController", "Staff member with personal code " + s.getPersonalCode() + " already exists");
+                return "staff-add";
             }
         }
         return staffStart(model);
 
-         /*   if (result.hasErrors()) {
-            return "staff-add";
+
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateStaff(@PathVariable("id") Long id, @Valid Staff staff, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "staff-edit";
         }
         try {
-            createStaffService.registerStaff(staff);
-        } catch (BadRequestException b) {
-            return "staff-add";
-
-        }
-
-        return staffStart(model);*/
-
-    }
-
-        @PostMapping("/update/{id}")
-        public String updateStaff (@PathVariable("id") Long id, @Valid Staff staff, BindingResult result, Model model){
-            if (result.hasErrors()) {
-                return "staff-edit";
-            }
             updateStaffService.updateStaff(id, staff);
-            return staffStart(model);
+        } catch (RuntimeException e) {
+            if (e.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
+                if ((e.getCause().getCause()).getLocalizedMessage().contains("Duplicate entry")) {
+
+                    String errorMessage = ((e.getCause().getCause()).getLocalizedMessage().substring(15, 30));
+                    model.addAttribute("errorFromController", "Staff member with personal code " + errorMessage + " already exists");
+                    return "staff-edit";
+                }
+            }
         }
-
-
+        return staffStart(model);
     }
+}
