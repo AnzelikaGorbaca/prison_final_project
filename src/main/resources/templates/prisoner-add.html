@@ -83,7 +83,7 @@
 
 <div class="col-md-3"></div>
 <div class="col-md-4">
-    <form th:object="${prisoner}" method="post" th:action="@{/prison-management-system/prisoners}">
+    <form th:object="${prisoner}" method="post" th:action="@{/prison-management-system/prisoners}" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="exampleInputName" class="form-label">Name</label>
             <input type="text" class="form-control" required th:field="*{name}" id="exampleInputName"
@@ -142,6 +142,12 @@
             </datalist>
             <span th:if="${#fields.hasErrors('punishment')}" th:errors="*{punishment}" class="text-danger"></span>
         </div>
+        <div class="mb-3">
+            <label for="exampleInputPhoto" class="form-label">Photo:</label>
+            <input type="file" class="form-control" name="image" accept="image/jpeg" id="exampleInputPhoto">
+            <span th:if="${#fields.hasErrors('photo')}" th:errors="*{photo}" class="text-danger"></span>
+        </div>
+
         <br>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
