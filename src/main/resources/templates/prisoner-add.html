@@ -110,7 +110,6 @@
             <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-danger"></span>
         </div>
 
-
         <div class="mb-3">
             <label for="exampleDataListCrimes" class="form-label">Crimes</label>
             <br>
@@ -128,6 +127,11 @@
         <div class="my-5"><a class="btn btn-success"><i class="fas fa-plus ml-2"> </i></a></div>
 
 
+        <div class="mb-3">
+            <label for="exampleInputStartDate" class="form-label">Start Date</label>
+            <input type="date" th:field="*{startDate}" required class="form-control" id="exampleInputStartDate">
+            <span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" class="text-danger"></span>
+        </div>
 
         <div class="mb-3">
             <label for="exampleDataListPunishment" class="form-label">Punishment</label>
