@@ -1,10 +1,8 @@
 package com.prison.project.controller;
 
+import com.prison.project.model.Occupation;
 import com.prison.project.model.Staff;
-import com.prison.project.service.staff.CreateStaffService;
-import com.prison.project.service.staff.DeleteStaffService;
-import com.prison.project.service.staff.GetStaffService;
-import com.prison.project.service.staff.UpdateStaffService;
+import com.prison.project.service.staff.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +17,7 @@ import javax.validation.Valid;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @Controller
@@ -29,6 +28,7 @@ public class StaffController {
     private final DeleteStaffService deleteStaffService;
     private final GetStaffService getStaffService;
     private final UpdateStaffService updateStaffService;
+    private final OccupationEnumSorting occupationEnumSorting;
 
     @GetMapping
     public String staffStart(Model model) {
@@ -41,8 +41,7 @@ public class StaffController {
     public String staffAdd(Model map, Staff staff) {
         map.addAttribute("pageName", "Add New Staff Member");
 
-        List<String> occupationList = List.of("Director", "Junior Guard", "Chief guard", "Utilities manager",
-                "Guard", "Senior Guard", "Security Director", "Accountant", "Facility Manager", "Visitors coordinator").stream().sorted().collect(Collectors.toList());
+        List<Occupation> occupationList = occupationEnumSorting.getSortedList();
         map.addAttribute("occupationList",occupationList);
 
         return "staff-add";
@@ -61,8 +60,7 @@ public class StaffController {
         Staff staff = getStaffService.findStaffById(id);
         model.addAttribute("staff", staff);
 
-        List<String> occupationList = List.of("Director", "Junior Guard", "Chief guard", "Utilities manager",
-                "Guard", "Senior Guard", "Security Director", "Accountant", "Facility Manager", "Visitors coordinator").stream().sorted().collect(Collectors.toList());
+        List<Occupation> occupationList = occupationEnumSorting.getSortedList();
         model.addAttribute("occupationList",occupationList);
 
         return "staff-edit";
@@ -73,12 +71,14 @@ public class StaffController {
     public String registerStaff(@Valid Staff staff, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
+            staffAdd(model,staff);
             return "staff-add";
         }
             List<Staff> staffList = getStaffService.findAllStaff();
             for (Staff s : staffList) {
                 if (staff.getPersonalCode().contains(s.getPersonalCode())) {
                     model.addAttribute("errorFromController", "Staff member with personal code " + s.getPersonalCode() + " already exists");
+                    staffAdd(model,staff);
                     return "staff-add";
                 }
             }
@@ -89,6 +89,8 @@ public class StaffController {
     @PostMapping("/update/{id}")
     public String updateStaff(@PathVariable("id") Long id, @Valid Staff staff, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            List<Occupation> occupationList = occupationEnumSorting.getSortedList();
+            model.addAttribute("occupationList",occupationList);
             return "staff-edit";
         }
         try {
@@ -99,6 +101,8 @@ public class StaffController {
 
                     String errorMessage = ((e.getCause().getCause()).getLocalizedMessage().substring(15, 30));
                     model.addAttribute("errorFromController", "Staff member with personal code " + errorMessage + " already exists");
+                    List<Occupation> occupationList = occupationEnumSorting.getSortedList();
+                    model.addAttribute("occupationList",occupationList);
                     return "staff-edit";
                 }
             }

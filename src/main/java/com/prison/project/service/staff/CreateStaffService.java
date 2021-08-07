@@ -22,19 +22,7 @@ public class CreateStaffService {
 
     private final StaffRepository staffRepository;
 
-  /*  @Autowired
-    private final GetStaffService getStaffService;*/
-
     public Staff registerStaff(Staff staff)  {
-
-
-        /*List<Staff> staffList = getStaffService.findAllStaff();
-        for (Staff s : staffList) {
-            if (staff.getPersonalCode().contains(s.getPersonalCode())) {
-                throw new BadRequestException("Staff member with such personal code already exists");
-            }
-        }*/
-
 
        staffRepository.save(staff);
         return staff;
