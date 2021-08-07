@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -32,6 +33,10 @@ public class Prisoner {
     private String personalCode;
     @NotBlank(message = "Address is required")
     private String address;
+
+    private Date startDate;
+
+    private Date endDate;
 
     private String photo;
 
