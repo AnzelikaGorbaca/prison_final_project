@@ -17,12 +17,16 @@ public class PrisonCapacityCheck {
     private final PrisonerRepository prisonerRepository;
 
 
-    public Long getFreePlacesNow (){
-       return prisonCapacity.getCapacity().longValue()- prisonerRepository.count();
+    public Long getFreePlacesNow() {
+        Long freePlaces = prisonCapacity.getCapacity().longValue() - prisonerRepository.count();
+       if (freePlaces > 0){
+           return freePlaces;
+       }
+       return 0L;
     }
 
-    public Long getFreePlacesByDate(LocalDate localDate){
-       // prisonerRepository.findAll()
+    public Long getFreePlacesByDate(LocalDate localDate) {
+        // prisonerRepository.findAll()
         return null;
 
     }
