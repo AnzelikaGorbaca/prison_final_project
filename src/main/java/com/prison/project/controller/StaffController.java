@@ -1,7 +1,9 @@
 package com.prison.project.controller;
 
 import com.prison.project.model.Occupation;
+import com.prison.project.model.PrisonCapacity;
 import com.prison.project.model.Staff;
+import com.prison.project.service.prisonCapacity.PrisonCapacityCheck;
 import com.prison.project.service.staff.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -29,6 +31,8 @@ public class StaffController {
     private final GetStaffService getStaffService;
     private final UpdateStaffService updateStaffService;
     private final OccupationEnumSorting occupationEnumSorting;
+    private final PrisonCapacityCheck prisonCapacityCheck;
+
 
     @GetMapping
     public String staffStart(Model model) {
@@ -43,6 +47,9 @@ public class StaffController {
 
         List<Occupation> occupationList = occupationEnumSorting.getSortedList();
         map.addAttribute("occupationList",occupationList);
+
+        map.addAttribute("prisonFreePlaces","Prison currently has " +prisonCapacityCheck.getFreePlacesNow()+" free places");
+
 
         return "staff-add";
     }
