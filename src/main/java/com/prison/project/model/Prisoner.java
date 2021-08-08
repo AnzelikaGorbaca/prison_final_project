@@ -7,6 +7,9 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -34,11 +37,10 @@ public class Prisoner {
     @NotBlank(message = "Address is required")
     private String address;
 
-    private Date startDate;
-
-    private Date endDate;
+    private LocalDate startDate;
 
     private String photo;
+
 
 //    @ManyToMany(fetch = EAGER)
 //    @JoinTable(
@@ -64,5 +66,19 @@ public class Prisoner {
     @OneToOne
     @JoinColumn(name = "punishment_id")
     private Punishment punishment;
+
+
+    private LocalDate endDate;
+
+//
+//    {
+//        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+//        formatter.format(this.startDate);
+//        formatter.format (this.endDate);
+//    }
+
+    public LocalDate getEndDate() {
+        return this.endDate = LocalDate.from(startDate).plusMonths(punishment.getImprisonmentMonths());
+    }
 }
 

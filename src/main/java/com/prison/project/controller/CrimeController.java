@@ -78,7 +78,7 @@ public class CrimeController {
         for (Crime c : crimeList){
             if (crime.getCrimeDescription().equals(c.getCrimeDescription())){
                 model.addAttribute("errorFromController", "Crime " + c.getCrimeDescription() + " already exists");
-                return "crime-add";
+                return "crime-edit";
             }
         }
         updateCrimeService.updateCrime(id, crime);
