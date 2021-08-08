@@ -68,6 +68,17 @@
                         <li><a class="dropdown-item" href="/prison-management-system/punishments">View all
                             Punishments</a></li>
                     </ul>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCapacity" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Capacity
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-now">Check current</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-otherDay">Check on other date</a></li>
+                    </ul>
+                </li>
+
+
             </ul>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -76,8 +87,6 @@
         </div>
     </div>
 </nav>
-
-<h2 th:text="${prisonFreePlaces}"></h2>
 
 <h2 th:text="${pageName}"></h2>
 
