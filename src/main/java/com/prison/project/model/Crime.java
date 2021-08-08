@@ -1,5 +1,6 @@
 package com.prison.project.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Data
 @Table (name = "crimes")
+@AllArgsConstructor
 public class Crime {
 
     @Id
