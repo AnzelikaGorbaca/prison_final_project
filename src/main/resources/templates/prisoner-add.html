@@ -144,6 +144,8 @@
             <span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" class="text-danger"></span>
         </div>
 
+
+
         <div class="mb-3">
             <label for="exampleDataListPunishment" class="form-label">Punishment</label>
             <br>
@@ -157,6 +159,13 @@
             </datalist>
             <span th:if="${#fields.hasErrors('punishment')}" th:errors="*{punishment}" class="text-danger"></span>
         </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEndDate" class="form-label">End Date</label>
+            <input type="date" th:field="*{endDate}" required class="form-control" id="exampleInputEndDate">
+            <span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" class="text-danger"></span>
+        </div>
+
         <div class="mb-3">
             <label for="exampleInputPhoto" class="form-label">Photo:</label>
             <input type="file" class="form-control" name="image" accept="image/jpeg" id="exampleInputPhoto">
