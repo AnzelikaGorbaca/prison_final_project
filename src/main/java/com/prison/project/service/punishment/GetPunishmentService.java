@@ -22,7 +22,7 @@ public class GetPunishmentService {
         return punishmentRepository.getById(id);
     }
 
-//    public List<Punishment> getAllPunishmentsOrdered(){
-//        return punishmentRepository.findAllByImprisonmentMonthsDesc();
-//    }
+    public List<Punishment> getAllPunishmentsOrderedAsc(){
+        return punishmentRepository.findAllByOrderByImprisonmentMonthsAsc();
+    }
 }

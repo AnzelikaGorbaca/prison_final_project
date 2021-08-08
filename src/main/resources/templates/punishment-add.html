@@ -57,17 +57,6 @@
                         <li><a class="dropdown-item active" href="/prison-management-system/punishments/punishment-add">Add Punishment</a></li>
                         <li><a class="dropdown-item" href="/prison-management-system/punishments">View all Punishments</a></li>
                     </ul>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCapacity" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Capacity
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-now">Check current</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-otherDay">Check on other date</a></li>
-                    </ul>
-                </li>
-
-
             </ul>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -83,10 +72,13 @@
 <div class="col-md-4">
     <form th:object="${punishment}" method="post" th:action="@{/prison-management-system/punishments}">
         <div class="mb-3">
-            <label for="exampleInputMonths" class="form-label">Imprisonment Months</label>
-            <input type="text" class="form-control" required th:field="*{imprisonmentMonths}" id="exampleInputMonths"
-                   aria-describedby="monthsHelp">
-            <span th:if="${#fields.hasErrors('imprisonmentMonths')}" th:errors="*{imprisonmentMonths}" class="text-danger"></span>
+            <label for="exampleImprisonmentMonths" class="form-label">Imprisonment Months</label>
+            <input type="text" class="form-control" required th:field="*{imprisonmentMonths}"
+                   id="exampleImprisonmentMonths" aria-describedby="monthsHelp">
+            <span th:if="${#fields.hasErrors('imprisonmentMonths')}" th:errors="*{imprisonmentMonths}"
+                  class="text-danger"></span>
+            <span th:text="${punishmentError}" class="text-danger"></span>
+            <span th:text="${punishmentNot0}" class="text-danger"></span>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
