@@ -3,6 +3,7 @@ package com.prison.project.controller;
 import com.prison.project.model.Occupation;
 import com.prison.project.model.PrisonCapacity;
 import com.prison.project.model.Staff;
+import com.prison.project.model.StaffSearch;
 import com.prison.project.service.prisonCapacity.PrisonCapacityCheck;
 import com.prison.project.service.staff.*;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +19,7 @@ import javax.validation.Valid;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 
 @RequiredArgsConstructor
 @Controller
@@ -31,7 +31,7 @@ public class StaffController {
     private final GetStaffService getStaffService;
     private final UpdateStaffService updateStaffService;
     private final OccupationEnumSorting occupationEnumSorting;
-  //  private final PrisonCapacityCheck prisonCapacityCheck;
+    private final SearchStaffService searchStaffService;
 
 
     @GetMapping
@@ -48,7 +48,7 @@ public class StaffController {
         List<Occupation> occupationList = occupationEnumSorting.getSortedList();
         map.addAttribute("occupationList",occupationList);
 
-      //  map.addAttribute("prisonFreePlaces","Prison currently has " +prisonCapacityCheck.getFreePlacesNow()+" free places");
+        //  map.addAttribute("prisonFreePlaces","Prison currently has " +prisonCapacityCheck.getFreePlacesNow()+" free places");
 
 
         return "staff-add";
@@ -73,6 +73,29 @@ public class StaffController {
         return "staff-edit";
 
     }
+    @GetMapping(value = "/staff-search")
+    public String searchStaff(StaffSearch staffsearch, Model model) {
+        model.addAttribute("pageName", "Staff Search");
+        List<Occupation> occupationList = occupationEnumSorting.getSortedList();
+        model.addAttribute("occupationList",occupationList);
+        return "staff-search";
+    }
+
+    @PostMapping (value = "/staff-search-result")
+    public String getSearchedStaff (@Valid StaffSearch staffSearch, BindingResult bindingResult, Model model){
+        model.addAttribute("pageName", "Results matching your search criteria:");
+
+        if (bindingResult.hasErrors()){
+            return "staff-search";
+        }
+        List<Staff> staffList = searchStaffService.searchStaff(staffSearch);
+        if(staffList.size()==0){
+            model.addAttribute("nothingFound", "There are no results matching your search criteria");
+        }
+
+        model.addAttribute("staffs", staffList);
+        return "staff-search-result";
+    }
 
     @PostMapping
     public String registerStaff(@Valid Staff staff, BindingResult result, Model model) {
@@ -81,14 +104,14 @@ public class StaffController {
             staffAdd(model,staff);
             return "staff-add";
         }
-            List<Staff> staffList = getStaffService.findAllStaff();
-            for (Staff s : staffList) {
-                if (staff.getPersonalCode().contains(s.getPersonalCode())) {
-                    model.addAttribute("errorFromController", "Staff member with personal code " + s.getPersonalCode() + " already exists");
-                    staffAdd(model,staff);
-                    return "staff-add";
-                }
+        List<Staff> staffList = getStaffService.findAllStaff();
+        for (Staff s : staffList) {
+            if (staff.getPersonalCode().contains(s.getPersonalCode())) {
+                model.addAttribute("errorFromController", "Staff member with personal code " + s.getPersonalCode() + " already exists");
+                staffAdd(model,staff);
+                return "staff-add";
             }
+        }
         createStaffService.registerStaff(staff);
         return staffStart(model);
     }
