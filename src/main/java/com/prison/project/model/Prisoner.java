@@ -3,6 +3,7 @@ package com.prison.project.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -37,8 +38,9 @@ public class Prisoner {
     @NotBlank(message = "Address is required")
     private String address;
 
-    private LocalDate startDate;
+    private @DateTimeFormat (pattern = "dd.MM.yyyy") LocalDate startDate;
 
+    private @DateTimeFormat (pattern = "dd.MM.yyyy") LocalDate endDate;
     private String photo;
 
 
@@ -68,17 +70,8 @@ public class Prisoner {
     private Punishment punishment;
 
 
-    private LocalDate endDate;
-
-//
-//    {
-//        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-//        formatter.format(this.startDate);
-//        formatter.format (this.endDate);
+//    public LocalDate getEndDate() {
+//        return this.endDate = LocalDate.from(startDate).plusMonths(punishment.getImprisonmentMonths());
 //    }
-
-    public LocalDate getEndDate() {
-        return this.endDate = LocalDate.from(startDate).plusMonths(punishment.getImprisonmentMonths());
-    }
 }
 

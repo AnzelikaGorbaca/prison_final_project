@@ -11,6 +11,7 @@ import com.prison.project.service.prisoner.UpdatePrisonerService;
 import com.prison.project.service.punishment.GetPunishmentService;
 import com.prison.project.utilities.FileUploadUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -22,6 +23,8 @@ import javax.validation.Valid;
 
 import java.io.IOException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -63,12 +66,17 @@ public class PrisonerController {
     }
 
     @PostMapping
-    public String register(@Valid Prisoner prisoner, @RequestParam("image") MultipartFile multipartFile,
-                           BindingResult result, Model model) throws IOException {
+    public String register(@Valid Prisoner prisoner, @RequestParam("image") MultipartFile multipartFile,@RequestParam("startDate")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,@RequestParam("endDate")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,BindingResult result, Model model) throws IOException {
         if (result.hasErrors()) {
             return "prisoner-add";
         }
+//        LocalDate endDate = prisoner.getEndDate();
+//        model.addAttribute("endDate",endDate);
 
+        prisoner.setStartDate(startDate);
+        prisoner.setEndDate(endDate);
         List<Prisoner> prisonerList = getPrisonerService.getAll();
         for (Prisoner p : prisonerList) {
             if (prisoner.getPersonalCode().contains(p.getPersonalCode())) {
