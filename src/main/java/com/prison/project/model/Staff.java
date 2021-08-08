@@ -36,7 +36,7 @@ public class Staff {
     private String personalCode;
 
     @NotBlank(message = "Phone number is required")
-    @Length(max=13,min=13, message = "Phone number format 00CountryCode00000000 e.g. 0037100000000")
+    @Pattern(regexp="^((\\+)371[0-9]{8})$",message="Phone number format +37100000000")
     private String phoneNumber;
 
     @NotBlank(message = "Address is required")

@@ -31,7 +31,7 @@ public class StaffController {
     private final GetStaffService getStaffService;
     private final UpdateStaffService updateStaffService;
     private final OccupationEnumSorting occupationEnumSorting;
-    private final PrisonCapacityCheck prisonCapacityCheck;
+  //  private final PrisonCapacityCheck prisonCapacityCheck;
 
 
     @GetMapping
@@ -48,7 +48,7 @@ public class StaffController {
         List<Occupation> occupationList = occupationEnumSorting.getSortedList();
         map.addAttribute("occupationList",occupationList);
 
-        map.addAttribute("prisonFreePlaces","Prison currently has " +prisonCapacityCheck.getFreePlacesNow()+" free places");
+      //  map.addAttribute("prisonFreePlaces","Prison currently has " +prisonCapacityCheck.getFreePlacesNow()+" free places");
 
 
         return "staff-add";
