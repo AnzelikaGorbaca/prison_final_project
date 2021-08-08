@@ -18,5 +18,6 @@ public class Punishment {
     @Column(name = "punishment_id")
     private Long id;
     //    @NotBlank(message = "Imprisonment duration is required")
-    private int imprisonmentMonths;
+    @Column(name="imprisonment_months")
+    private Integer imprisonmentMonths;
 }

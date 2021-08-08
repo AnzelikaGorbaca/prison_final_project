@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,7 +29,7 @@ public class PunishmentController {
     @GetMapping
     public String punishmentIndex(Model model){
         model.addAttribute("pageName", "All Punishments");
-        model.addAttribute("punishments", getPunishmentService.getAllPunishments());
+        model.addAttribute("punishments", getPunishmentService.getAllPunishmentsOrderedAsc());
         return "punishment-index";
     }
 
@@ -43,6 +44,19 @@ public class PunishmentController {
     public String registerPunishment(@Valid Punishment punishment, BindingResult result, Model model){
         if(result.hasErrors()) {
             return "punishment-add";
+        }
+
+        if (punishment.getImprisonmentMonths()==0){
+            model.addAttribute("punishmentNot0", "Imprisonment cannot be shorter than 1 month");
+            return "punishment-add";
+        }
+
+        List<Punishment> punishmentList = getPunishmentService.getAllPunishments();
+        for (Punishment p: punishmentList){
+            if (p.getImprisonmentMonths()==punishment.getImprisonmentMonths()){
+                model.addAttribute("punishmentError", "Punishment " + p.getImprisonmentMonths() + " already exists in the system");
+                return "punishment-add";
+            }
         }
 
         createPunishmentService.registerPunishment(punishment);

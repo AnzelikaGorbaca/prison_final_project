@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface PunishmentRepository extends JpaRepository<Punishment,Long> {
 
-//    List<Punishment> findAllByImprisonmentMonthsDesc();
+    List<Punishment> findAllByOrderByImprisonmentMonthsAsc();
 }

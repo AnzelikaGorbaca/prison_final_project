@@ -96,7 +96,7 @@
                     <tr th:each="punishment : ${punishments}">
                         <td th:text="${punishment.id}"></td>
                         <td th:text="${punishment.imprisonmentMonths}"></td>
-                        <td><a th:href="@{/prison-management-system/punishments/delete/{id}(id=${punishment.id})}" class="btn btn-danger"><i class="fas fa-user-times ml-2"></i></a></td>
+                        <td><a th:href="@{/prison-management-system/punishments/delete/{id}(id=${punishment.id})}" class="btn btn-danger"><i class="fas fa-trash-alt ml-2"></i></a></td>
 
                     </tr>
                     </tbody>
