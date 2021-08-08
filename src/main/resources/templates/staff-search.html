@@ -87,20 +87,20 @@
     </div>
 </nav>
 
-<h2 th:text="${pageName}"></h2>
+<h1 th:text="${pageName}"></h1>
 
 <div class="col-md-3"></div>
 <div class="col-md-4">
-    <form th:object="${staff}" method="post" th:action="@{/prison-management-system/staffs}">
+    <form th:object="${staffSearch}" method="post" th:action="@{/prison-management-system/staffs/staff-search-result}">
         <div class="mb-3">
             <label for="exampleInputName" class="form-label">Name</label>
-            <input type="text" class="form-control" required th:field="*{name}" id="exampleInputName"
+            <input type="text" class="form-control" th:field="*{name}" id="exampleInputName"
                    aria-describedby="nameHelp">
             <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
         </div>
         <div class="mb-3">
             <label for="exampleInputSurname" class="form-label">Surname</label>
-            <input type="text" class="form-control" required th:field="*{surname}" id="exampleInputSurname"
+            <input type="text" class="form-control" th:field="*{surname}" id="exampleInputSurname"
                    aria-describedby="usernameHelp">
             <div id="usernameHelp" class="form-text"></div>
             <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="text-danger"></span>
@@ -108,18 +108,18 @@
         </div>
         <div class="mb-3">
             <label for="exampleInputPersonalCode" class="form-label">Personal Code</label>
-            <input type="text" th:field="*{personalCode}" required class="form-control" id="exampleInputPersonalCode">
+            <input type="text" th:field="*{personalCode}" class="form-control" id="exampleInputPersonalCode">
             <span th:if="${#fields.hasErrors('personalCode')}" th:errors="*{personalCode}" class="text-danger"></span>
             <span th:text="${errorFromController}" class="text-danger"></span>
 
         </div>
         <div class="mb-3">
             <label for="exampleInputPhoneNumber" class="form-label">Phone Number</label>
-            <input type="text" th:field="*{phoneNumber}" required class="form-control" id="exampleInputPhoneNumber">
+            <input type="text" th:field="*{phoneNumber}" class="form-control" id="exampleInputPhoneNumber">
             <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <label for="exampleInputOccupation" class="form-label">Choose Occupation</label>
+            <label for="exampleInputOccupation" class="form-label">Occupation</label>
             <select th:field="*{occupation}" class="form-control" id="exampleInputOccupation">
 
                 <option value=""></option>
@@ -135,7 +135,7 @@
 
         <div class="mb-3">
             <label for="exampleInputAddress" class="form-label">Address</label>
-            <input type="text" th:field="*{address}" required class="form-control" id="exampleInputAddress">
+            <input type="text" th:field="*{address}"  class="form-control" id="exampleInputAddress">
             <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-danger"></span>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
