@@ -2,12 +2,13 @@
 <head>
     <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
 </head>
 <body class="container">
+
 <div style="text-align: center;">
-    <h1>   Prison Management System   </h1>
+    <h1> Prison Management System </h1>
 </div>
+
 
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
     <div class="container-fluid">
@@ -19,17 +20,21 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPrisoner" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPrisoner" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         Prisoner
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-add">Add Prisoner</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/prisoners">View all Prisoners</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-add">Add
+                            Prisoner</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/prisoners">View all Prisoners</a>
+                        </li>
                     </ul>
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStaff" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle  active" href="#" id="navbarDropdownStaff" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         Staff
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -40,22 +45,27 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCrime" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCrime" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         Crime
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/prison-management-system/crimes/crime-add">Add Crime</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/crimes/crime-add">Add Crime</a>
+                        </li>
                         <li><a class="dropdown-item" href="/prison-management-system/crimes">View all Crimes</a></li>
                     </ul>
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownPunishment" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPunishment" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         Punishment
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/prison-management-system/punishments/punishment-add">Add Punishment</a></li>
-                        <li><a class="dropdown-item active" href="/prison-management-system/punishments">View all Punishments</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/punishments/punishment-add">Add
+                            Punishment</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/punishments">View all
+                            Punishments</a></li>
                     </ul>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCapacity" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -67,8 +77,8 @@
                     </ul>
                 </li>
 
-            </ul>
 
+            </ul>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-primary" type="submit">Search</button>
@@ -77,27 +87,38 @@
     </div>
 </nav>
 
-<h2 th:text="${pageName}"></h2>
 
-<div th:switch="${punishments}" class="container my-5">
+<h3 th:text="${pageName}"></h3>
+<h3 th:text="${nothingFound}"></h3>
+
+<div th:switch="${staffs}" class="container my-5">
     <div class="row">
-        <div class="col-md-6">
-            <h2 th:case="null">No Punishments Yet!</h2>
-            <div th:case="*">
-                <h2 class="my-5">Punishments</h2>
+
                 <table class="table table-striped table-responsive-md">
                     <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Imprisonment Months</th>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Occupation</th>
+                        <th>Personal Code</th>
+                        <th>Phone Number</th>
+                        <th>Address</th>
+                        <th>Edit</th>
                         <th>Delete</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="punishment : ${punishments}">
-                        <td th:text="${punishment.id}"></td>
-                        <td th:text="${punishment.imprisonmentMonths}"></td>
-                        <td><a th:href="@{/prison-management-system/punishments/delete/{id}(id=${punishment.id})}" class="btn btn-danger"><i class="fas fa-user-times ml-2"></i></a></td>
+                    <tr th:each="staff : ${staffs}">
+                        <td th:text="${staff.name}"></td>
+                        <td th:text="${staff.surname}"></td>
+                        <td th:text="${staff.occupation}"></td>
+                        <td th:text="${staff.personalCode}"></td>
+                        <td th:text="${staff.phoneNumber}"></td>
+                        <td th:text="${staff.address}"></td>
+
+                        <td><a th:href="@{/prison-management-system/staffs/edit/{id}(id=${staff.id})}" class="btn btn-primary"><i class="fas fa-edit ml-2"></i></a></td>
+
+                        <td><a th:href="@{/prison-management-system/staffs/delete/{id}(id=${staff.id})}" class="btn btn-danger"><i class="fas fa-trash-alt ml-2"></i></a></td>
 
                     </tr>
                     </tbody>
@@ -107,6 +128,7 @@
     </div>
 </div>
 
+<!--<p class="my-5"><a href="/books" class="btn btn-primary"><i class="fas fa-home ml-2"> BackHome </i></a></p>-->
 
 </body>
 </html>

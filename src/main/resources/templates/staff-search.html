@@ -2,15 +2,13 @@
 <head>
     <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
-    <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
-
 </head>
 <body class="container">
 
 <div style="text-align: center;">
     <h1> Prison Management System </h1>
 </div>
+
 
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
     <div class="container-fluid">
@@ -22,12 +20,12 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle  active" href="#" id="navbarDropdownPrisoner" role="button"
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPrisoner" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         Prisoner
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item  active" href="/prison-management-system/prisoners/prisoner-add">Add
+                        <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-add">Add
                             Prisoner</a></li>
                         <li><a class="dropdown-item" href="/prison-management-system/prisoners">View all Prisoners</a>
                         </li>
@@ -35,7 +33,7 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStaff" role="button"
+                    <a class="nav-link dropdown-toggle  active" href="#" id="navbarDropdownStaff" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         Staff
                     </a>
@@ -89,20 +87,20 @@
     </div>
 </nav>
 
-<h2 th:text="${pageName}"></h2>
+<h1 th:text="${pageName}"></h1>
 
 <div class="col-md-3"></div>
 <div class="col-md-4">
-    <form th:object="${prisoner}" method="post" th:action="@{/prison-management-system/prisoners}" enctype="multipart/form-data">
+    <form th:object="${staffSearch}" method="post" th:action="@{/prison-management-system/staffs/staff-search-result}">
         <div class="mb-3">
             <label for="exampleInputName" class="form-label">Name</label>
-            <input type="text" class="form-control" required th:field="*{name}" id="exampleInputName"
+            <input type="text" class="form-control" th:field="*{name}" id="exampleInputName"
                    aria-describedby="nameHelp">
             <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
         </div>
         <div class="mb-3">
             <label for="exampleInputSurname" class="form-label">Surname</label>
-            <input type="text" class="form-control" required th:field="*{surname}" id="exampleInputSurname"
+            <input type="text" class="form-control" th:field="*{surname}" id="exampleInputSurname"
                    aria-describedby="usernameHelp">
             <div id="usernameHelp" class="form-text"></div>
             <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="text-danger"></span>
@@ -110,61 +108,39 @@
         </div>
         <div class="mb-3">
             <label for="exampleInputPersonalCode" class="form-label">Personal Code</label>
-            <input type="text" th:field="*{personalCode}" required class="form-control" id="exampleInputPersonalCode">
+            <input type="text" th:field="*{personalCode}" class="form-control" id="exampleInputPersonalCode">
             <span th:if="${#fields.hasErrors('personalCode')}" th:errors="*{personalCode}" class="text-danger"></span>
-            <span th:text="${errorFromController}"class="text-danger"></span>
+            <span th:text="${errorFromController}" class="text-danger"></span>
+
         </div>
+        <div class="mb-3">
+            <label for="exampleInputPhoneNumber" class="form-label">Phone Number</label>
+            <input type="text" th:field="*{phoneNumber}" class="form-control" id="exampleInputPhoneNumber">
+            <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputOccupation" class="form-label">Occupation</label>
+            <select th:field="*{occupation}" required class="form-control" id="exampleInputOccupation">
+                <option
+                        th:each="occupation : ${occupationList}"
+                        th:value="${occupation}"
+                        th:text="${occupation}">
+
+                </option>
+            </select>
+<!--            <input type="text" th:field="*{occupation}" class="form-control" id="exampleInputOccupation">-->
+            <span th:if="${#fields.hasErrors('occupation')}" th:errors="*{occupation}" class="text-danger"></span>
+        </div>
+
         <div class="mb-3">
             <label for="exampleInputAddress" class="form-label">Address</label>
-            <input type="text" th:field="*{address}" required class="form-control" id="exampleInputAddress">
+            <input type="text" th:field="*{address}"  class="form-control" id="exampleInputAddress">
             <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-danger"></span>
         </div>
-
-        <div class="mb-3">
-            <label for="exampleDataListCrimes" class="form-label">Crimes</label>
-            <br>
-            <input class="form-control" th:field="*{crimes}" id="exampleDataListCrimes"
-                   list="datalistOptionsCrimes" name="crimes"
-                   placeholder="Type to search...">
-            <datalist id="datalistOptionsCrimes">
-                <option th:each="crime : ${crimeList}"
-                        th:text="${crime.crimeDescription}"
-                        th:value="${crime.crimeDescription}"></option>
-            </datalist>
-            <span th:if="${#fields.hasErrors('crimes')}" th:errors="*{crimes}" class="text-danger"></span>
-            <span th:text="${errorFromController}"class="text-danger"></span>
-        </div>
-        <div class="my-5"><a class="btn btn-success"><i class="fas fa-plus ml-2"> </i></a></div>
-
-
-        <div class="mb-3">
-            <label for="exampleInputStartDate" class="form-label">Start Date</label>
-            <input type="date" th:field="*{startDate}" required class="form-control" id="exampleInputStartDate">
-            <span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" class="text-danger"></span>
-        </div>
-
-        <div class="mb-3">
-            <label for="exampleDataListPunishment" class="form-label">Punishment</label>
-            <br>
-            <input class="form-control" th:field="*{punishment}" id="exampleDataListPunishment"
-                   list="datalistOptionsPunishment" name="punishment"
-                   placeholder="Type to search...">
-            <datalist id="datalistOptionsPunishment">
-                <option th:each="punishment : ${punishmentList}"
-                        th:text="${punishment.imprisonmentMonths}"
-                        th:value="${punishment.imprisonmentMonths}"></option>
-            </datalist>
-            <span th:if="${#fields.hasErrors('punishment')}" th:errors="*{punishment}" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputPhoto" class="form-label">Photo:</label>
-            <input type="file" class="form-control" name="image" accept="image/jpeg" id="exampleInputPhoto">
-            <span th:if="${#fields.hasErrors('photo')}" th:errors="*{photo}" class="text-danger"></span>
-        </div>
-
-        <br>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
+
+
 </body>
 </html>

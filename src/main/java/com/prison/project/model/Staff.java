@@ -1,15 +1,11 @@
 package com.prison.project.model;
 
-import com.prison.project.exception.BadRequestException;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.UniqueElements;
-
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-import java.util.List;
 
 
 @Data

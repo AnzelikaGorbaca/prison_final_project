@@ -4,12 +4,6 @@
     <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
 
-    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
-    <script src="/webjars/bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
-    <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
-    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="extensions/filter-control/bootstrap-table-filter-control.css">
-    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
 </head>
 <body class="container">
 
@@ -38,12 +32,13 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle  active" href="#" id="navbarDropdownStaff" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStaff" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Staff
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-add">Add Staff Member</a></li>
-                        <li><a class="dropdown-item  active" href="/prison-management-system/staffs">View all Staff Members</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-search">Search Staff Member</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs">View All Staff Members</a></li>
                     </ul>
                 </li>
 
@@ -66,8 +61,6 @@
                         <li><a class="dropdown-item" href="/prison-management-system/punishments">View all Punishments</a></li>
                     </ul>
 
-
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownCapacity" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Capacity
@@ -79,6 +72,10 @@
                 </li>
 
             </ul>
+
+
+
+
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-primary" type="submit">Search</button>
@@ -87,7 +84,7 @@
     </div>
 </nav>
 
-<h2 th:text="${prisonFreePlaces}"></h2>
+<h3 th:text="${prisonFreePlaces}"></h3>
 
 
 </body>
