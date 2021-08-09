@@ -64,6 +64,8 @@ public class Prisoner {
 
     @Transient
     private Long punishmentId;
+    @Transient
+    private String crimesJson;
 
 
 //    public LocalDate getEndDate() {

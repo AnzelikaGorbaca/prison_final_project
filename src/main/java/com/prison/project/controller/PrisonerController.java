@@ -1,12 +1,14 @@
 package com.prison.project.controller;
 
-import com.prison.project.model.*;
+import com.prison.project.model.Crime;
+import com.prison.project.model.Prisoner;
+import com.prison.project.model.PrisonerSearch;
+import com.prison.project.model.Punishment;
 import com.prison.project.service.crime.GetCrimeService;
 import com.prison.project.service.prisoner.*;
 import com.prison.project.service.punishment.GetPunishmentService;
 import com.prison.project.utilities.FileUploadUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -15,15 +17,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-
 import java.io.IOException;
 import java.sql.SQLIntegrityConstraintViolationException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -48,11 +47,11 @@ public class PrisonerController {
         return "prisoner-index";
     }
 
-    @GetMapping ("/prisoner-add")
+    @GetMapping("/prisoner-add")
     public String signUp(Model map, Prisoner prisoner, Model model) {
         map.addAttribute("pageName", "Add New Prisoner");
 
-        List <Punishment> punishmentList = getPunishmentService.getAllPunishments();
+        List<Punishment> punishmentList = getPunishmentService.getAllPunishments();
         List<Crime> crimeList = getCrimeService.getAllCrime();
 
         model.addAttribute("crimeList", crimeList);
@@ -62,7 +61,7 @@ public class PrisonerController {
     }
 
     @PostMapping
-    public String registerPrisoner(@Valid Prisoner prisoner, @RequestParam("image") MultipartFile multipartFile,BindingResult result, Model model) throws IOException {
+    public String registerPrisoner(@Valid Prisoner prisoner, @RequestParam("image") MultipartFile multipartFile, BindingResult result, Model model) throws IOException {
 
         if (result.hasErrors()) {
             return "prisoner-add";
@@ -79,6 +78,9 @@ public class PrisonerController {
         Punishment punishment = getPunishmentService.getPunishmentById(prisoner.getPunishmentId());
         prisoner.setPunishment(punishment);
 
+        List<Crime> selectedCrimes = getCrimes(prisoner.getCrimesJson());
+        prisoner.setCrimes(selectedCrimes);
+
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
         prisoner.setPhoto(fileName);
         Prisoner savedPrisoner = createPrisonerService.registerPrisoner(prisoner);
@@ -89,6 +91,13 @@ public class PrisonerController {
     }
 
 
+    private List<Crime> getCrimes(String crimeJson) {
+        List<Long> crimeIds = Arrays.stream(crimeJson.split(","))
+                .map(Long::valueOf)
+                .collect(Collectors.toList());
+
+        return getCrimeService.getCrimeByIds(crimeIds);
+    }
 
     @GetMapping(value = "/prisoner-search")
     public String searchStaff(PrisonerSearch prisonerSearch, Model model) {
@@ -97,20 +106,20 @@ public class PrisonerController {
         List<Crime> crimeList = getCrimeService.getAllCrime();
         List<Punishment> punishmentList = getPunishmentService.getAllPunishments();
 
-        model.addAttribute("crimeList",crimeList);
+        model.addAttribute("crimeList", crimeList);
         model.addAttribute("punishmentList", punishmentList);
         return "prisoner-search";
     }
 
-    @PostMapping (value = "/prisoner-search-result")
-    public String getSearchedStaff (@Valid PrisonerSearch prisonerSearch, BindingResult bindingResult, Model model){
+    @PostMapping(value = "/prisoner-search-result")
+    public String getSearchedStaff(@Valid PrisonerSearch prisonerSearch, BindingResult bindingResult, Model model) {
         model.addAttribute("pageName", "Results matching your search criteria:");
 
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "prisoner-search";
         }
         List<Prisoner> prisonerList = searchPrisonerService.searchPrisoner(prisonerSearch);
-        if(prisonerList.isEmpty()){
+        if (prisonerList.isEmpty()) {
             model.addAttribute("nothingFound", "There are no results matching your search criteria");
         }
 
@@ -130,7 +139,7 @@ public class PrisonerController {
         model.addAttribute("pageName", "Edit Prisoner Profile");
 
         Prisoner prisoner = getPrisonerService.getPrisonerById(id);
-        List <Punishment> punishmentList = getPunishmentService.getAllPunishments();
+        List<Punishment> punishmentList = getPunishmentService.getAllPunishments();
         List<Crime> crimeList = getCrimeService.getAllCrime();
 
         model.addAttribute("crimeList", crimeList);

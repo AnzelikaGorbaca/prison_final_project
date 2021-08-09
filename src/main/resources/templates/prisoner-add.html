@@ -5,6 +5,12 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
     <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
 
+    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/superhero/bootstrap.min.css">
+    <script type="text/javascript" th:src="@{~/js/mock.js}"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <link rel="stylesheet" type="text/css"  th:href="@{~/css/jquery.dropdown.css}">
+    <script th:src="@{~/js/jquery.dropdown.js}"></script>
 </head>
 <body class="container">
 
@@ -123,14 +129,17 @@
         <div class="mb-3">
             <label for="exampleDataListCrimes" class="form-label">Crimes</label>
             <br>
-            <input class="form-control" th:field="*{crimes}" id="exampleDataListCrimes"
-                   list="datalistOptionsCrimes" name="crimes"
-                   placeholder="Type to search...">
-            <datalist id="datalistOptionsCrimes">
-                <option th:each="crime : ${crimeList}"
-                        th:text="${crime.crimeDescription}"
-                        th:value="${crime.crimeDescription}"></option>
-            </datalist>
+            <div class="row">
+                <div>
+                    <div class="dropdown-mul-1">
+                        <select style="display:none"  name="crimesJson" required multiple th:field="*{crimesJson}" id="exampleDataListCrimes">
+                            <option th:each="crime : ${crimeList}"
+                                    th:value="${crime.id}" th:text="${crime.crimeDescription}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
             <span th:if="${#fields.hasErrors('crimes')}" th:errors="*{crimes}" class="text-danger"></span>
             <span th:text="${errorFromController}"class="text-danger"></span>
         </div>
@@ -143,22 +152,21 @@
             <span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" class="text-danger"></span>
         </div>
 
-
-
         <div class="mb-3">
             <label for="exampleDataListPunishment" class="form-label">Punishment</label>
-            <br>
-            <input class="form-control" th:field="*{punishmentId}" id="exampleDataListPunishment"
-                   list="datalistOptionsPunishment" name="punishmentId"
-                   placeholder="Type to search...">
-            <datalist id="datalistOptionsPunishment">
-                <option th:each="punishment : ${punishmentList}"
-
-                        th:value="${punishment.id}"> <span th:text="${punishment.imprisonmentMonths}"></span>
-                </option>
-            </datalist>
-            <span th:if="${#fields.hasErrors('punishment')}" th:errors="*{punishment}" class="text-danger"></span>
+            <div class="row">
+                <div>
+                    <div class="dropdown-sin-1">
+                        <select style="display:none"  name="punishmentId"  th:field="*{punishmentId}" id="exampleDataListPunishment" required>
+                            <option th:each="punishment : ${punishmentList}"
+                                    th:value="${punishment.id}" th:text="${punishment.imprisonmentMonths}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
         </div>
+
 
 <!--         <div class="mb-3">-->
 <!--             <label for="exampleInputEndDate" class="form-label">End Date</label>-->
@@ -176,5 +184,15 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
+<script>
+    $('.dropdown-mul-1').dropdown({
+        limitCount: 40,
+        multipleMode: 'label',
+    });
+    $('.dropdown-sin-1').dropdown({
+        readOnly: true,
+        input: '<input type="text" maxLength="20" placeholder="Search">'
+    });
+</script>
 </body>
 </html>

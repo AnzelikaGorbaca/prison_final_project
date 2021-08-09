@@ -14,20 +14,23 @@ import java.util.List;
 public class GetCrimeService {
     private final CrimeRepository crimeRepository;
 
-    public List<Crime> getAllCrime(){
+    public List<Crime> getAllCrime() {
         return crimeRepository.findAll();
     }
 
-     public Crime getCrimeById(Long id){
+    public Crime getCrimeById(Long id) {
         return crimeRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Crime not found"));
-     }
+                .orElseThrow(() -> new RuntimeException("Crime not found"));
+    }
 
-     public Crime getCrimeByDescription(String crimeDescription){
+    public List<Crime> getCrimeByIds(List<Long> ids) {
+        return crimeRepository.findAllById(ids);
+    }
+
+    public Crime getCrimeByDescription(String crimeDescription) {
         return crimeRepository.findByCrimeDescription(crimeDescription)
-                .orElseThrow(()-> new RuntimeException("Crime not found"));
-     }
-
+                .orElseThrow(() -> new RuntimeException("Crime not found"));
+    }
 
 
 }
