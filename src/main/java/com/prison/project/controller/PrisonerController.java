@@ -75,9 +75,6 @@ public class PrisonerController {
             }
         }
 
-        Punishment punishment = getPunishmentService.getPunishmentById(prisoner.getPunishmentId());
-        prisoner.setPunishment(punishment);
-
         List<Crime> selectedCrimes = getCrimes(prisoner.getCrimesJson());
         prisoner.setCrimes(selectedCrimes);
 

@@ -14,6 +14,8 @@ import java.util.List;
 @Table(name = "Prisoner")
 public class Prisoner {
 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "prisoner_id")
@@ -68,7 +70,8 @@ public class Prisoner {
     private String crimesJson;
 
 
-//    public LocalDate getEndDate() {
-//        return this.endDate = startDate.plusMonths(punishment.getImprisonmentMonths());
-//    }
+    public LocalDate getEndDate() {
+
+        return this.endDate = startDate.plusMonths(punishment.getImprisonmentMonths());
+    }
 }
