@@ -17,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -62,7 +64,9 @@ public class PrisonerController {
     }
 
     @PostMapping
-    public String registerPrisoner(@Valid Prisoner prisoner, @RequestParam("image") MultipartFile multipartFile,BindingResult result, Model model) throws IOException {
+    public String registerPrisoner(@Valid Prisoner prisoner,
+                                   @RequestParam("image") MultipartFile multipartFile,
+                                   BindingResult result, Model model) throws IOException {
 
         if (result.hasErrors()) {
             return "prisoner-add";
@@ -118,6 +122,12 @@ public class PrisonerController {
 
     @GetMapping("/delete/{id}")
     public String deletePrisonerById(@PathVariable("id") Long id, Model model) {
+
+        Path path = Paths.get("prisoner-photos/" + id + "/" + getPrisonerService.getPrisonerById(id).getPhoto());
+        FileUploadUtil.deleteFile(path);
+        Path dir = Paths.get("prisoner-photos/" +id);
+        FileUploadUtil.deleteFile(dir);
+
         deletePrisonerService.deletePrisoner(id);
         return "redirect:/prison-management-system/prisoners";
     }
@@ -134,7 +144,7 @@ public class PrisonerController {
         model.addAttribute("punishmentList", punishmentList);
         model.addAttribute("prisoner", prisoner);
 
-        return "prisoner-edit";
+        return "prisoner-profile";
     }
 
     @PostMapping("/update/{id}")

@@ -4,16 +4,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.*;
 
 public class FileUploadUtil {
-    public static void saveFile (String uploadDir, String fileName,
-                                 MultipartFile multipartFile)throws IOException {
-        Path uploadPath= Paths.get(uploadDir);
-
+    public static void saveFile(String uploadDir, String fileName,
+                                MultipartFile multipartFile) throws IOException {
+        Path uploadPath = Paths.get(uploadDir);
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
         }
@@ -23,6 +19,17 @@ public class FileUploadUtil {
         } catch (IOException ioe) {
             throw new IOException("Could not save image file: " + fileName, ioe);
         }
+    }
 
+    public static void deleteFile(Path path) {
+        try {
+            Files.delete(path);
+        } catch (NoSuchFileException ex) {
+            System.out.printf("No such file or directory: %s\n", path);
+        } catch (DirectoryNotEmptyException ex) {
+            System.out.printf("Directory %s is not empty\n", path);
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
     }
 }

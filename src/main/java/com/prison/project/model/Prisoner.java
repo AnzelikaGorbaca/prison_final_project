@@ -23,13 +23,13 @@ public class Prisoner {
     @NotBlank(message = "Surname is required")
     private String surname;
     @NotBlank(message = "Personal code is required")
-    @Column(unique=true)
-    @Pattern(regexp="^([0-9]{6}(\\-)[0-9]{5})$",message="Personal code format 000000-00000")
+    @Column(unique = true)
+    @Pattern(regexp = "^([0-9]{6}(\\-)[0-9]{5})$", message = "Personal code format 000000-00000")
     private String personalCode;
     @NotBlank(message = "Address is required")
     private String address;
 
-    @DateTimeFormat (pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(columnDefinition = "DATE")
     private LocalDate startDate;
 
@@ -57,13 +57,18 @@ public class Prisoner {
     private List<Crime> crimes;
 
 
-
     @OneToOne
     @JoinColumn(name = "punishment_id")
     private Punishment punishment;
 
 
-//    public LocalDate getEndDate() {
+    //    public LocalDate getEndDate() {
 //        return this.endDate = LocalDate.from(startDate).plusMonths(punishment.getImprisonmentMonths());
 //    }
+    @Transient
+    public String getPhotoImagePath() {
+        if (photo == null || id == null) return null;
+
+        return "/prisoner-photos/" + id + "/" + photo;
+    }
 }
