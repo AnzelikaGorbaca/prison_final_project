@@ -1,22 +1,13 @@
 package com.prison.project.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
-
-import static javax.persistence.FetchType.EAGER;
 
 @Data
 @Entity
@@ -38,9 +29,11 @@ public class Prisoner {
     @NotBlank(message = "Address is required")
     private String address;
 
-    private @DateTimeFormat (pattern = "dd-MM-yyyy") LocalDate startDate;
+    @DateTimeFormat (pattern = "yyyy-MM-dd")
+    @Column(columnDefinition = "DATE")
+    private LocalDate startDate;
 
-    private @DateTimeFormat (pattern = "dd-MM-yyyy") LocalDate endDate;
+    //  private @DateTimeFormat (pattern = "dd.MM.yyyy") LocalDate endDate;
     private String photo;
 
 
@@ -74,4 +67,3 @@ public class Prisoner {
 //        return this.endDate = LocalDate.from(startDate).plusMonths(punishment.getImprisonmentMonths());
 //    }
 }
-

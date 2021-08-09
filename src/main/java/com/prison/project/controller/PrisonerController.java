@@ -62,17 +62,12 @@ public class PrisonerController {
     }
 
     @PostMapping
-    public String register(@Valid Prisoner prisoner, @RequestParam("image") MultipartFile multipartFile,@RequestParam("startDate")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,@RequestParam("endDate")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,BindingResult result, Model model) throws IOException {
+    public String registerPrisoner(@Valid Prisoner prisoner, @RequestParam("image") MultipartFile multipartFile,BindingResult result, Model model) throws IOException {
+
         if (result.hasErrors()) {
             return "prisoner-add";
         }
-//        LocalDate endDate = prisoner.getEndDate();
-//        model.addAttribute("endDate",endDate);
 
-        prisoner.setStartDate(startDate);
-        prisoner.setEndDate(endDate);
         List<Prisoner> prisonerList = getPrisonerService.getAll();
         for (Prisoner p : prisonerList) {
             if (prisoner.getPersonalCode().contains(p.getPersonalCode())) {
@@ -87,9 +82,10 @@ public class PrisonerController {
         String uploadDir = "prisoner-photos/" + savedPrisoner.getId();
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 
-        //createPrisonerService.registerPrisoner(prisoner);
         return prisonerIndex(model);//"redirect:/prison-management-system/prisoners";
     }
+
+
 
     @GetMapping(value = "/prisoner-search")
     public String searchStaff(PrisonerSearch prisonerSearch, Model model) {

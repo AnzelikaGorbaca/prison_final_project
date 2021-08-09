@@ -91,7 +91,6 @@
     </div>
 </nav>
 <h2 th:text="${pageName}"></h2>
-<h3 th:text="${nothingFound}"></h3>
 
 <div th:switch="${prisoners}" class="container my-5">
     <div class="row">
@@ -111,6 +110,9 @@
                         <th data-field="Name" data-filter-control="input">Name</th>
                         <th data-field="Surname" data-filter-control="input">Surname</th>
                         <th data-field="Personal Code" data-filter-control="input">Personal Code</th>
+                        <th data-field="Address" data-filter-control="input">Address</th>
+                        <th data-field="Start Date" data-filter-control="input">Start Date</th>
+
                         <th>Address</th>
                         <th>View Profile</th>
                     </tr>
@@ -123,7 +125,9 @@
                         <td th:text="${prisoner.surname}"></td>
                         <td th:text="${prisoner.personalCode}"></td>
                         <td th:text="${prisoner.address}"></td>
-<!--                        <td th:text="${prisoner.crime}"></td>-->
+                        <td th:text="${prisoner.startDate}"></td>
+
+                        <!--                        <td th:text="${prisoner.crime}"></td>-->
                         <td><a th:href="@{/prison-management-system/prisoners/edit/{id}(id=${prisoner.id})}" class="btn btn-primary"><i class="fas fa-address-card"></i></a></td>
                     </tr>
                     </tbody>
