@@ -18,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Arrays;
 import java.util.List;
@@ -127,6 +129,12 @@ public class PrisonerController {
 
     @GetMapping("/delete/{id}")
     public String deletePrisonerById(@PathVariable("id") Long id, Model model) {
+
+        Path path = Paths.get("prisoner-photos/" + id + "/" + getPrisonerService.getPrisonerById(id).getPhoto());
+        FileUploadUtil.deleteFile(path);
+        Path dir = Paths.get("prisoner-photos/" +id);
+        FileUploadUtil.deleteFile(dir);
+
         deletePrisonerService.deletePrisoner(id);
         return "redirect:/prison-management-system/prisoners";
     }
@@ -143,11 +151,12 @@ public class PrisonerController {
         model.addAttribute("punishmentList", punishmentList);
         model.addAttribute("prisoner", prisoner);
 
-        return "prisoner-edit";
+        return "prisoner-profile";
     }
 
     @PostMapping("/update/{id}")
-    public String updatePrisoner(@PathVariable("id") Long id, @Valid Prisoner prisoner, BindingResult result, Model model) {
+    public String updatePrisoner(@PathVariable("id") Long id,
+                                 @Valid Prisoner prisoner, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "prisoner-edit";
         }

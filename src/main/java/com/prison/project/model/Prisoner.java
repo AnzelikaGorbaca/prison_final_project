@@ -15,7 +15,6 @@ import java.util.List;
 public class Prisoner {
 
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "prisoner_id")
@@ -25,17 +24,18 @@ public class Prisoner {
     @NotBlank(message = "Surname is required")
     private String surname;
     @NotBlank(message = "Personal code is required")
-    @Column(unique=true)
-    @Pattern(regexp="^([0-9]{6}(\\-)[0-9]{5})$",message="Personal code format 000000-00000")
+    @Column(unique = true)
+    @Pattern(regexp = "^([0-9]{6}(\\-)[0-9]{5})$", message = "Personal code format 000000-00000")
     private String personalCode;
     @NotBlank(message = "Address is required")
     private String address;
 
-    @DateTimeFormat (pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(columnDefinition = "DATE")
     private LocalDate startDate;
 
-    private @DateTimeFormat (pattern = "dd.MM.yyyy") LocalDate endDate;
+    private @DateTimeFormat(pattern = "dd.MM.yyyy")
+    LocalDate endDate;
     private String photo;
 
 
@@ -59,7 +59,6 @@ public class Prisoner {
     private List<Crime> crimes;
 
 
-
     @OneToOne
     @JoinColumn(name = "punishment_id")
     private Punishment punishment;
@@ -74,4 +73,11 @@ public class Prisoner {
 
         return this.endDate = startDate.plusMonths(punishment.getImprisonmentMonths());
     }
+
+    @Transient
+    public String getPhotoImagePath() {
+        if (photo == null || id == null) return null;
+        return "/prisoner-photos/" + id + "/" + photo;
+    }
+
 }
