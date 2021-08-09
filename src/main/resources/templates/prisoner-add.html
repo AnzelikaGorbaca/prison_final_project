@@ -148,22 +148,23 @@
         <div class="mb-3">
             <label for="exampleDataListPunishment" class="form-label">Punishment</label>
             <br>
-            <input class="form-control" th:field="*{punishment}" id="exampleDataListPunishment"
-                   list="datalistOptionsPunishment" name="punishment"
+            <input class="form-control" th:field="*{punishmentId}" id="exampleDataListPunishment"
+                   list="datalistOptionsPunishment" name="punishmentId"
                    placeholder="Type to search...">
             <datalist id="datalistOptionsPunishment">
                 <option th:each="punishment : ${punishmentList}"
-                        th:text="${punishment.imprisonmentMonths}"
-                        th:value="${punishment.imprisonmentMonths}"></option>
+
+                        th:value="${punishment.id}"> <span th:text="${punishment.imprisonmentMonths}"></span>
+                </option>
             </datalist>
             <span th:if="${#fields.hasErrors('punishment')}" th:errors="*{punishment}" class="text-danger"></span>
         </div>
 
-        <!-- <div class="mb-3">
-             <label for="exampleInputEndDate" class="form-label">End Date</label>
-             <input type="date" th:field="*{endDate}" required class="form-control" id="exampleInputEndDate">
-             <span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" class="text-danger"></span>
-         </div>-->
+<!--         <div class="mb-3">-->
+<!--             <label for="exampleInputEndDate" class="form-label">End Date</label>-->
+<!--             <input type="date" th:field="*{endDate}" required class="form-control" id="exampleInputEndDate">-->
+<!--             <span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" class="text-danger"></span>-->
+<!--         </div>-->
 
         <div class="mb-3">
             <label for="exampleInputPhoto" class="form-label">Photo:</label>

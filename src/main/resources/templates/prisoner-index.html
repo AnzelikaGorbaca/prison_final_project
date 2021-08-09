@@ -112,6 +112,7 @@
                         <th data-field="Personal Code" data-filter-control="input">Personal Code</th>
                         <th data-field="Address" data-filter-control="input">Address</th>
                         <th data-field="Start Date" data-filter-control="input">Start Date</th>
+                        <th data-field="End Date" data-filter-control="input">End Date</th>
 
                         <th>Address</th>
                         <th>View Profile</th>
@@ -126,6 +127,7 @@
                         <td th:text="${prisoner.personalCode}"></td>
                         <td th:text="${prisoner.address}"></td>
                         <td th:text="${prisoner.startDate}"></td>
+                        <td th:text="${prisoner.endDate}"></td>
 
                         <!--                        <td th:text="${prisoner.crime}"></td>-->
                         <td><a th:href="@{/prison-management-system/prisoners/edit/{id}(id=${prisoner.id})}" class="btn btn-primary"><i class="fas fa-address-card"></i></a></td>

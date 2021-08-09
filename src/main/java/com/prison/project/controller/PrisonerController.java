@@ -76,6 +76,9 @@ public class PrisonerController {
             }
         }
 
+        Punishment punishment = getPunishmentService.getPunishmentById(prisoner.getPunishmentId());
+        prisoner.setPunishment(punishment);
+
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
         prisoner.setPhoto(fileName);
         Prisoner savedPrisoner = createPrisonerService.registerPrisoner(prisoner);
