@@ -1,0 +1,320 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
+    <style type="text/css">
+       body {
+    margin: 0;
+    color: #2e323c;
+    background: #f5f6fa;
+    position: relative;
+    height: 100%;
+    }
+    .account-settings .user-profile {
+    margin: 0 0 1rem 0;
+    text-align: center;
+
+    }
+    .account-settings .user-profile .user-avatar {
+    margin: 0 0 1rem 0;
+    }
+    .account-settings .user-profile .user-avatar-img {
+    float: left;
+    width: -webkit-fill-available;
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+    margin: 0 0 -20px;
+    padding: 3px;
+    border-radius: 4px;
+    background: #fff
+    }
+    .account-settings .user-profile .user-avatar-img img {
+    max-width: 80%;
+    max-height:90 px
+    }
+
+
+ .account-settings .user-profile .user-avatar-img .file {
+position: relative;
+overflow: hidden;
+margin-top: 5%;
+width: 70%;
+border: none;
+border-radius: .2rem;
+font-size: .875rem;
+color: #fff;
+background: #6c757d;
+    border-color: #6c757d;
+}
+ .account-settings .user-profile .user-avatar-img .file input {
+position: absolute;
+opacity: 0;
+right: 0;
+top: 0;
+}
+
+    .account-settings .user-profile {
+    margin: 0 0 0.5rem 0;
+    }
+
+    .account-settings .user-profile .name-name h5 {
+    padding-top: 250px;
+    }
+
+    .account-settings .about {
+    margin: 2rem 0 0 0;
+    text-align: center;
+    }
+    .account-settings .about h5 {
+    margin: 0 0 15px 0;
+    color: #007ae1;
+    }
+
+    .form-group {
+    margin-top: 3%;
+
+    }
+    .form-group label{
+    margin-bottom: 1%
+    }
+
+    .form-control {
+    border: 1px solid #cfd1d8;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    font-size: .825rem;
+    background: #ffffff;
+    color: #2e323c;
+    }
+
+    .card {
+    background: #ffffff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 0;
+    margin-bottom: 1rem;
+    }
+    .card-body {
+    flex: 1 1 auto;
+    padding: 1rem 1rem;
+    }
+    .d-grid{
+    margin-top: 10px;
+    }
+    </style>
+
+</head>
+<body class="container">
+    <div style="text-align: center;">
+        <h1>   Prison Management System   </h1>
+    </div>
+
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <div class="container-fluid">
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/prison-management-system">Home</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle  active" href="#" id="navbarDropdownPrisoner" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Prisoner
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-add">Add Prisoner</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/prisoners">View all Prisoners</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStaff" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Staff
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-add">Add Staff Member</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs">View all Staff Members</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCrime" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Crime
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/prison-management-system/crimes/crime-add">Add Crime</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/crimes">View all Crimes</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPunishment" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Punishment
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/prison-management-system/punishments/punishment-add">Add Punishment</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/punishments">View all Punishments</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCapacity" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Capacity
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-now">Check current</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-otherDay">Check on other date</a></li>
+                    </ul>
+                </li>
+
+
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-primary" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<!--<h2 th:text="${pageName}"></h2>-->
+<h2>Prisoner Profile</h2>
+<div th:object="${prisoner}" method="post" th:action="@{/prison-management-system/prisoners/update/{id}(id=${prisoner.id})}" class="container">
+    <div class="row gutters">
+        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="account-settings">
+                        <div class="user-profile">
+                            <div class="user-avatar">
+<!--                                <img th:src="/prisoner-photos/{id}(id=${prisoner.id)}" alt="${prisoner.id}">-->
+                            </div>
+                            <h5 th:text="${prisoner.name}+ ' ' +${prisoner.surname}" class="user-name" style="font-weight:bold"></h5>
+
+                        </div>
+                        <div class="about">
+                            <label>Prisoner Number</label>
+                            <h5 th:text="${prisoner.id}"></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div  class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+            <form th:object="${prisoner}" method="post" th:action="@{/prison-management-system/prisoners/update/{id}(id=${prisoner.id})}">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row gutters">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <h6 class="mb-2 text-primary">Personal Details</h6>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="exampleInputName">Name</label>
+                                    <input type="text" class="form-control" required th:field="*{name}" id="exampleInputName"
+                                           aria-describedby="nameHelp">
+                                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="exampleInputSurname" >Surname</label>
+                                    <input type="text" class="form-control" required th:field="*{surname}" id="exampleInputSurname"
+                                           aria-describedby="usernameHelp">
+                                    <div id="usernameHelp" class="form-text"></div>
+                                    <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="exampleInputPersonalCode" >Personal Code</label>
+                                    <input type="text" th:field="*{personalCode}" required class="form-control" id="exampleInputPersonalCode">
+                                    <span th:if="${#fields.hasErrors('personalCode')}" th:errors="*{personalCode}" class="text-danger"></span>
+                                    <span th:text="${errorFromController}"class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="exampleInputAddress" >Address</label>
+                                    <input type="text" th:field="*{address}" required class="form-control" id="exampleInputAddress">
+                                    <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row gutters">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <h6 class="mt-3 mb-2 text-primary">Imprisonment Details</h6>
+                            </div>
+<!--                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label for="exampleInputStartDate" class="form-label">Start Date</label>-->
+<!--                                    <input type="date"-->
+<!--                                           th:field="*{startDate}" required-->
+<!--                                           class="form-control" id="exampleInputStartDate">-->
+<!--                                    <span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" class="text-danger"></span>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label for="exampleInputEndDate" class="form-label">End Date</label>-->
+<!--                                    <input type="date" th:field="*{endDate}" required class="form-control" id="exampleInputEndDate">-->
+<!--                                    <span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" class="text-danger"></span>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label for="exampleDataListCrimes" class="form-label">Crimes</label>-->
+<!--                                    <br>-->
+<!--                                    <input class="form-control" th:field="*{crimes}" id="exampleDataListCrimes"-->
+<!--                                           list="datalistOptionsCrimes" name="crimes"-->
+<!--                                           placeholder="Type to search...">-->
+<!--                                    <datalist id="datalistOptionsCrimes">-->
+<!--                                        <option th:each="crime : ${crimeList}"-->
+<!--                                                th:text="${crime.crimeDescription}"-->
+<!--                                                th:value="${crime.crimeDescription}"></option>-->
+<!--                                    </datalist>-->
+<!--                                    <span th:if="${#fields.hasErrors('crimes')}" th:errors="*{crimes}" class="text-danger"></span>-->
+<!--                                    <span th:text="${errorFromController}"class="text-danger"></span>-->
+
+<!--                                </div>-->
+
+<!--                            </div><div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">-->
+<!--                                <div class="form-group">-->
+
+<!--                                    <label for="exampleDataListPunishment" class="form-label">Punishment</label>-->
+<!--                                    <br>-->
+<!--                                    <input class="form-control" th:field="*{punishment}" id="exampleDataListPunishment"-->
+<!--                                           list="datalistOptionsPunishment" name="punishment">-->
+<!--                                    <datalist id="datalistOptionsPunishment">-->
+<!--                                        <option th:each="punishment : ${punishmentList}"-->
+<!--                                                th:text="${punishment.imprisonmentMonths}"-->
+<!--                                                th:value="${punishment.imprisonmentMonths}"></option>-->
+<!--                                    </datalist>-->
+<!--                                    <span th:if="${#fields.hasErrors('punishment')}" th:errors="*{punishment}" class="text-danger"></span>-->
+
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                        </div>-->
+                        <div class="row gutters">
+                            <!--                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">-->
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <div class="text-right">
+                                    <a class="btn btn-secondary btn-sm" th:href="@{/prison-management-system/prisoners}" role="button">Cancel</a>
+<!--                                    <button type="button" id="submit" name="submit" class="btn btn-secondary btn-sm">Cancel</button>-->
+                                    <button type="button" id="submit" name="submit" class="btn btn-primary btn-sm">Update</button>
+                                    <a class="btn btn-danger btn-sm" th:href="@{/prison-management-system/prisoners/delete/{id}(id=${prisoner.id})}" role="button">Delete Profile</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
