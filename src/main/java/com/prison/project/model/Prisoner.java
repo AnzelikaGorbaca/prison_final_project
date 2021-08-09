@@ -38,9 +38,9 @@ public class Prisoner {
     @NotBlank(message = "Address is required")
     private String address;
 
-    private @DateTimeFormat (pattern = "dd.MM.yyyy") LocalDate startDate;
+    private @DateTimeFormat (pattern = "dd-MM-yyyy") LocalDate startDate;
 
-    private @DateTimeFormat (pattern = "dd.MM.yyyy") LocalDate endDate;
+    private @DateTimeFormat (pattern = "dd-MM-yyyy") LocalDate endDate;
     private String photo;
 
 

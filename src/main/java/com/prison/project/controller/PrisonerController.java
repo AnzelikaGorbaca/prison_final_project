@@ -1,13 +1,8 @@
 package com.prison.project.controller;
 
-import com.prison.project.model.Crime;
-import com.prison.project.model.Prisoner;
-import com.prison.project.model.Punishment;
+import com.prison.project.model.*;
 import com.prison.project.service.crime.GetCrimeService;
-import com.prison.project.service.prisoner.CreatePrisonerService;
-import com.prison.project.service.prisoner.DeletePrisonerService;
-import com.prison.project.service.prisoner.GetPrisonerService;
-import com.prison.project.service.prisoner.UpdatePrisonerService;
+import com.prison.project.service.prisoner.*;
 import com.prison.project.service.punishment.GetPunishmentService;
 import com.prison.project.utilities.FileUploadUtil;
 import lombok.RequiredArgsConstructor;
@@ -43,6 +38,7 @@ public class PrisonerController {
     private final UpdatePrisonerService updatePrisonerService;
     private final GetCrimeService getCrimeService;
     private final GetPunishmentService getPunishmentService;
+    private final SearchPrisonerService searchPrisonerService;
 
 
     @GetMapping
@@ -94,6 +90,35 @@ public class PrisonerController {
         //createPrisonerService.registerPrisoner(prisoner);
         return prisonerIndex(model);//"redirect:/prison-management-system/prisoners";
     }
+
+    @GetMapping(value = "/prisoner-search")
+    public String searchStaff(PrisonerSearch prisonerSearch, Model model) {
+        model.addAttribute("pageName", "Prisoner Search");
+
+        List<Crime> crimeList = getCrimeService.getAllCrime();
+        List<Punishment> punishmentList = getPunishmentService.getAllPunishments();
+
+        model.addAttribute("crimeList",crimeList);
+        model.addAttribute("punishmentList", punishmentList);
+        return "prisoner-search";
+    }
+
+    @PostMapping (value = "/prisoner-search-result")
+    public String getSearchedStaff (@Valid PrisonerSearch prisonerSearch, BindingResult bindingResult, Model model){
+        model.addAttribute("pageName", "Results matching your search criteria:");
+
+        if (bindingResult.hasErrors()){
+            return "prisoner-search";
+        }
+        List<Prisoner> prisonerList = searchPrisonerService.searchPrisoner(prisonerSearch);
+        if(prisonerList.isEmpty()){
+            model.addAttribute("nothingFound", "There are no results matching your search criteria");
+        }
+
+        model.addAttribute("prisonerList", prisonerList);
+        return "prisoner-search-result";
+    }
+
 
     @GetMapping("/delete/{id}")
     public String deletePrisonerById(@PathVariable("id") Long id, Model model) {
