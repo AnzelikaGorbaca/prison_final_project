@@ -5,6 +5,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.util.List;
@@ -56,6 +58,7 @@ public class Prisoner {
             joinColumns = @JoinColumn(
                     name = "prisoner_id"),
             inverseJoinColumns = @JoinColumn(name = "crime_id"))
+
     private List<Crime> crimes;
 
 
@@ -64,6 +67,7 @@ public class Prisoner {
     private Punishment punishment;
 
     @Transient
+    @NotNull(message = "Punishment is required")
     private Long punishmentId;
     @Transient
     private String crimesJson;

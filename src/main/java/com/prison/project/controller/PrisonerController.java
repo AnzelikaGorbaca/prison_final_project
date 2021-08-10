@@ -50,14 +50,14 @@ public class PrisonerController {
     }
 
     @GetMapping("/prisoner-add")
-    public String signUp(Model map, Prisoner prisoner, Model model) {
+    public String signUp(Model map, Prisoner prisoner) {
         map.addAttribute("pageName", "Add New Prisoner");
 
         List<Punishment> punishmentList = getPunishmentService.getAllPunishments();
         List<Crime> crimeList = getCrimeService.getAllCrime();
 
-        model.addAttribute("crimeList", crimeList);
-        model.addAttribute("punishmentList", punishmentList);
+        map.addAttribute("crimeList", crimeList);
+        map.addAttribute("punishmentList", punishmentList);
 
         return "prisoner-add";
     }
@@ -73,15 +73,25 @@ public class PrisonerController {
         for (Prisoner p : prisonerList) {
             if (prisoner.getPersonalCode().contains(p.getPersonalCode())) {
                 model.addAttribute("errorFromController", "Prisoner with personal code " + p.getPersonalCode() + " already exists");
+                signUp(model,prisoner);
                 return "prisoner-add";
             }
         }
 
-        List<Crime> selectedCrimes = getCrimes(prisoner.getCrimesJson());
+        //DOESN'T WORK
+        if (prisoner.getCrimesJson() == null) {
+            model.addAttribute("errorForCrime", "Crime is required");
+            signUp(model,prisoner);
+            return "prisoner-add";
+        }
+
+        List<Crime> selectedCrimes = getCrimeService.getCrimesJson(prisoner.getCrimesJson());
         prisoner.setCrimes(selectedCrimes);
 
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
         prisoner.setPhoto(fileName);
+
+
         Prisoner savedPrisoner = createPrisonerService.registerPrisoner(prisoner);
         String uploadDir = "prisoner-photos/" + savedPrisoner.getId();
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
@@ -90,16 +100,8 @@ public class PrisonerController {
     }
 
 
-    private List<Crime> getCrimes(String crimeJson) {
-        List<Long> crimeIds = Arrays.stream(crimeJson.split(","))
-                .map(Long::valueOf)
-                .collect(Collectors.toList());
-
-        return getCrimeService.getCrimeByIds(crimeIds);
-    }
-
     @GetMapping(value = "/prisoner-search")
-    public String searchStaff(PrisonerSearch prisonerSearch, Model model) {
+    public String searchPrisoner(PrisonerSearch prisonerSearch, Model model) {
         model.addAttribute("pageName", "Prisoner Search");
 
         List<Crime> crimeList = getCrimeService.getAllCrime();
@@ -111,7 +113,7 @@ public class PrisonerController {
     }
 
     @PostMapping(value = "/prisoner-search-result")
-    public String getSearchedStaff(@Valid PrisonerSearch prisonerSearch, BindingResult bindingResult, Model model) {
+    public String getSearchedPrisoner(@Valid PrisonerSearch prisonerSearch, BindingResult bindingResult, Model model) {
         model.addAttribute("pageName", "Results matching your search criteria:");
 
         if (bindingResult.hasErrors()) {
