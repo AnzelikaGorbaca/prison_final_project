@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -18,13 +19,14 @@ public class CapacityController {
 
     private final PrisonCapacityCheck prisonCapacityCheck;
 
-    @GetMapping("/capacity-now")
-    public String staffAdd(Model map) {
-
-        map.addAttribute("prisonFreePlaces","Prison currently has " +prisonCapacityCheck.getFreePlacesNow()+" free places");
+ /*   @GetMapping("/capacity-now")
+    public String capacityShow(Model map) {
+        LocalDate today = LocalDate.now();
+        Long freeSpaces = prisonCapacityCheck.getFreePlacesNow(today);
+        map.addAttribute("prisonFreePlaces","Prison currently has " +freeSpaces+" free places");
 
 
         return "capacity-index";
-    }
+    }*/
 
 }

@@ -36,7 +36,7 @@ public class Prisoner {
     @Column(columnDefinition = "DATE")
     private LocalDate startDate;
 
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
     private String photo;
 

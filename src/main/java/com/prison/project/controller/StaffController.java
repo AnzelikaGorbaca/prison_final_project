@@ -104,14 +104,19 @@ public class StaffController {
                                 BindingResult result, Model model) throws IOException {
 
         if (result.hasErrors()) {
-            staffAdd(model,staff);
+            List<Occupation> occupationList = occupationEnumSorting.getSortedList();
+            model.addAttribute("occupationList",occupationList);
+          //  staffAdd(model,staff);
+
             return "staff-add";
         }
         List<Staff> staffList = getStaffService.findAllStaff();
         for (Staff s : staffList) {
             if (staff.getPersonalCode().contains(s.getPersonalCode())) {
                 model.addAttribute("errorFromController", "Staff member with personal code " + s.getPersonalCode() + " already exists");
-                staffAdd(model,staff);
+                List<Occupation> occupationList = occupationEnumSorting.getSortedList();
+                model.addAttribute("occupationList",occupationList);
+              //  staffAdd(model,staff);
                 return "staff-add";
             }
         }
