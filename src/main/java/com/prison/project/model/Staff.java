@@ -18,7 +18,7 @@ import java.util.List;
 public class Staff {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column (name = "staff_id")
+    @Column(name = "staff_id")
     private Long id;
 
     @NotBlank(message = "Name is required")
@@ -31,15 +31,23 @@ public class Staff {
     private String occupation;
 
     @NotBlank(message = "Personal code is required")
-    @Column(unique=true)
-    @Pattern(regexp="^([0-9]{6}(\\-)[0-9]{5})$",message="Personal code format 000000-00000")
+    @Column(unique = true)
+    @Pattern(regexp = "^([0-9]{6}(\\-)[0-9]{5})$", message = "Personal code format 000000-00000")
     private String personalCode;
 
     @NotBlank(message = "Phone number is required")
-    @Pattern(regexp="^((\\+)371[0-9]{8})$",message="Phone number format +37100000000")
+    @Pattern(regexp = "^((\\+)371[0-9]{8})$", message = "Phone number format +37100000000")
     private String phoneNumber;
 
     @NotBlank(message = "Address is required")
-    @Length(min=10, message = "Please enter full address")
+    @Length(min = 10, message = "Please enter full address")
     private String address;
+
+    private String photo;
+
+    public String getStaffPhotoImagePath() {
+        if (photo == null || id == null) return null;
+
+        return "/photos/" +"staff_" + id + "/" + photo;
+    }
 }
