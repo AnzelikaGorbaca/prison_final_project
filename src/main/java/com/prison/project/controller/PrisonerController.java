@@ -78,7 +78,7 @@ public class PrisonerController {
             }
         }
 
-        //DOESN'T WORK
+
         if (prisoner.getCrimesJson() == null) {
             model.addAttribute("errorForCrime", "Crime is required");
             signUp(model,prisoner);

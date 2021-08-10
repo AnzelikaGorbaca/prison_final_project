@@ -20,6 +20,7 @@ public class CreatePrisonerService {
     public Prisoner registerPrisoner (Prisoner prisoner) {
         Punishment punishment = punishmentRepository.getById(prisoner.getPunishmentId());
         prisoner.setPunishment(punishment);
+        prisoner.setEndDate(prisoner.getEndDate());
         prisonerRepository.save(prisoner);
         return prisoner;
     }
