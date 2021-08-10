@@ -34,6 +34,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-add">Add Prisoner</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-search">Search Prisoner</a></li>
                         <li><a class="dropdown-item active" href="/prison-management-system/prisoners">View all Prisoners</a></li>
                     </ul>
                 </li>
@@ -44,7 +45,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-add">Add Staff Member</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-add">Search Staff Member</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-search">Search Staff Member</a></li>
                         <li><a class="dropdown-item" href="/prison-management-system/staffs">View All Staff Members</a></li>
                     </ul>
                 </li>
@@ -67,7 +68,7 @@
                         <li><a class="dropdown-item" href="/prison-management-system/punishments/punishment-add">Add Punishment</a></li>
                         <li><a class="dropdown-item" href="/prison-management-system/punishments">View all Punishments</a></li>
                     </ul>
-
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCapacity" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Capacity
@@ -90,11 +91,12 @@
         </div>
     </div>
 </nav>
+<br>
 <h2 th:text="${pageName}"></h2>
-
+<br>
 <div th:switch="${prisoners}" class="container my-5">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
             <h2 th:case="null">No Prisoners Yet!</h2>
             <div th:case="*">
                 <h2 class="my-5">Prisoners</h2>
@@ -126,7 +128,7 @@
                         <td th:text="${prisoner.endDate}"></td>
 
                         <!--                        <td th:text="${prisoner.crime}"></td>-->
-                        <td><a th:href="@{/prison-management-system/prisoners/edit/{id}(id=${prisoner.id})}" class="btn btn-primary"><i class="fas fa-address-card"></i></a></td>
+                        <td style="text-align:center"><a th:href="@{/prison-management-system/prisoners/edit/{id}(id=${prisoner.id})}" class="btn btn-primary"><i class="fas fa-address-card" ></i></a></td>
                     </tr>
                     </tbody>
                 </table>

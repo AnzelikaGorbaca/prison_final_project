@@ -27,6 +27,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-add">Add Prisoner</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-search">Search Prisoner</a></li>
                         <li><a class="dropdown-item" href="/prison-management-system/prisoners">View all Prisoners</a></li>
                     </ul>
                 </li>
@@ -37,7 +38,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-add">Add Staff Member</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-add">Search Staff Member</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-search">Search Staff Member</a></li>
                         <li><a class="dropdown-item" href="/prison-management-system/staffs">View All Staff Members</a></li>
                     </ul>
                 </li>
@@ -60,7 +61,7 @@
                         <li><a class="dropdown-item" href="/prison-management-system/punishments/punishment-add">Add Punishment</a></li>
                         <li><a class="dropdown-item" href="/prison-management-system/punishments">View all Punishments</a></li>
                     </ul>
-
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownCapacity" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Capacity
@@ -83,9 +84,9 @@
         </div>
     </div>
 </nav>
-
+<br>
 <h2 th:text="${prisonFreePlaces}"></h2>
-
+<br>
 
 </body>
 </html>

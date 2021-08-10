@@ -25,6 +25,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-add">Add Prisoner</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-search">Search Prisoner</a></li>
                         <li><a class="dropdown-item" href="/prison-management-system/prisoners">View all Prisoners</a></li>
                     </ul>
                 </li>
@@ -35,7 +36,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-add">Add Staff Member</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-add">Search Staff Member</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-search">Search Staff Member</a></li>
                         <li><a class="dropdown-item" href="/prison-management-system/staffs">View All Staff Members</a></li>
                     </ul>
                 </li>
@@ -76,9 +77,9 @@
         </div>
     </div>
 </nav>
-
+<br>
 <h2 th:text="${pageName}"></h2>
-
+<br>
 <div class="col-md-3"></div>
 <div class="col-md-4">
     <form th:object="${punishment}" method="post" th:action="@{/prison-management-system/punishments}">

@@ -25,6 +25,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-add">Add Prisoner</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-search">Search Prisoner</a></li>
                         <li><a class="dropdown-item" href="/prison-management-system/prisoners">View all Prisoners</a></li>
                     </ul>
                 </li>
@@ -35,7 +36,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-add">Add Staff Member</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-add">Search Staff Member</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-search">Search Staff Member</a></li>
                         <li><a class="dropdown-item" href="/prison-management-system/staffs">View All Staff Members</a></li>
                     </ul>
                 </li>
@@ -58,7 +59,7 @@
                         <li><a class="dropdown-item" href="/prison-management-system/punishments/punishment-add">Add Punishment</a></li>
                         <li><a class="dropdown-item" href="/prison-management-system/punishments">View all Punishments</a></li>
                     </ul>
-
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCapacity" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Capacity
@@ -78,9 +79,9 @@
         </div>
     </div>
 </nav>
-
+<br>
 <h2 th:text="${pageName}"></h2>
-
+<br>
 <div th:switch="${crimes}" class="container my-5">
     <div class="row">
         <div class="col-md-6">
@@ -100,8 +101,8 @@
                     <tr th:each="crime : ${crimes}">
                         <td th:text="${crime.id}"></td>
                         <td th:text="${crime.crimeDescription}"></td>
-                        <td><a th:href="@{/prison-management-system/crimes/update/{id}(id=${crime.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
-                        <td><a th:href="@{/prison-management-system/crimes/delete/{id}(id=${crime.id})}" class="btn btn-danger"><i class="fas fa-user-times ml-2"></i></a></td>
+                        <td><a th:href="@{/prison-management-system/crimes/update/{id}(id=${crime.id})}" class="btn btn-primary"><i class="fas fa-edit ml-2"></i></a></td>
+                        <td><a th:href="@{/prison-management-system/crimes/delete/{id}(id=${crime.id})}" class="btn btn-danger"><i class="fas fa-trash-alt ml-2"></i></a></td>
 
                     </tr>
                     </tbody>
