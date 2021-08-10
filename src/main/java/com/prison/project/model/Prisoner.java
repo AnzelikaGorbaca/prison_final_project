@@ -39,6 +39,9 @@ public class Prisoner {
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private LocalDate endDate;
     private String photo;
+    private boolean inPrison = true;
+    @Transient
+    private String status = "In Prison";
 
 
 //    @ManyToMany(fetch = EAGER)

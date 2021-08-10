@@ -45,7 +45,7 @@ public class PrisonerController {
     @GetMapping
     public String prisonerIndex(Model model) {
         model.addAttribute("pageName", "All Prisoners");
-        model.addAttribute("prisoners", getPrisonerService.getAll());
+        model.addAttribute("prisoners", getPrisonerService.getAllWithStatus());
         return "prisoner-index";
     }
 
@@ -105,7 +105,7 @@ public class PrisonerController {
         model.addAttribute("pageName", "Prisoner Search");
 
         List<Crime> crimeList = getCrimeService.getAllCrime();
-        List<Punishment> punishmentList = getPunishmentService.getAllPunishments();
+        List<Punishment> punishmentList = getPunishmentService.getAllPunishmentsOrderedAsc();
 
         model.addAttribute("crimeList", crimeList);
         model.addAttribute("punishmentList", punishmentList);

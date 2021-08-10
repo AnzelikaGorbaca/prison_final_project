@@ -112,7 +112,6 @@
                         <th>Name</th>
                         <th>Surname</th>
                         <th>Personal Code</th>
-                        <th>Address</th>
                         <th>View Profile</th>
                     </tr>
                     </thead>
@@ -123,7 +122,6 @@
                         <td th:text="${prisoner.name}"></td>
                         <td th:text="${prisoner.surname}"></td>
                         <td th:text="${prisoner.personalCode}"></td>
-                        <td th:text="${prisoner.address}"></td>
                         <!--                        <td th:text="${prisoner.crime}"></td>-->
                         <td style="text-align:center"><a th:href="@{/prison-management-system/prisoners/edit/{id}(id=${prisoner.id})}" class="btn btn-primary"><i class="fas fa-address-card"></i></a></td>
                     </tr>

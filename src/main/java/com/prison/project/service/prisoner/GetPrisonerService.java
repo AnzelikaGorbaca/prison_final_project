@@ -14,11 +14,21 @@ import java.util.List;
 public class GetPrisonerService {
 
     private final PrisonerRepository prisonerRepository;
+    private final StatusPrisonerService statusPrisonerService;
 
-    public List<Prisoner> getAll (){
+    public List<Prisoner> getAll() {
         return prisonerRepository.findAll();
     }
-    public Prisoner getPrisonerById (Long id) {
+
+    public List<Prisoner> getAllWithStatus() {
+        List<Prisoner> prisoners = prisonerRepository.findAll();
+        for (Prisoner p : prisoners) {
+            statusPrisonerService.checkIfInPrison(p);
+        }
+        return prisoners;
+    }
+
+    public Prisoner getPrisonerById(Long id) {
         return prisonerRepository.getById(id);
     }
 }

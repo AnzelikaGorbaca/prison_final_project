@@ -30,6 +30,9 @@ public class SearchPrisonerService {
         prisoner.setAddress(prisonerSearch.getAddress());
         prisoner.setCrimes(prisonerSearch.getCrimes());
         prisoner.setPunishment(prisonerSearch.getPunishment());
+        prisoner.setStartDate(prisonerSearch.getEndDate());
+        prisoner.setEndDate(prisonerSearch.getEndDate());
+
 
         Example<Prisoner> prisonerExample = Example.of(prisoner, matchingAll().withIgnoreNullValues().withIgnoreCase());
         return repository.findAll(prisonerExample);
