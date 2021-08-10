@@ -134,7 +134,7 @@
             <div class="row">
                 <div>
                     <div class="dropdown-mul-1">
-                        <select style="display:none"  name="crimesJson" required multiple th:field="*{crimesJson}" id="exampleDataListCrimes">
+                        <select style="display:none"  name="crimesJson"  multiple th:field="*{crimesJson}" id="exampleDataListCrimes">
                             <option th:each="crime : ${crimeList}"
                                     th:value="${crime.id}" th:text="${crime.crimeDescription}">
                             </option>
@@ -142,10 +142,9 @@
                     </div>
                 </div>
             </div>
-            <span th:if="${#fields.hasErrors('crimes')}" th:errors="*{crimes}" class="text-danger"></span>
-            <span th:text="${errorFromController}"class="text-danger"></span>
+            <span th:if="${#fields.hasErrors('crimes')}"  th:errors="*{crimes}" class="text-danger"></span>
+            <span th:text="${errorForCrime}"class="text-danger"></span>
         </div>
-        <div class="my-5"><a class="btn btn-success"><i class="fas fa-plus ml-2"> </i></a></div>
 
 
         <div class="mb-3">
@@ -168,12 +167,6 @@
                 </div>
         </div>
 
-
-<!--         <div class="mb-3">-->
-<!--             <label for="exampleInputEndDate" class="form-label">End Date</label>-->
-<!--             <input type="date" th:field="*{endDate}" required class="form-control" id="exampleInputEndDate">-->
-<!--             <span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" class="text-danger"></span>-->
-<!--         </div>-->
 
         <div class="mb-3">
             <label for="exampleInputPhoto" class="form-label">Photo:</label>

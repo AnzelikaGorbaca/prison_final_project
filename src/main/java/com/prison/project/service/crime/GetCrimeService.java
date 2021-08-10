@@ -6,7 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -32,5 +34,12 @@ public class GetCrimeService {
                 .orElseThrow(() -> new RuntimeException("Crime not found"));
     }
 
+    public List<Crime> getCrimesJson(String crimeJson) {
+        List<Long> crimeIds = Arrays.stream(crimeJson.split(","))
+                .map(Long::valueOf)
+                .collect(Collectors.toList());
+
+        return getCrimeByIds(crimeIds);
+    }
 
 }
