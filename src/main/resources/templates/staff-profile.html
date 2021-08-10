@@ -208,9 +208,12 @@ top: 0;
                     <div class="account-settings">
                         <div class="user-profile">
                             <div class="user-avatar-img">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin"/>
+<!--                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin"/>-->
 
 <!--                                <div class="file btn btn-sm btn-primary">-->
+
+                                    <img th:src="@{${staff.getStaffPhotoImagePath}}"/>
+
                                 <div class="file btn btn-sm btn-secondary">
 <!--                                        <a href="#" class="btn btn-secondary btn-lg disabled" tabindex="-1" role="button" aria-disabled="true">Link</a>-->
                                     Change Photo

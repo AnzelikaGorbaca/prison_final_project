@@ -6,17 +6,18 @@ import com.prison.project.model.Staff;
 import com.prison.project.model.StaffSearch;
 import com.prison.project.service.prisonCapacity.PrisonCapacityCheck;
 import com.prison.project.service.staff.*;
+import com.prison.project.utilities.FileUploadUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
+import java.io.IOException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.*;
 
@@ -70,7 +71,7 @@ public class StaffController {
         List<Occupation> occupationList = occupationEnumSorting.getSortedList();
         model.addAttribute("occupationList",occupationList);
 
-        return "staff-edit";
+        return "staff-profile";
 
     }
     @GetMapping(value = "/staff-search")
@@ -98,7 +99,9 @@ public class StaffController {
     }
 
     @PostMapping
-    public String registerStaff(@Valid Staff staff, BindingResult result, Model model) {
+    public String registerStaff(@Valid Staff staff,
+                                @RequestParam("image") MultipartFile multipartFile,
+                                BindingResult result, Model model) throws IOException {
 
         if (result.hasErrors()) {
             staffAdd(model,staff);
@@ -112,6 +115,11 @@ public class StaffController {
                 return "staff-add";
             }
         }
+        String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
+        staff.setPhoto(fileName);
+        Staff savedStaff = createStaffService.registerStaff(staff);
+        String uploadDir = "photos/" + "staff_" + savedStaff.getId();
+        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
         createStaffService.registerStaff(staff);
         return staffStart(model);
     }
