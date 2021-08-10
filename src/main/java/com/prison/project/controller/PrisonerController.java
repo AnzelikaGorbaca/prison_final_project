@@ -93,7 +93,7 @@ public class PrisonerController {
 
 
         Prisoner savedPrisoner = createPrisonerService.registerPrisoner(prisoner);
-        String uploadDir = "prisoner-photos/" + savedPrisoner.getId();
+        String uploadDir = "photos/"+ "prisoner_" + savedPrisoner.getId();
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 
         return prisonerIndex(model);//"redirect:/prison-management-system/prisoners";
@@ -132,9 +132,9 @@ public class PrisonerController {
     @GetMapping("/delete/{id}")
     public String deletePrisonerById(@PathVariable("id") Long id, Model model) {
 
-        Path path = Paths.get("prisoner-photos/" + id + "/" + getPrisonerService.getPrisonerById(id).getPhoto());
+        Path path = Paths.get("photos/" +"prisoner_"+ id + "/" + getPrisonerService.getPrisonerById(id).getPhoto());
         FileUploadUtil.deleteFile(path);
-        Path dir = Paths.get("prisoner-photos/" +id);
+        Path dir = Paths.get("photos/" +"prisoner_" +id);
         FileUploadUtil.deleteFile(dir);
 
         deletePrisonerService.deletePrisoner(id);

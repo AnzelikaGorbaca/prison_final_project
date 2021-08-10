@@ -80,7 +80,7 @@ public class Prisoner {
     @Transient
     public String getPhotoImagePath() {
         if (photo == null || id == null) return null;
-        return "/prisoner-photos/" + id + "/" + photo;
+        return "/photos/" +"prisoner_" + id + "/" + photo;
     }
 
 }
