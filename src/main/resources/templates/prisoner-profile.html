@@ -18,7 +18,7 @@
     .account-settings .user-profile .user-avatar {
     margin: 0 0 1rem 0;
     }
-    .account-settings .user-profile .user-avatar-img {
+    .account-settings .user-profile .user-avatar {
     float: left;
     width: -webkit-fill-available;
     overflow: hidden;
@@ -29,13 +29,13 @@
     border-radius: 4px;
     background: #fff
     }
-    .account-settings .user-profile .user-avatar-img img {
-    max-width: 80%;
-    max-height:90 px
+    .account-settings .user-profile .user-avatar img {
+    max-width: 100%;
+    max-height: 100%
     }
 
 
- .account-settings .user-profile .user-avatar-img .file {
+<!-- .account-settings .user-profile .user-avatar-img .file {-->
 position: relative;
 overflow: hidden;
 margin-top: 5%;
@@ -47,7 +47,7 @@ color: #fff;
 background: #6c757d;
     border-color: #6c757d;
 }
- .account-settings .user-profile .user-avatar-img .file input {
+<!-- .account-settings .user-profile .user-avatar-img .file input {-->
 position: absolute;
 opacity: 0;
 right: 0;
@@ -58,7 +58,7 @@ top: 0;
     margin: 0 0 0.5rem 0;
     }
 
-    .account-settings .user-profile .name-name h5 {
+    .account-settings .user-profile  h5 {
     padding-top: 250px;
     }
 
@@ -127,6 +127,7 @@ top: 0;
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-add">Add Prisoner</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-search">Search Prisoner</a></li>
                         <li><a class="dropdown-item" href="/prison-management-system/prisoners">View all Prisoners</a></li>
                     </ul>
                 </li>
@@ -137,6 +138,7 @@ top: 0;
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-add">Add Staff Member</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-search">Search Staff Member</a></li>
                         <li><a class="dropdown-item" href="/prison-management-system/staffs">View all Staff Members</a></li>
                     </ul>
                 </li>
@@ -179,9 +181,9 @@ top: 0;
         </div>
     </div>
 </nav>
-
+<br>
 <!--<h2 th:text="${pageName}"></h2>-->
-<h2>Prisoner Profile</h2>
+<h2>Prisoner Profile</h2><br>
 <div th:object="${prisoner}" method="post" th:action="@{/prison-management-system/prisoners/update/{id}(id=${prisoner.id})}" class="container">
     <div class="row gutters">
         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
@@ -191,9 +193,9 @@ top: 0;
                         <div class="user-profile">
                             <div class="user-avatar">
                                 <img th:src="@{${prisoner.getPhotoImagePath}}"/>
-<!--                                <img th:src="/prisoner-photos/{id}(id=${prisoner.id)}" alt="${prisoner.id}">-->
                             </div>
-                            <h5 th:text="${prisoner.name}+ ' ' +${prisoner.surname}" class="user-name" style="font-weight:bold"></h5>
+                            <h5 th:text="${prisoner.name}+ ' ' +${prisoner.surname}" style="font-weight:bold"></h5>
+
 
                         </div>
                         <div class="about">
@@ -253,55 +255,52 @@ top: 0;
                         </div>
 <!--                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">-->
 <!--                                <div class="form-group">-->
-<!--                                    <label for="exampleInputStartDate" class="form-label">Start Date</label>-->
-<!--                                    <input type="date"-->
-<!--                                           th:field="*{startDate}" required-->
-<!--                                           class="form-control" id="exampleInputStartDate">-->
-<!--                                    <span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" class="text-danger"></span>-->
+<!--                                    <label for="exampleInputStartDate" >Start Date</label>-->
+<!--                                    <input type="text" th:field="*{startDate}" required class="form-control" id="exampleInputStartDate">-->
+<!--                                    <span th:if="${#fields.hasErrors('personalCode')}" th:errors="*{personalCode}" class="text-danger"></span>-->
+<!--                                    <span th:text="${errorFromController}"class="text-danger"></span>-->
 <!--                                </div>-->
+
 <!--                            </div>-->
 <!--                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">-->
 <!--                                <div class="form-group">-->
-<!--                                    <label for="exampleInputEndDate" class="form-label">End Date</label>-->
-<!--                                    <input type="date" th:field="*{endDate}" required class="form-control" id="exampleInputEndDate">-->
-<!--                                    <span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" class="text-danger"></span>-->
+<!--                                    <label for="exampleInputEndDate" >End Date</label>-->
+<!--                                    <input type="text" th:field="*{prisoner.endDate}" required class="form-control" id="exampleInputEndDate">-->
+<!--&lt;!&ndash;                                    <span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" class="text-danger"></span>&ndash;&gt;-->
 <!--                                </div>-->
 <!--                            </div>-->
 <!--                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">-->
 <!--                                <div class="form-group">-->
 <!--                                    <label for="exampleDataListCrimes" class="form-label">Crimes</label>-->
-<!--                                    <br>-->
-<!--                                    <input class="form-control" th:field="*{crimes}" id="exampleDataListCrimes"-->
-<!--                                           list="datalistOptionsCrimes" name="crimes"-->
-<!--                                           placeholder="Type to search...">-->
-<!--                                    <datalist id="datalistOptionsCrimes">-->
-<!--                                        <option th:each="crime : ${crimeList}"-->
-<!--                                                th:text="${crime.crimeDescription}"-->
-<!--                                                th:value="${crime.crimeDescription}"></option>-->
-<!--                                    </datalist>-->
+<!--                                    <option th:each="crime : ${prisonerCrimes}">-->
+<!--                                    <input class="form-control" th:field="*{crimes}" th:text="${crime.crimeDescription}" id="exampleDataListCrimes">-->
+<!--                                    </option>-->
+<!--&lt;!&ndash;                                    <div class="dropdown-mul-1">&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <select style="display:none"  name="crimesJson" required multiple th:field="*{crimesJson}" id="exampleDataListCrimes">&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <option th:each="crime : ${crimeList}"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    th:value="${crime.id}" th:text="${crime.crimeDescription}">&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </select>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
+
 <!--                                    <span th:if="${#fields.hasErrors('crimes')}" th:errors="*{crimes}" class="text-danger"></span>-->
-<!--                                    <span th:text="${errorFromController}"class="text-danger"></span>-->
+
 
 <!--                                </div>-->
+<!--                            </div>-->
+
 
 <!--                            </div><div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">-->
 <!--                                <div class="form-group">-->
 
-<!--                                    <label for="exampleDataListPunishment" class="form-label">Punishment</label>-->
-<!--                                    <br>-->
-<!--                                    <input class="form-control" th:field="*{punishment}" id="exampleDataListPunishment"-->
-<!--                                           list="datalistOptionsPunishment" name="punishment">-->
-<!--                                    <datalist id="datalistOptionsPunishment">-->
-<!--                                        <option th:each="punishment : ${punishmentList}"-->
-<!--                                                th:text="${punishment.imprisonmentMonths}"-->
-<!--                                                th:value="${punishment.imprisonmentMonths}"></option>-->
-<!--                                    </datalist>-->
+<!--                                    <label for="exampleDataListPunishment">Imprisonment Months</label>-->
+<!--                                    <input class="form-control" th:field="*{punishment}"  th:value="${punishment.imprisonmentMonths}" id="exampleDataListPunishment">-->
 <!--                                    <span th:if="${#fields.hasErrors('punishment')}" th:errors="*{punishment}" class="text-danger"></span>-->
 
 <!--                                </div>-->
 <!--                            </div>-->
 
-<!--                        </div>-->
+
                         <div class="row gutters">
                             <!--                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">-->
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">

@@ -34,8 +34,8 @@ public class Prisoner {
     @Column(columnDefinition = "DATE")
     private LocalDate startDate;
 
-    private @DateTimeFormat(pattern = "dd.MM.yyyy")
-    LocalDate endDate;
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    private LocalDate endDate;
     private String photo;
 
 
@@ -70,7 +70,6 @@ public class Prisoner {
 
 
     public LocalDate getEndDate() {
-
         return this.endDate = startDate.plusMonths(punishment.getImprisonmentMonths());
     }
 
