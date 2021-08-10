@@ -160,7 +160,7 @@ public class PrisonerController {
     public String updatePrisoner(@PathVariable("id") Long id,
                                  @Valid Prisoner prisoner, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "prisoner-edit";
+            return "prisoner-profile";
         }
 
         try {
@@ -171,7 +171,7 @@ public class PrisonerController {
 
                     String errorMessage = ((e.getCause().getCause()).getLocalizedMessage().substring(15, 30));
                     model.addAttribute("errorFromController", "Prisoner with personal code " + errorMessage + " already exists");
-                    return "prisoner-edit";
+                    return "prisoner-profile";
                 }
             }
         }
