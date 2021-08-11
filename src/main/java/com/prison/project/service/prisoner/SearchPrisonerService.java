@@ -34,18 +34,23 @@ public class SearchPrisonerService {
         prisoner.setAddress(prisonerSearch.getAddress());
         prisoner.setCrimes(getCrimesJson(prisonerSearch.getCrimesJson()));
         prisoner.setPunishment(getPunishmentByID(prisonerSearch.getPunishmentId()));
-        prisoner.setStartDate(prisonerSearch.getEndDate());
+        prisoner.setStartDate(prisonerSearch.getStartDate());
         prisoner.setEndDate(prisonerSearch.getEndDate());
 
         String status = prisonerSearch.getStatus();
-        if (status.equals("Freed")) {
-            prisoner.setInPrison(false);
-        } else {
-            prisoner.setInPrison(true);
-        }
-
+        prisoner.setInPrison(setBooleanInPrison(status));
         Example<Prisoner> prisonerExample = Example.of(prisoner, matchingAll().withIgnoreNullValues().withIgnoreCase());
         return repository.findAll(prisonerExample);
+    }
+
+    private Boolean setBooleanInPrison(String status) {
+        if (status.equals("Freed")) {
+            return false;
+        } else if (status.equals("In Prison")) {
+            return true;
+        } else {
+            return null;
+        }
     }
 
     private Punishment getPunishmentByID(Long id) {
