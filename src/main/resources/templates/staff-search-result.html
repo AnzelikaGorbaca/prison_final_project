@@ -16,7 +16,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/prison-management-system">Home</a>
+                    <a class="nav-link"  href="/prison-management-system">Home</a>
                 </li>
 
                 <li class="nav-item dropdown">
@@ -34,7 +34,7 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle  active" href="#" id="navbarDropdownStaff" role="button"
+                    <a class="nav-link dropdown-toggle  active" aria-current="page" href="#" id="navbarDropdownStaff" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         Staff
                     </a>
@@ -78,7 +78,15 @@
                         <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-otherDay">Check on other date</a></li>
                     </ul>
                 </li>
-
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStatistics" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Statistics
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-duration">By Imprisonment Duration</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-crimes">By Crimes Committed</a></li>
+                    </ul>
+                </li>
 
             </ul>
             <form class="d-flex">
@@ -106,8 +114,7 @@
                 <th>Personal Code</th>
                 <th>Phone Number</th>
                 <th>Address</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th>View Profile</th>
             </tr>
             </thead>
             <tbody>
@@ -118,10 +125,9 @@
                 <td th:text="${staff.personalCode}"></td>
                 <td th:text="${staff.phoneNumber}"></td>
                 <td th:text="${staff.address}"></td>
-
-                <td><a th:href="@{/prison-management-system/staffs/edit/{id}(id=${staff.id})}" class="btn btn-primary"><i class="fas fa-edit ml-2"></i></a></td>
-
-                <td><a th:href="@{/prison-management-system/staffs/delete/{id}(id=${staff.id})}" class="btn btn-danger"><i class="fas fa-trash-alt ml-2"></i></a></td>
+                <td style="text-align:center"><a
+                        th:href="@{/prison-management-system/staffs/edit/{id}(id=${staff.id})}"
+                        class="btn btn-primary"><i class="fas fa-address-card"></i></a></td>
 
             </tr>
             </tbody>
