@@ -164,21 +164,19 @@ public class PrisonerController {
             return "prisoner-profile";
         }
 
-//        Path path = Paths.get("photos/" + "prisoner_" + id + "/" + prisoner.getPhoto());
-//        //Path path = Paths.get("photos/" + "prisoner_" + id + "/" + getPrisonerService.getPrisonerById(id).getPhoto());
-//        FileUploadUtil.deleteFile(path);
+        Prisoner savedPrisoner = updatePrisonerService.updatePrisoner(id, prisoner);
+        if (!multipartFile.isEmpty())
+            FileUploadUtil.deleteFile(Paths.get("photos/" + "prisoner_" + id + "/" + savedPrisoner.getPhoto()));
         try {
-//            if (!multipartFile.isEmpty()) {
-                String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
-                Prisoner savedPrisoner = updatePrisonerService.updatePrisoner(id, prisoner);
-                String uploadDir = "photos/" + "prisoner_" + id;
-                savedPrisoner.setPhoto(fileName);
-                FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-                updatePrisonerService.updatePrisoner(id, prisoner);
+            String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
+            String uploadDir = "photos/" + "prisoner_" + id;
+
+            if (!fileName.isEmpty()) savedPrisoner.setPhoto(fileName);
+            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+            updatePrisonerService.updatePrisoner(id, prisoner);
         } catch (RuntimeException | IOException e) {
             if (e.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
                 if ((e.getCause().getCause()).getLocalizedMessage().contains("Duplicate entry")) {
-
                     String errorMessage = ((e.getCause().getCause()).getLocalizedMessage().substring(15, 30));
                     model.addAttribute("errorFromController", "Prisoner with personal code " + errorMessage + " already exists");
                     return "prisoner-profile";
