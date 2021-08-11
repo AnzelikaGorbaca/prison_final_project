@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 
 @Transactional
 @Service
@@ -20,7 +21,9 @@ public class CreatePrisonerService {
     public Prisoner registerPrisoner (Prisoner prisoner) {
         Punishment punishment = punishmentRepository.getById(prisoner.getPunishmentId());
         prisoner.setPunishment(punishment);
-        prisoner.setEndDate(prisoner.getEndDate());
+        var endDate = prisoner.getStartDate().plusMonths(punishment.getImprisonmentMonths());
+
+        prisoner.setEndDate(endDate);
         prisonerRepository.save(prisoner);
         return prisoner;
     }

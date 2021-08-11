@@ -75,11 +75,6 @@ public class Prisoner {
     @Transient
     private String crimesJson;
 
-
-    public LocalDate getEndDate() {
-        return this.endDate = startDate.plusMonths(punishment.getImprisonmentMonths());
-    }
-
     @Transient
     public String getPhotoImagePath() {
         if (photo == null || id == null) return null;
