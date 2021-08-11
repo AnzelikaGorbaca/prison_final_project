@@ -37,13 +37,19 @@ public class SearchPrisonerService {
         prisoner.setStartDate(prisonerSearch.getEndDate());
         prisoner.setEndDate(prisonerSearch.getEndDate());
 
+        String status = prisonerSearch.getStatus();
+        if (status.equals("Freed")) {
+            prisoner.setInPrison(false);
+        } else {
+            prisoner.setInPrison(true);
+        }
 
         Example<Prisoner> prisonerExample = Example.of(prisoner, matchingAll().withIgnoreNullValues().withIgnoreCase());
         return repository.findAll(prisonerExample);
     }
 
     private Punishment getPunishmentByID(Long id) {
-        if (id == null){
+        if (id == null) {
             return null;
         }
         return punishmentService.getPunishmentById(id);

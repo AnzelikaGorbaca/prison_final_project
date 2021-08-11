@@ -23,6 +23,7 @@ public class PrisonerSearch {
     private Long punishmentId;
     private Punishment punishment;
     private String crimesJson;
+    private String status;
 
     public String getName() {
         return Strings.isNotBlank(name) ? name : null;
@@ -39,6 +40,11 @@ public class PrisonerSearch {
     public String getAddress() {
         return Strings.isNotBlank(address) ? address : null;
     }
+
+    public String getStatus() {
+        return Strings.isNotBlank(status) ? status : null;
+    }
+
     public String getCrimesJson() {
         return Strings.isNotBlank(crimesJson) ? crimesJson : null;
     }
