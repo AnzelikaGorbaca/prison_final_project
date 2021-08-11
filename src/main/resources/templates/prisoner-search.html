@@ -110,12 +110,26 @@
 <div class="col-md-3"></div>
 <div class="col-md-4">
     <form th:object="${prisonerSearch}" method="post" th:action="@{/prison-management-system/prisoners/prisoner-search-result}">
+
+        <div class="mb-3">
+            <label for="exampleInputStatus" class="form-label">Status</label>
+            <select th:field="*{status}" class="form-control" id="exampleInputStatus">
+                <option value=""></option>
+                <option value="In Prison">In prison</option>
+                <option value="Freed">Freed</option>
+                <span th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class="text-danger"></span>
+            </select>
+        </div>
+
         <div class="mb-3">
             <label for="exampleInputName" class="form-label">Name</label>
             <input type="text" class="form-control" th:field="*{name}" id="exampleInputName"
                    aria-describedby="nameHelp">
             <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
         </div>
+
+
+
         <div class="mb-3">
             <label for="exampleInputSurname" class="form-label">Surname</label>
             <input type="text" class="form-control" th:field="*{surname}" id="exampleInputSurname"

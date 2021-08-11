@@ -70,7 +70,7 @@ public class Prisoner {
     private Punishment punishment;
 
     @Transient
-    @NotNull(message = "Punishment is required")
+//    @NotNull(message = "Punishment is required")
     private Long punishmentId;
     @Transient
     private String crimesJson;
