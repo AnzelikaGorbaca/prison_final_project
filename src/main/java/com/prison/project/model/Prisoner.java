@@ -84,10 +84,10 @@ public class Prisoner {
     }
 
     @Transient
-    public List<String> crimeDescriptions(){
+    public String crimeDescriptions(){
         return emptyIfNullStream(crimes)
                 .map(Crime::getCrimeDescription)
-                .collect(Collectors.toList());
+                .collect(Collectors.joining(","));
     }
 
     private Stream<Crime> emptyIfNullStream(List<Crime> crimes){
