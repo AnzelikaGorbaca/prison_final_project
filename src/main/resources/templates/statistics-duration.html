@@ -139,13 +139,7 @@
                         <td th:text="${prisoner.id}" style="text-align:center"></td>
                         <td th:text="${prisoner.name}"></td>
                         <td th:text="${prisoner.surname}"></td>
-                        <td th:text="${prisoner.crimes}"></td>
-                        <!--                        <tr th: each="crime: ${prisoner.crimes}">-->
-                        <!--                             <td  th:text="${crime.crimeDescription}"></td>-->
-                        <!--                        </tr>-->
-
-
-                        <!--                                th:field="*{crimes}" th:value="${prisoner.crimes.crimeDescription}"></td>-->
+                        <td th:text="${prisoner.crimeDescriptions}"></td>
                         <td   th:field="*{punishment}" th:text="${prisoner.punishment.imprisonmentMonths}"  style="text-align:center; color:red" ></td>
 
                         </td>

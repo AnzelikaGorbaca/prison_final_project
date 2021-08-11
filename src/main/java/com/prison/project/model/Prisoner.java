@@ -10,6 +10,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Data
 @Entity
@@ -79,6 +81,17 @@ public class Prisoner {
     public String getPhotoImagePath() {
         if (photo == null || id == null) return null;
         return "/photos/" +"prisoner_" + id + "/" + photo;
+    }
+
+    @Transient
+    public List<String> crimeDescriptions(){
+        return emptyIfNullStream(crimes)
+                .map(Crime::getCrimeDescription)
+                .collect(Collectors.toList());
+    }
+
+    private Stream<Crime> emptyIfNullStream(List<Crime> crimes){
+        return crimes.isEmpty() ? Stream.empty() : crimes.stream();
     }
 
 }
