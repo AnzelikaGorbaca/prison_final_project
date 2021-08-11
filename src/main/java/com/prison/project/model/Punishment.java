@@ -1,12 +1,9 @@
 package com.prison.project.model;
 
-
 import lombok.Data;
-
 import javax.persistence.*;
-import java.util.Collection;
+import javax.validation.constraints.NotNull;
 
-import static javax.persistence.FetchType.EAGER;
 
 @Data
 @Entity
