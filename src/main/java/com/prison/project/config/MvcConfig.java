@@ -9,11 +9,7 @@ import java.nio.file.Paths;
 
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
- //   @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//      exposeDirectory("prisoner-photos", registry);
-//
-//    }
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         exposeDirectory("photos", registry);

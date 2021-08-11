@@ -63,7 +63,9 @@ public class PrisonerController {
     }
 
     @PostMapping
-    public String registerPrisoner(@Valid Prisoner prisoner, @RequestParam("image") MultipartFile multipartFile, BindingResult result, Model model) throws IOException {
+    public String registerPrisoner(@Valid Prisoner prisoner,
+                                   @RequestParam("image") MultipartFile multipartFile,
+                                   BindingResult result, Model model) throws IOException {
 
         if (result.hasErrors()) {
             return "prisoner-add";
@@ -73,7 +75,7 @@ public class PrisonerController {
         for (Prisoner p : prisonerList) {
             if (prisoner.getPersonalCode().contains(p.getPersonalCode())) {
                 model.addAttribute("errorFromController", "Prisoner with personal code " + p.getPersonalCode() + " already exists");
-                signUp(model,prisoner);
+                signUp(model, prisoner);
                 return "prisoner-add";
             }
         }
@@ -81,7 +83,7 @@ public class PrisonerController {
 
         if (prisoner.getCrimesJson() == null) {
             model.addAttribute("errorForCrime", "Crime is required");
-            signUp(model,prisoner);
+            signUp(model, prisoner);
             return "prisoner-add";
         }
 
@@ -90,10 +92,8 @@ public class PrisonerController {
 
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
         prisoner.setPhoto(fileName);
-
-
         Prisoner savedPrisoner = createPrisonerService.registerPrisoner(prisoner);
-        String uploadDir = "photos/"+ "prisoner_" + savedPrisoner.getId();
+        String uploadDir = "photos/" + "prisoner_" + savedPrisoner.getId();
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 
         return prisonerIndex(model);//"redirect:/prison-management-system/prisoners";
@@ -132,9 +132,9 @@ public class PrisonerController {
     @GetMapping("/delete/{id}")
     public String deletePrisonerById(@PathVariable("id") Long id, Model model) {
 
-        Path path = Paths.get("photos/" +"prisoner_"+ id + "/" + getPrisonerService.getPrisonerById(id).getPhoto());
+        Path path = Paths.get("photos/" + "prisoner_" + id + "/" + getPrisonerService.getPrisonerById(id).getPhoto());
         FileUploadUtil.deleteFile(path);
-        Path dir = Paths.get("photos/" +"prisoner_" +id);
+        Path dir = Paths.get("photos/" + "prisoner_" + id);
         FileUploadUtil.deleteFile(dir);
 
         deletePrisonerService.deletePrisoner(id);
@@ -157,15 +157,25 @@ public class PrisonerController {
     }
 
     @PostMapping("/update/{id}")
-    public String updatePrisoner(@PathVariable("id") Long id,
-                                 @Valid Prisoner prisoner, BindingResult result, Model model) {
+    public String updatePrisoner(@PathVariable("id") Long id, @Valid Prisoner prisoner,
+                                 @RequestParam("image") MultipartFile multipartFile,
+                                 BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "prisoner-profile";
         }
 
+//        Path path = Paths.get("photos/" + "prisoner_" + id + "/" + prisoner.getPhoto());
+//        //Path path = Paths.get("photos/" + "prisoner_" + id + "/" + getPrisonerService.getPrisonerById(id).getPhoto());
+//        FileUploadUtil.deleteFile(path);
         try {
-            updatePrisonerService.updatePrisoner(id, prisoner);
-        } catch (RuntimeException e) {
+//            if (!multipartFile.isEmpty()) {
+                String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
+                Prisoner savedPrisoner = updatePrisonerService.updatePrisoner(id, prisoner);
+                String uploadDir = "photos/" + "prisoner_" + id;
+                savedPrisoner.setPhoto(fileName);
+                FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+                updatePrisonerService.updatePrisoner(id, prisoner);
+        } catch (RuntimeException | IOException e) {
             if (e.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
                 if ((e.getCause().getCause()).getLocalizedMessage().contains("Duplicate entry")) {
 
