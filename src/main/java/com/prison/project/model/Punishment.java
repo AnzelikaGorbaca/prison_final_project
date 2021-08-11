@@ -17,7 +17,7 @@ public class Punishment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "punishment_id")
     private Long id;
-    //    @NotBlank(message = "Imprisonment duration is required")
+    @NotNull(message = "Imprisonment duration is required")
     @Column(name="imprisonment_months")
     private Integer imprisonmentMonths;
 }

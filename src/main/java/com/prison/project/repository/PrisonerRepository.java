@@ -13,5 +13,7 @@ public interface PrisonerRepository extends JpaRepository<Prisoner, Long> {
 
     Long findAllByEndDateGreaterThan(LocalDate localDate);
 
+    List<Prisoner> findTop10ByOrderByPunishment_ImprisonmentMonthsDesc();
+
 
 }

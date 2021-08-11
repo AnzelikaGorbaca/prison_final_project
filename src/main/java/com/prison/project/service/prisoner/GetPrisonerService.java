@@ -31,4 +31,8 @@ public class GetPrisonerService {
     public Prisoner getPrisonerById(Long id) {
         return prisonerRepository.getById(id);
     }
+
+    public List<Prisoner> getTopPrisonersByImprisonmentMonths(){
+        return prisonerRepository.findTop10ByOrderByPunishment_ImprisonmentMonthsDesc();
+    }
 }
