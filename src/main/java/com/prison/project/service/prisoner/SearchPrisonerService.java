@@ -44,12 +44,12 @@ public class SearchPrisonerService {
     }
 
     private Boolean setBooleanInPrison(String status) {
-        if (status.equals("Freed")) {
-            return false;
-        } else if (status.equals("In Prison")) {
-            return true;
-        } else {
+        if (status == null) {
             return null;
+        } else if (status.equals("Freed")) {
+            return false;
+        } else {
+            return true;
         }
     }
 
