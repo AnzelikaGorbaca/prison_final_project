@@ -1,7 +1,7 @@
 package com.prison.project.controller;
 
-import com.prison.project.model.Occupation;
-import com.prison.project.model.Staff;
+import com.prison.project.exception.NotFoundException;
+import com.prison.project.model.PrisonCapacity;
 import com.prison.project.service.prisonCapacity.PrisonCapacityCheck;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -18,15 +17,28 @@ import java.util.List;
 public class CapacityController {
 
     private final PrisonCapacityCheck prisonCapacityCheck;
+    private final PrisonCapacity prisonCapacity;
 
- /*   @GetMapping("/capacity-now")
-    public String capacityShow(Model map) {
-        LocalDate today = LocalDate.now();
-        Long freeSpaces = prisonCapacityCheck.getFreePlacesNow(today);
-        map.addAttribute("prisonFreePlaces","Prison currently has " +freeSpaces+" free places");
+    @GetMapping("/capacity-now")
+    public String capacityNow(Model map) {
 
+        Long freeSpaces = prisonCapacityCheck.getFreePlacesByDate(LocalDate.now());
+        map.addAttribute("prisonFreePlaces", "Prison currently has: " + freeSpaces + " free places");
+
+        if (freeSpaces < 1) {
+
+            try {
+                LocalDate closestDayWithFreeSpaces = prisonCapacityCheck.getClosestDateWithFreePlaces(LocalDate.now());
+                map.addAttribute("closestDay", "Closest date with free places: " + closestDayWithFreeSpaces + "");
+
+                Long freePlacesOnTheClosestDay = prisonCapacityCheck.getNumberOfFreePlacesInClosestDate(closestDayWithFreeSpaces);
+                map.addAttribute("freePlacesOnClosestDate", "Number of free places on closest date: " + freePlacesOnTheClosestDay + "");
+            } catch (NotFoundException n) {
+                map.addAttribute("noPrisonerExists", "There are no prisoners registered in the system");
+                return "capacity-index";
+            }
+        }
 
         return "capacity-index";
-    }*/
-
+    }
 }
