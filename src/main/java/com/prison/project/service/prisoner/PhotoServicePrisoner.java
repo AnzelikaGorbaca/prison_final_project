@@ -19,10 +19,11 @@ public class PhotoServicePrisoner {
 
     private final UpdatePrisonerService updatePrisonerService;
 
-    public boolean checkPhotoForErrors(Long id, Prisoner prisoner, MultipartFile multipartFile) {
+    public boolean checkPhotoForErrorsAndUpload(Long id, Prisoner prisoner, MultipartFile multipartFile) {
 
         Prisoner savedPrisoner = updatePrisonerService.updatePrisoner(id, prisoner);
         FileUploadUtil.deleteFile(Paths.get("photos/" + "prisoner_" + id + "/" + savedPrisoner.getPhoto()));
+
         try {
             String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
             String uploadDir = "photos/" + "prisoner_" + id;

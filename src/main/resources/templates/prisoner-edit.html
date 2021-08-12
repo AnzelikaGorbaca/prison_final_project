@@ -140,14 +140,14 @@
             <label for="exampleInputPersonalCode" class="form-label">Personal Code</label>
             <input type="text" th:field="*{personalCode}" required class="form-control" id="exampleInputPersonalCode">
             <span th:if="${#fields.hasErrors('personalCode')}" th:errors="*{personalCode}" class="text-danger"></span>
-            <span th:text="${errorFromController}"class="text-danger"></span>
+            <span th:text="${errorFromController}" class="text-danger"></span>
         </div>
 
         <div>
             <label for="exampleInputPhoto" class="form-label">Change photo</label>
             <input type="file" class="form-control" name="image" accept="image/jpeg" id="exampleInputPhoto"
-                   aria-describedby="nameHelp">
-            <span th:text="${PhotoError}"class="text-danger"></span>
+                   aria-describedby="nameHelp" >
+            <span th:text="${PhotoError}" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
@@ -209,6 +209,7 @@
 
     </form>
 </div>
+
 <script>
     var today = new Date();
     var dd = today.getDate();
@@ -225,6 +226,7 @@
     document.getElementById("exampleInputStartDate").setAttribute("max", today);
 
 
+
 </script>
 <script>
     $('.dropdown-mul-1').dropdown({
@@ -235,6 +237,7 @@
         readOnly: true,
         input: '<input type="text" maxLength="20" placeholder="Search">'
     });
+
 
 
 </script>
