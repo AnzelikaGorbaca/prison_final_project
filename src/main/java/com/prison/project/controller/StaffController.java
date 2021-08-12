@@ -160,6 +160,19 @@ public class StaffController {
             return "staff-edit";
         }
 
+        try {
+            updateStaffService.updateStaff(id, staff);
+        } catch (RuntimeException e) {
+            if (e.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
+                if ((e.getCause().getCause()).getLocalizedMessage().contains("Duplicate entry")) {
+                    String errorMessage = ((e.getCause().getCause()).getLocalizedMessage().substring(15, 30));
+                    model.addAttribute("errorFromController", "Staff with personal code " + errorMessage + " already exists");
+                    return "staff-edit";
+                }
+            }
+        }
+
+
         Staff savedStaff = updateStaffService.updateStaff(id, staff);
         if (!multipartFile.isEmpty())
             FileUploadUtil.deleteFile(Paths.get("photos/" + "staff_" + id + "/" + savedStaff.getPhoto()));
@@ -182,6 +195,6 @@ public class StaffController {
                 }
             }
         }
-        return staffStart(model);
+        return staffProfileById(id, model);
     }
 }

@@ -7,6 +7,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class PrisonCapacity {
 
-    private final int capacity = 5;
+    private final int capacity = 100;
 
 }

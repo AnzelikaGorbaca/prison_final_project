@@ -43,6 +43,7 @@ public class PrisonerController {
     private final GetPunishmentService getPunishmentService;
     private final SearchPrisonerService searchPrisonerService;
     private final PrisonCapacityCheck prisonCapacityCheck;
+    private final PhotoServicePrisoner photoServicePrisoner;
 
 
     @GetMapping
@@ -54,7 +55,7 @@ public class PrisonerController {
 
     @GetMapping("/prisoner-add")
     public String signUp(Model map, Prisoner prisoner) {
-        if(prisonCapacityCheck.getFreePlacesByDate(LocalDate.now())<1) {
+        if (prisonCapacityCheck.getFreePlacesByDate(LocalDate.now()) < 1) {
             return "redirect:/prison-management-system/capacities/capacity-now";
 
         }
@@ -166,14 +167,14 @@ public class PrisonerController {
 
 
     @GetMapping("/update/{id}")
-    public String updatePrisonerById(@PathVariable("id") Long id, Model model){
+    public String updatePrisonerById(@PathVariable("id") Long id, Model model) {
         model.addAttribute("pageName", "Edit prisoner profile");
         Prisoner prisoner = getPrisonerService.getPrisonerById(id);
-//        List<Punishment> punishmentList = getPunishmentService.getAllPunishments();
-//        List<Crime> crimeList = getCrimeService.getAllCrime();
+        List<Punishment> punishmentList = getPunishmentService.getAllPunishments();
+        List<Crime> crimeList = getCrimeService.getAllCrime();
 
-//        model.addAttribute("crimeList", crimeList);
-//        model.addAttribute("punishmentList", punishmentList);
+        model.addAttribute("crimeList", crimeList);
+        model.addAttribute("punishmentList", punishmentList);
         model.addAttribute("prisoner", prisoner);
         return "prisoner-edit";
     }
@@ -184,30 +185,65 @@ public class PrisonerController {
                                  @RequestParam("image") MultipartFile multipartFile,
                                  BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "prisoner-profile";
+            return "prisoner-edit";
         }
 
-        Prisoner savedPrisoner = updatePrisonerService.updatePrisoner(id, prisoner);
-        if (!multipartFile.isEmpty())
-            FileUploadUtil.deleteFile(Paths.get("photos/" + "prisoner_" + id + "/" + savedPrisoner.getPhoto()));
-        try {
-            String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
-            String uploadDir = "photos/" + "prisoner_" + id;
 
-            if (!fileName.isEmpty()) savedPrisoner.setPhoto(fileName);
-            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        if (prisoner.getCrimesJson() == null) {
+            model.addAttribute("errorForCrime", "Crime is required");
+            updatePrisonerById(id, model);
+            return "prisoner-edit";
+        }
+
+        try {
             updatePrisonerService.updatePrisoner(id, prisoner);
-        } catch (RuntimeException | IOException e) {
+        } catch (RuntimeException e) {
             if (e.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
                 if ((e.getCause().getCause()).getLocalizedMessage().contains("Duplicate entry")) {
                     String errorMessage = ((e.getCause().getCause()).getLocalizedMessage().substring(15, 30));
                     model.addAttribute("errorFromController", "Prisoner with personal code " + errorMessage + " already exists");
-                    return "prisoner-profile";
+                    return "prisoner-edit";
                 }
             }
         }
 
-        return prisonerIndex(model);//"redirect:/prison-management-system/prisoners";
+        List<Crime> selectedCrimes = getCrimeService.getCrimesJson(prisoner.getCrimesJson());
+        prisoner.setCrimes(selectedCrimes);
+
+        if (!multipartFile.isEmpty()) {
+            if (photoServicePrisoner.checkPhotoForErrors(id, prisoner, multipartFile)) {
+                model.addAttribute("PhotoError", "Maximum permitted size of photo is 1048576 bytes");
+                updatePrisonerById(id, model);
+                return "prisoner-edit";
+            }
+        }
+
+
+
+
+//        Prisoner savedPrisoner = updatePrisonerService.updatePrisoner(id, prisoner);
+
+
+//        if (!multipartFile.isEmpty())
+//            FileUploadUtil.deleteFile(Paths.get("photos/" + "prisoner_" + id + "/" + savedPrisoner.getPhoto()));
+//        try {
+//            String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
+//            String uploadDir = "photos/" + "prisoner_" + id;
+//
+//            if (!fileName.isEmpty()) savedPrisoner.setPhoto(fileName);
+//            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+//            updatePrisonerService.updatePrisoner(id, prisoner);
+//        } catch (RuntimeException | IOException e) {
+//            if (e.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
+//                if ((e.getCause().getCause()).getLocalizedMessage().contains("Duplicate entry")) {
+//                    String errorMessage = ((e.getCause().getCause()).getLocalizedMessage().substring(15, 30));
+//                    model.addAttribute("errorFromController", "Prisoner with personal code " + errorMessage + " already exists");
+//                    return "prisoner-edit";
+//                }
+//            }
+//        }
+
+        return prisonerProfileById(id, model);
     }
 
 }
