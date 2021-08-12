@@ -1,5 +1,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+
     <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -125,11 +126,11 @@ top: 0;
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/prison-management-system">Home</a>
+                    <a class="nav-link"  href="/prison-management-system">Home</a>
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle  active" href="#" id="navbarDropdownPrisoner" role="button"
+                    <a class="nav-link dropdown-toggle  active" aria-current="page" href="#" id="navbarDropdownPrisoner" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         Prisoner
                     </a>
@@ -194,7 +195,15 @@ top: 0;
                             on other date</a></li>
                     </ul>
                 </li>
-
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStatistics" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Statistics
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-duration">By Imprisonment Duration</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-crimes">By Crimes Committed</a></li>
+                    </ul>
+                </li>
 
             </ul>
             <form class="d-flex">
@@ -243,7 +252,7 @@ top: 0;
 
                             <script>
 
-var countDownDate = new Date("Jan 5, 2022 15:37:25").getTime();
+var countDownDate = new Date("Aug 25, 2021 18:30:00").getTime();
 
 var x = setInterval(function() {
 
@@ -283,41 +292,36 @@ var x = setInterval(function() {
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="exampleInputName">Name</label>
-                                    <input type="text" class="form-control" required th:field="*{name}"
+                                    <input type="text" class="form-control"  th:field="*{name}"
                                            id="exampleInputName"
-                                           aria-describedby="nameHelp">
-                                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
-                                          class="text-danger"></span>
+                                           aria-describedby="nameHelp" readonly="readonly">
+
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="exampleInputSurname">Surname</label>
-                                    <input type="text" class="form-control" required th:field="*{surname}"
+                                    <input type="text" class="form-control"  th:field="*{surname}"
                                            id="exampleInputSurname"
-                                           aria-describedby="usernameHelp">
+                                           aria-describedby="usernameHelp" readonly="readonly">
                                     <div id="usernameHelp" class="form-text"></div>
-                                    <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"
-                                          class="text-danger"></span>
+
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="exampleInputPersonalCode">Personal Code</label>
-                                    <input type="text" th:field="*{personalCode}" required class="form-control"
-                                           id="exampleInputPersonalCode">
-                                    <span th:if="${#fields.hasErrors('personalCode')}" th:errors="*{personalCode}"
-                                          class="text-danger"></span>
-                                    <span th:text="${errorFromController}" class="text-danger"></span>
+                                    <input type="text" th:field="*{personalCode}"  class="form-control"
+                                           id="exampleInputPersonalCode" readonly="readonly">
+
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="exampleInputAddress">Address</label>
-                                    <input type="text" th:field="*{address}" required class="form-control"
-                                           id="exampleInputAddress">
-                                    <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}"
-                                          class="text-danger"></span>
+                                    <input type="text" th:field="*{address}" class="form-control"
+                                           id="exampleInputAddress" readonly="readonly">
+
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -339,39 +343,27 @@ var x = setInterval(function() {
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="exampleInputStartDate" >Start Date</label>
-                                    <input type="text" th:field="*{startDate}" required class="form-control" id="exampleInputStartDate">
+                                    <input type="text" th:field="*{startDate}"  class="form-control" id="exampleInputStartDate" readonly="readonly">
                                 </div>
 
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="exampleInputEndDate" >End Date</label>
-                                    <input type="text" th:field="*{endDate}" required class="form-control" id="exampleInputEndDate">
+                                    <input type="text" th:field="*{endDate}"  class="form-control" id="exampleInputEndDate" readonly="readonly">
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="exampleDataListCrimes" class="form-label">Crimes</label>
-                                    <!--                                                            <option th:each="crime : ${prisonerCrimes}">-->
-                                    <input class="form-control" th:field="*{crimes}"  id="exampleDataListCrimes">
-                                    <!--                                                            </option>-->
-                                    <!--                                    <div class="dropdown-mul-1">-->
-                                    <!--                                        <select style="display:none"  name="crimesJson" required multiple th:field="*{crimesJson}" id="exampleDataListCrimes">-->
-                                    <!--                                            <option th:each="crime : ${crimeList}"-->
-                                    <!--                                                    th:value="${crime.id}" th:text="${crime.crimeDescription}">-->
-                                    <!--                                            </option>-->
-                                    <!--                                        </select>-->
-                                    <!--                                    </div>-->
-
-                                    <!--                                                            <span th:if="${#fields.hasErrors('crimes')}" th:errors="*{crimes}" class="text-danger"></span>-->
+                                    <input class="form-control" th:value="${prisoner.crimeDescriptions}"  id="exampleDataListCrimes" readonly="readonly">
                                 </div>
 
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="exampleDataListPunishment">Imprisonment Months</label>
-                                    <input class="form-control" th:field="*{punishment.imprisonmentMonths}"  th:value="${prisoner.punishment.imprisonmentMonths}" id="exampleDataListPunishment">
-                                    <!--                                                            <span th:if="${#fields.hasErrors('punishment')}" th:errors="*{punishment}" class="text-danger"></span>-->
+                                    <input class="form-control" th:field="*{punishment.imprisonmentMonths}"  th:value="${prisoner.punishment.imprisonmentMonths}" id="exampleDataListPunishment" readonly="readonly">
 
                                 </div>
                             </div>
@@ -400,3 +392,6 @@ var x = setInterval(function() {
         </div>
     </div>
 </div>
+
+</body>
+</html>

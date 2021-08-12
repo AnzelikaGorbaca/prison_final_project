@@ -1,5 +1,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
 
@@ -7,7 +8,6 @@
     <style type="text/css">
     body {
     margin: 0;
-<!--    padding-top: 40px;-->
     color: #2e323c;
     background: #f5f6fa;
     position: relative;
@@ -16,7 +16,6 @@
     .account-settings .user-profile {
     margin: 0 0 1rem 0;
     text-align: center;
-<!--    padding-bottom: 1rem;-->
 
     }
     .account-settings .user-profile .user-avatar {
@@ -38,11 +37,6 @@
     max-height:90 px
     }
 
-<!-- .account-settings .user-profile .user-avatar img{-->
-<!--text-align: center;-->
-<!--width: 90px;-->
-<!--height: 90px;-->
-<!--}-->
  .account-settings .user-profile .user-avatar-img .file {
 position: relative;
 overflow: hidden;
@@ -117,6 +111,7 @@ top: 0;
     margin: 5px 0 5px 0;
     }
 
+
     </style>
 
 </head>
@@ -133,7 +128,7 @@ top: 0;
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/prison-management-system">Home</a>
+                    <a class="nav-link"  href="/prison-management-system">Home</a>
                 </li>
 
                 <li class="nav-item dropdown">
@@ -148,7 +143,7 @@ top: 0;
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownStaff" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle active" aria-current="page" href="#" id="navbarDropdownStaff" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Staff
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -187,11 +182,21 @@ top: 0;
                         <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-otherDay">Check on other date</a></li>
                     </ul>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStatistics" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Statistics
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-duration">By Imprisonment Duration</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-crimes">By Crimes Committed</a></li>
+                    </ul>
+                </li>
             </ul>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-primary" type="submit">Search</button>
             </form>
+
         </div>
     </div>
 </nav>
@@ -247,88 +252,42 @@ top: 0;
                                 <div class="form-group">
                                     <label for="exampleInputName">Name</label>
                                     <input type="text" class="form-control" required th:field="*{name}" id="exampleInputName"
-                                           aria-describedby="nameHelp">
-                                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
+                                           aria-describedby="nameHelp" readonly="readonly">
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="exampleInputSurname" >Surname</label>
                                     <input type="text" class="form-control" required th:field="*{surname}" id="exampleInputSurname"
-                                           aria-describedby="usernameHelp">
+                                           aria-describedby="usernameHelp" readonly="readonly">
                                     <div id="usernameHelp" class="form-text"></div>
-                                    <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="exampleInputPersonalCode" >Personal Code</label>
-                                    <input type="text" th:field="*{personalCode}" required class="form-control" id="exampleInputPersonalCode">
-                                    <span th:if="${#fields.hasErrors('personalCode')}" th:errors="*{personalCode}" class="text-danger"></span>
+                                    <input type="text" th:field="*{personalCode}" required class="form-control" id="exampleInputPersonalCode" readonly="readonly">
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="exampleInputPhoneNumber" >Phone Number</label>
-                                    <input type="text" th:field="*{phoneNumber}" required class="form-control" id="exampleInputPhoneNumber">
-                                    <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="text-danger"></span>
+                                    <input type="text" th:field="*{phoneNumber}" required class="form-control" id="exampleInputPhoneNumber" readonly="readonly">
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="exampleInputOccupation" >Occupation</label>
-
-                                    <select th:field="*{occupation}" required class="form-control" id="exampleInputOccupation">
-                                        <option
-                                                th:each="occupation : ${occupationList}"
-                                                th:value="${occupation}"
-                                                th:text="${occupation}">
-
-                                        </option>
-                                    </select>
-                                    <span th:if="${#fields.hasErrors('occupation')}" th:errors="*{occupation}" class="text-danger"></span>
-
-<!--                                    <input type="text" th:field="*{occupation}" required class="form-control" id="exampleInputOccupation">-->
-<!--                                    <span th:if="${#fields.hasErrors('occupation')}" th:errors="*{occupation}" class="text-danger"></span>-->
+                                    <input type="text" th:field="*{occupation}" required class="form-control" id="exampleInputOccupation" readonly="readonly">
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="exampleInputAddress" >Address</label>
-                                    <input type="text" th:field="*{address}" required class="form-control" id="exampleInputAddress">
-                                    <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-danger"></span>
+                                    <input type="text" th:field="*{address}" required class="form-control" id="exampleInputAddress" readonly="readonly">
                                 </div>
                             </div>
                         </div>
-                        <!--                    <div class="row gutters">-->
-                        <!--                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">-->
-                        <!--                            <h6 class="mt-3 mb-2 text-primary">Address</h6>-->
-                        <!--                        </div>-->
-                        <!--                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">-->
-                        <!--                            <div class="form-group">-->
-                        <!--                                <label for="Street">Street</label>-->
-                        <!--                                <input type="name" class="form-control" id="Street" placeholder="Enter Street">-->
-                        <!--                            </div>-->
-                        <!--                        </div>-->
-                        <!--                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">-->
-                        <!--                            <div class="form-group">-->
-                        <!--                                <label for="ciTy">City</label>-->
-                        <!--                                <input type="name" class="form-control" id="ciTy" placeholder="Enter City">-->
-                        <!--                            </div>-->
-                        <!--                        </div>-->
-                        <!--                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">-->
-                        <!--                            <div class="form-group">-->
-                        <!--                                <label for="sTate">State</label>-->
-                        <!--                                <input type="text" class="form-control" id="sTate" placeholder="Enter State">-->
-                        <!--                            </div>-->
-                        <!--                        </div>-->
-                        <!--                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">-->
-                        <!--                            <div class="form-group">-->
-                        <!--                                <label for="zIp">Zip Code</label>-->
-                        <!--                                <input type="text" class="form-control" id="zIp" placeholder="Zip Code">-->
-                        <!--                            </div>-->
-                        <!--                        </div>-->
-                        <!--                    </div>-->
                         <div class="row gutters">
                             <!--                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">-->
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">

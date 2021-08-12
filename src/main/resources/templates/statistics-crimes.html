@@ -35,17 +35,17 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/prison-management-system">Home</a>
+                    <a class="nav-link"  href="/prison-management-system">Home</a>
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownPrisoner" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPrisoner" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Prisoner
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-add">Add Prisoner</a></li>
                         <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-search">Search Prisoner</a></li>
-                        <li><a class="dropdown-item active" href="/prison-management-system/prisoners">View all Prisoners</a></li>
+                        <li><a class="dropdown-item " href="/prison-management-system/prisoners">View all Prisoners</a></li>
                     </ul>
                 </li>
 
@@ -89,7 +89,7 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownStatistics" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle active" aria-current="page" href="#" id="navbarDropdownStatistics" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Statistics
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -130,6 +130,8 @@
                         <th>Crimes Committed</th>
                         <th>Crimes</th>
                         <th>Imprisonment Months</th>
+                        <th>Status</th>
+
                     </tr>
                     </thead>
                     <tbody>
@@ -141,7 +143,7 @@
                         <td th:field="*{crimes}" th:text="${prisoner.crimes.size()}"  style="text-align:center; color:red" ></td>
                         <td th:text="${prisoner.crimeDescriptions}"></td>
                         <td   th:field="*{punishment}" th:text="${prisoner.punishment.imprisonmentMonths}"  style="text-align:center" ></td>
-
+                        <td th:text="${prisoner.status}"></td>
                         </td>
                     </tr>
                     </tbody>
