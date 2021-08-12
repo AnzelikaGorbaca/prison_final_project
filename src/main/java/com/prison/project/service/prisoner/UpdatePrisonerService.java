@@ -21,8 +21,11 @@ public class UpdatePrisonerService {
         existingPrisoner.setSurname(updatePrisoner.getSurname());
         existingPrisoner.setPersonalCode(updatePrisoner.getPersonalCode());
         existingPrisoner.setAddress(updatePrisoner.getAddress());
-//        existingPrisoner.setCrimes(updatePrisoner.getCrimes());
-//        existingPrisoner.setPunishment (updatePrisoner.getPunishment());
+        existingPrisoner.setCrimesJson(updatePrisoner.getCrimesJson());
+        existingPrisoner.setCrimes(updatePrisoner.getCrimes());
+        existingPrisoner.setPunishment (updatePrisoner.getPunishment());
+        existingPrisoner.setStartDate(updatePrisoner.getStartDate());
+
 
         return prisonerRepository.save(existingPrisoner);
 

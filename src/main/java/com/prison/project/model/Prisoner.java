@@ -87,7 +87,7 @@ public class Prisoner {
     public String crimeDescriptions(){
         return emptyIfNullStream(crimes)
                 .map(Crime::getCrimeDescription)
-                .collect(Collectors.joining(","));
+                .collect(Collectors.joining(", "));
     }
 
     private Stream<Crime> emptyIfNullStream(List<Crime> crimes){

@@ -3,6 +3,15 @@
 
     <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+    <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
+
+    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/superhero/bootstrap.min.css">
+    <script type="text/javascript" th:src="@{~/js/mock.js}"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{~/css/jquery.dropdown.css}">
+    <script th:src="@{~/js/jquery.dropdown.js}"></script>
 
 </head>
 <body class="container">
@@ -21,7 +30,8 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle  active" aria-current="page"  href="#" id="navbarDropdownPrisoner" role="button"
+                    <a class="nav-link dropdown-toggle  active" aria-current="page" href="#" id="navbarDropdownPrisoner"
+                       role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         Prisoner
                     </a>
@@ -85,12 +95,15 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStatistics" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStatistics" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         Statistics
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/prison-management-system/statistics-duration">By Imprisonment Duration</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/statistics-crimes">By Crimes Committed</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-duration">By
+                            Imprisonment Duration</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-crimes">By Crimes
+                            Committed</a></li>
                     </ul>
                 </li>
             </ul>
@@ -107,7 +120,8 @@
 <div class="col-md-3"></div>
 <div class="col-md-4">
     <form th:object="${prisoner}" method="post"
-          th:action="@{/prison-management-system/prisoners/update/{id}(id=${prisoner.id})}" enctype="multipart/form-data">
+          th:action="@{/prison-management-system/prisoners/update/{id}(id=${prisoner.id})}"
+          enctype="multipart/form-data">
         <div class="mb-3">
             <label for="exampleInputName" class="form-label">Name</label>
             <input type="text" class="form-control" required th:field="*{name}" id="exampleInputName"
@@ -126,55 +140,104 @@
             <label for="exampleInputPersonalCode" class="form-label">Personal Code</label>
             <input type="text" th:field="*{personalCode}" required class="form-control" id="exampleInputPersonalCode">
             <span th:if="${#fields.hasErrors('personalCode')}" th:errors="*{personalCode}" class="text-danger"></span>
+            <span th:text="${errorFromController}"class="text-danger"></span>
         </div>
+
+        <div>
+            <label for="exampleInputPhoto" class="form-label">Change photo</label>
+            <input type="file" class="form-control" name="image" accept="image/jpeg" id="exampleInputPhoto"
+                   aria-describedby="nameHelp">
+            <span th:text="${PhotoError}"class="text-danger"></span>
+        </div>
+
         <div class="mb-3">
             <label for="exampleInputAddress" class="form-label">Address</label>
             <input type="text" th:field="*{address}" required class="form-control" id="exampleInputAddress">
             <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-danger"></span>
         </div>
-        <label for="exampleInputPhoto" class="form-label">Change photo</label>
-        <input type="file" class="form-control" name="image" accept="image/jpeg" id="exampleInputPhoto"
-                                                   aria-describedby="nameHelp">
+
+        <div class="mb-3">
+            <label for="exampleDataListCrimes" class="form-label">Change existing crimes</label>
+            <br>
+            <div class="row">
+                <div>
+                    <div class="dropdown-mul-1">
+                        <select style="display:none" name="crimesJson" multiple th:field="*{crimesJson}"
+                                id="exampleDataListCrimes">
+                            <option th:each="crime : ${crimeList}"
+                                    th:value="${crime.id}" th:text="${crime.crimeDescription}">
+                            </option>
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <span th:if="${#fields.hasErrors('crimes')}" th:errors="*{crimes}" class="text-danger"></span>
+            <span th:text="${errorForCrime}" class="text-danger"></span>
+        </div>
 
 
+        <div class="mb-3">
+            <label for="exampleInputStartDate" class="form-label">Start Date</label>
+            <input type="date" th:field="*{startDate}" required class="form-control" id="exampleInputStartDate">
+            <span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" class="text-danger"></span>
+        </div>
 
-        <!--        <div class="mb-3">-->
-        <!--            <label for="exampleDataListCrimes" class="form-label">Crimes</label>-->
-        <!--            <br>-->
-        <!--            <input class="form-control" th:field="*{crimes}" id="exampleDataListCrimes"-->
-        <!--                   list="datalistOptionsCrimes" name="crimes"-->
-        <!--                   placeholder="Type to search...">-->
-        <!--            <datalist id="datalistOptionsCrimes">-->
-        <!--                <option th:each="crime : ${crimeList}"-->
-        <!--                        th:text="${crime.crimeDescription}"-->
-        <!--                        th:value="${crime.crimeDescription}"></option>-->
-        <!--            </datalist>-->
-        <!--            <span th:if="${#fields.hasErrors('crimes')}" th:errors="*{crimes}" class="text-danger"></span>-->
-        <!--                </div>-->
 
-        <!--        <div class="mb-3">-->
-        <!--            <label for="exampleDataListPunishment" class="form-label">Punishment</label>-->
-        <!--            <br>-->
-        <!--            <input class="form-control" th:field="*{punishment}" id="exampleDataListPunishment"-->
-        <!--                   list="datalistOptionsPunishment" name="punishment"-->
-        <!--                   placeholder="Type to search...">-->
-        <!--            <datalist id="datalistOptionsPunishment">-->
-        <!--                <option th:each="punishment : ${punishmentList}"-->
-        <!--                        th:text="${punishment.imprisonmentMonths}"-->
-        <!--                        th:value="${punishment.imprisonmentMonths}"></option>-->
-        <!--            </datalist>-->
-        <!--            <span th:if="${#fields.hasErrors('punishment')}" th:errors="*{punishment}" class="text-danger"></span>-->
+        <div class="mb-3">
+            <label for="exampleDataListPunishment" class="form-label">Imprisonment Months</label>
+            <div class="row">
+                <div>
+                    <div class="dropdown-sin-1">
+                        <select style="display:none" name="punishmentId" th:field="*{punishmentId}"
+                                id="exampleDataListPunishment" required>
+                            <option th:each="punishment : ${punishmentList}"
+                                    th:value="${punishment.id}" th:text="${punishment.imprisonmentMonths}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a class="btn btn-danger" th:href="@{/prison-management-system/prisoners/delete/{id}(id=${prisoner.id})}"
+           role="button">Delete
+            Profile</a>
+
+
+    </form>
 </div>
+<script>
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+    if(dd<10){
+    dd='0'+dd
+    }
+    if(mm<10){
+    mm='0'+mm
+    }
+
+    today = yyyy+'-'+mm+'-'+dd;
+    document.getElementById("exampleInputStartDate").setAttribute("max", today);
 
 
+</script>
+<script>
+    $('.dropdown-mul-1').dropdown({
+        limitCount: 40,
+        multipleMode: 'label',
+    });
+    $('.dropdown-sin-1').dropdown({
+        readOnly: true,
+        input: '<input type="text" maxLength="20" placeholder="Search">'
+    });
 
-<button type="submit" class="btn btn-primary">Save </button>
-<a class="btn btn-danger" th:href="@{/prison-management-system/prisoners/delete/{id}(id=${prisoner.id})}" role="button">Delete
-    Profile</a>
 
-
-</form>
-</div>
+</script>
 
 </body>
 </html>

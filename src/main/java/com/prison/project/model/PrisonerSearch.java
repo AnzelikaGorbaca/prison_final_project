@@ -49,5 +49,4 @@ public class PrisonerSearch {
         return Strings.isNotBlank(crimesJson) ? crimesJson : null;
     }
 
-
 }

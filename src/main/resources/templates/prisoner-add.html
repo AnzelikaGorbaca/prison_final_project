@@ -132,6 +132,13 @@
             <span th:if="${#fields.hasErrors('personalCode')}" th:errors="*{personalCode}" class="text-danger"></span>
             <span th:text="${errorFromController}"class="text-danger"></span>
         </div>
+
+        <div class="mb-3">
+            <label for="exampleInputPhoto" class="form-label">Photo:</label>
+            <input type="file" class="form-control" name="image" accept="image/jpeg" id="exampleInputPhoto">
+            <span th:if="${#fields.hasErrors('photo')}" th:errors="*{photo}" class="text-danger"></span>
+        </div>
+
         <div class="mb-3">
             <label for="exampleInputAddress" class="form-label">Address</label>
             <input type="text" th:field="*{address}" required class="form-control" id="exampleInputAddress">
@@ -179,12 +186,6 @@
                 </div>
         </div>
 
-
-        <div class="mb-3">
-            <label for="exampleInputPhoto" class="form-label">Photo:</label>
-            <input type="file" class="form-control" name="image" accept="image/jpeg" id="exampleInputPhoto">
-            <span th:if="${#fields.hasErrors('photo')}" th:errors="*{photo}" class="text-danger"></span>
-        </div>
 
         <br>
         <button type="submit" class="btn btn-primary">Submit</button>

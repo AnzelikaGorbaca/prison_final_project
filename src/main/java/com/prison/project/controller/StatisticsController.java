@@ -1,5 +1,6 @@
 package com.prison.project.controller;
 
+import com.prison.project.model.Crime;
 import com.prison.project.model.Prisoner;
 import com.prison.project.service.prisoner.GetPrisonerService;
 import lombok.RequiredArgsConstructor;
@@ -50,7 +51,7 @@ public class StatisticsController {
                 .collect(Collectors.toMap(
                         Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 
-        List resultList = new ArrayList(a.keySet());
+        List <Prisoner> resultList = new ArrayList(a.keySet());
 
         model.addAttribute("prisoners", resultList);
         return "statistics-crimes";
