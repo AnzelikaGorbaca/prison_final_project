@@ -217,7 +217,7 @@ top: 0;
 <!--<h2 th:text="${pageName}"></h2>-->
 <h2>Prisoner Profile</h2><br>
 <div th:object="${prisoner}" method="post"
-     th:action="@{/prison-management-system/prisoners/update/{id}(id=${prisoner.id})}" class="container" enctype="multipart/form-data">
+     th:action="@{/prison-management-system/prisoners/profile/{id}(id=${prisoner.id})}" class="container" >
     <div class="row gutters">
         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
             <div class="card h-100">
@@ -226,12 +226,12 @@ top: 0;
                         <div class="user-profile">
                             <div class="user-avatar-img">
                                 <img th:src="@{${prisoner.getPhotoImagePath}}"/>
-                                <div class="file btn btn-sm btn-secondary">
-                                    <!--                                        <a href="#" class="btn btn-secondary btn-lg disabled" tabindex="-1" role="button" aria-disabled="true">Link</a>-->
-                                    Change Photo
+<!--                                <div class="file btn btn-sm btn-secondary">-->
+<!--                                    &lt;!&ndash;                                        <a href="#" class="btn btn-secondary btn-lg disabled" tabindex="-1" role="button" aria-disabled="true">Link</a>&ndash;&gt;-->
+<!--                                    Change Photo-->
 
-                                    <input type="file" name="image" accept="image/jpeg" id="exampleInputPhoto"/>
-                                </div>
+<!--                                    <input type="file" name="image" accept="image/jpeg" id="exampleInputPhoto"/>-->
+<!--                                </div>-->
 <!--                                <div>-->
 <!--                                    <label for="exampleInputPhoto" class="form-label"> Change Photo:</label>-->
 <!--                                    <input type="file" class="form-control" name="image" accept="image/jpeg" id="exampleInputPhoto">-->
@@ -282,7 +282,7 @@ var x = setInterval(function() {
         </div>
         <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
             <form th:object="${prisoner}" method="post"
-                  th:action="@{/prison-management-system/prisoners/update/{id}(id=${prisoner.id})}" enctype="multipart/form-data">
+                  th:action="@{/prison-management-system/prisoners/profile/{id}(id=${prisoner.id})}" >
                 <div class="card h-100">
                     <div class="card-body">
                         <div class="row gutters">
@@ -324,15 +324,15 @@ var x = setInterval(function() {
 
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label for="exampleInputPhoto">Change photo</label>
-                                    <input type="file" class="form-control" name="image" accept="image/jpeg"
-                                           aria-describedby="nameHelp">
+<!--                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label for="exampleInputPhoto">Change photo</label>-->
+<!--                                    <input type="file" class="form-control" name="image" accept="image/jpeg"-->
+<!--                                           aria-describedby="nameHelp">-->
 <!--                                   <label for="exampleInputPhoto" class="form-label"> Change Photo:</label>-->
                                     <!--  <input type="file" class="form-control" name="image" accept="image/jpeg" id="exampleInputPhoto">-->
-                                </div>
-                            </div>
+<!--                                </div>-->
+<!--                            </div>-->
 
                         </div>
                         <div class="row gutters">
@@ -375,10 +375,16 @@ var x = setInterval(function() {
                                 <div class="text-right">
                                     <a class="btn btn-secondary btn-sm" th:href="@{/prison-management-system/prisoners}"
                                        role="button">Cancel</a>
-                                    <!--                                    <button type="button" id="submit" name="submit" class="btn btn-secondary btn-sm">Cancel</button>-->
-                                    <button type="submit" id="submit" name="submit" class="btn btn-primary btn-sm">
-                                        Update
-                                    </button>
+<!--                                    <button type="button" id="submit" name="submit" class="btn btn-secondary btn-sm">Cancel</button>-->
+
+<!--                                    <button type="submit" id="submit" name="submit" class="btn btn-primary btn-sm">-->
+<!--                                        Edit profile-->
+<!--                                    </button>-->
+
+                                    <a class="btn btn-primary btn-sm" th:href="@{/prison-management-system/prisoners/update/{id}(id=${prisoner.id})}"
+                                      role="button">Edit profile</a>
+<!--                                    <button type="button" id="submit" name="submit" class="btn btn-primary btn-sm"> Edit profile</button>-->
+
                                     <a class="btn btn-danger btn-sm"
                                        th:href="@{/prison-management-system/prisoners/delete/{id}(id=${prisoner.id})}"
                                        role="button">Delete Profile</a>

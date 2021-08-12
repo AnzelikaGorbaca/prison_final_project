@@ -150,9 +150,9 @@ public class PrisonerController {
         return "redirect:/prison-management-system/prisoners";
     }
 
-    @GetMapping("/edit/{id}")
-    public String editPrisonerById(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("pageName", "Edit Prisoner Profile");
+    @GetMapping("/profile/{id}")
+    public String prisonerProfileById(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("pageName", "Prisoner Profile");
 
         Prisoner prisoner = getPrisonerService.getPrisonerById(id);
         List<Punishment> punishmentList = getPunishmentService.getAllPunishments();
@@ -161,12 +161,26 @@ public class PrisonerController {
         model.addAttribute("crimeList", crimeList);
         model.addAttribute("punishmentList", punishmentList);
         model.addAttribute("prisoner", prisoner);
-
         return "prisoner-profile";
     }
 
+
+    @GetMapping("/update/{id}")
+    public String updatePrisonerById(@PathVariable("id") Long id, Model model){
+        model.addAttribute("pageName", "Edit prisoner profile");
+        Prisoner prisoner = getPrisonerService.getPrisonerById(id);
+//        List<Punishment> punishmentList = getPunishmentService.getAllPunishments();
+//        List<Crime> crimeList = getCrimeService.getAllCrime();
+
+//        model.addAttribute("crimeList", crimeList);
+//        model.addAttribute("punishmentList", punishmentList);
+        model.addAttribute("prisoner", prisoner);
+        return "prisoner-edit";
+    }
+
     @PostMapping("/update/{id}")
-    public String updatePrisoner(@PathVariable("id") Long id, @Valid Prisoner prisoner,
+    public String updatePrisoner(@PathVariable("id") Long id,
+                                 @Valid Prisoner prisoner,
                                  @RequestParam("image") MultipartFile multipartFile,
                                  BindingResult result, Model model) {
         if (result.hasErrors()) {
