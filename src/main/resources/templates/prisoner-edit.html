@@ -107,7 +107,7 @@
 <div class="col-md-3"></div>
 <div class="col-md-4">
     <form th:object="${prisoner}" method="post"
-          th:action="@{/prison-management-system/prisoners/update/{id}(id=${prisoner.id})}">
+          th:action="@{/prison-management-system/prisoners/update/{id}(id=${prisoner.id})}" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="exampleInputName" class="form-label">Name</label>
             <input type="text" class="form-control" required th:field="*{name}" id="exampleInputName"
@@ -132,6 +132,9 @@
             <input type="text" th:field="*{address}" required class="form-control" id="exampleInputAddress">
             <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-danger"></span>
         </div>
+        <label for="exampleInputPhoto" class="form-label">Change photo</label>
+        <input type="file" class="form-control" name="image" accept="image/jpeg" id="exampleInputPhoto"
+                                                   aria-describedby="nameHelp">
 
 
 
@@ -165,7 +168,7 @@
 
 
 
-<button type="submit" class="btn btn-primary">Save Edited Changes</button>
+<button type="submit" class="btn btn-primary">Save </button>
 <a class="btn btn-danger" th:href="@{/prison-management-system/prisoners/delete/{id}(id=${prisoner.id})}" role="button">Delete
     Profile</a>
 

@@ -142,7 +142,7 @@
                         <td th:text="${prisoner.status}"></td>
 
                         <!--                        <td th:text="${prisoner.crime}"></td>-->
-                        <td style="text-align:center"><a th:href="@{/prison-management-system/prisoners/edit/{id}(id=${prisoner.id})}" class="btn btn-primary"><i class="fas fa-address-card" ></i></a></td>
+                        <td style="text-align:center"><a th:href="@{/prison-management-system/prisoners/profile/{id}(id=${prisoner.id})}" class="btn btn-primary"><i class="fas fa-address-card" ></i></a></td>
                     </tr>
                     </tbody>
                 </table>
