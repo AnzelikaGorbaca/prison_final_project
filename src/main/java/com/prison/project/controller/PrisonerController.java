@@ -211,7 +211,7 @@ public class PrisonerController {
         prisoner.setCrimes(selectedCrimes);
 
         if (!multipartFile.isEmpty()) {
-            if (photoServicePrisoner.checkPhotoForErrors(id, prisoner, multipartFile)) {
+            if (photoServicePrisoner.checkPhotoForErrorsAndUpload(id, prisoner, multipartFile)) {
                 model.addAttribute("PhotoError", "Maximum permitted size of photo is 1048576 bytes");
                 updatePrisonerById(id, model);
                 return "prisoner-edit";
