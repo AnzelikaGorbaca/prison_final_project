@@ -137,6 +137,12 @@
             <input type="text" th:field="*{address}" required class="form-control" id="exampleInputAddress">
             <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-danger"></span>
         </div>
+        <div class="mb-3">
+            <label for="exampleInputPhoto" class="form-label">Change photo</label>
+            <input type="file" name="image" class="form-control" accept="image/jpeg" id="exampleInputPhoto">
+
+        </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>

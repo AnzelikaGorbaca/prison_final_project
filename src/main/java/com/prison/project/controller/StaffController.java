@@ -61,9 +61,9 @@ public class StaffController {
         return "redirect:/prison-management-system/staffs";
     }
 
-    @GetMapping("/edit/{id}")
-    public String editStaffById(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("pageName", "Edit Staff Member Profile");
+    @GetMapping("/profile/{id}")
+    public String staffProfileById(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("pageName", "Staff Member Profile");
 
         Staff staff = getStaffService.findStaffById(id);
         model.addAttribute("staff", staff);
@@ -72,8 +72,20 @@ public class StaffController {
         model.addAttribute("occupationList",occupationList);
 
         return "staff-profile";
-
     }
+
+    @GetMapping("update/{id}")
+    public String editStaffById(@PathVariable("id") Long id, Model model){
+        model.addAttribute("pageName", "Edit Staff Member Profile");
+        Staff staff = getStaffService.findStaffById(id);
+        model.addAttribute("staff", staff);
+        List<Occupation> occupationList = occupationEnumSorting.getSortedList();
+        model.addAttribute("occupationList",occupationList);
+
+        return "staff-edit";
+    }
+
+
     @GetMapping(value = "/staff-search")
     public String searchStaff(StaffSearch staffsearch, Model model) {
         model.addAttribute("pageName", "Staff Search");

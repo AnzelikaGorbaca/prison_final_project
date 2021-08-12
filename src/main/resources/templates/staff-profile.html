@@ -205,7 +205,7 @@ top: 0;
 <h2>Staff Member Profile</h2>
 <!--<h2 th:text="${pageName}"></h2>-->
 <br>
-<div th:object="${staff}" method="post" th:action="@{/prison-management-system/staffs/update/{id}(id=${staff.id})}" class="container">
+<div th:object="${staff}" method="post" th:action="@{/prison-management-system/staffs/profile/{id}(id=${staff.id})}" class="container">
     <div class="row gutters">
         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
             <div class="card h-100">
@@ -219,11 +219,11 @@ top: 0;
 
                                     <img th:src="@{${staff.getStaffPhotoImagePath}}"/>
 
-                                <div class="file btn btn-sm btn-secondary">
-<!--                                        <a href="#" class="btn btn-secondary btn-lg disabled" tabindex="-1" role="button" aria-disabled="true">Link</a>-->
-                                    Change Photo
-                                    <input type="file" name="file"/>
-                                </div>
+<!--                                <div class="file btn btn-sm btn-secondary">-->
+<!--&lt;!&ndash;                                        <a href="#" class="btn btn-secondary btn-lg disabled" tabindex="-1" role="button" aria-disabled="true">Link</a>&ndash;&gt;-->
+<!--                                    Change Photo-->
+<!--                                    <input type="file" name="file"/>-->
+<!--                                </div>-->
 
                             </div>
                             <div class="name-name">
@@ -241,7 +241,7 @@ top: 0;
             </div>
         </div>
         <div  class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-            <form th:object="${staff}" method="post" th:action="@{/prison-management-system/staffs/update/{id}(id=${staff.id})}">
+            <form th:object="${staff}" method="post" th:action="@{/prison-management-system/staffs/profile/{id}(id=${staff.id})}">
                 <div class="card h-100">
                     <div class="card-body">
                         <div class="row gutters">
@@ -294,7 +294,9 @@ top: 0;
                                 <div class="text-right">
                                     <a class="btn btn-secondary btn-sm" th:href="@{/prison-management-system/staffs}" role="button">Cancel</a>
 <!--                                    <button type="cancel" id="cancel" name="cancel" class="btn btn-secondary btn-sm">Cancel</button>-->
-                                    <button type="submit" id="submit" name="submit" class="btn btn-primary btn-sm">Update</button>
+                                    <a class="btn btn-primary btn-sm" th:href="@{/prison-management-system/staffs/update/{id}(id=${staff.id})}"
+                                       role="button">Edit profile</a>
+<!--                                    <button type="submit" id="submit" name="submit" class="btn btn-primary btn-sm">Edit profile</button>-->
                                     <a class="btn btn-danger btn-sm" th:href="@{/prison-management-system/staffs/delete/{id}(id=${staff.id})}" role="button">Delete Profile</a>
 
 
