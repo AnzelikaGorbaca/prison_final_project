@@ -100,14 +100,14 @@ public class StaffController {
 
     @PostMapping
     public String registerStaff(@Valid Staff staff,
-                                @RequestParam("image") MultipartFile multipartFile,
-                                BindingResult result, Model model) throws IOException {
+                                BindingResult result, Model model,
+                                @RequestParam("image") MultipartFile multipartFile)  {
+
 
         if (result.hasErrors()) {
             List<Occupation> occupationList = occupationEnumSorting.getSortedList();
             model.addAttribute("occupationList",occupationList);
           //  staffAdd(model,staff);
-
             return "staff-add";
         }
         List<Staff> staffList = getStaffService.findAllStaff();
@@ -124,7 +124,12 @@ public class StaffController {
         staff.setPhoto(fileName);
         Staff savedStaff = createStaffService.registerStaff(staff);
         String uploadDir = "photos/" + "staff_" + savedStaff.getId();
-        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        try {
+            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        } catch (IOException io){
+            staffAdd(model,staff); //probablu something else will be needed here
+
+        }
         createStaffService.registerStaff(staff);
         return staffStart(model);
     }

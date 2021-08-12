@@ -64,10 +64,11 @@ public class PrisonerController {
 
     @PostMapping
     public String registerPrisoner(@Valid Prisoner prisoner,
-                                   @RequestParam("image") MultipartFile multipartFile,
-                                   BindingResult result, Model model) throws IOException {
+                                   BindingResult result, Model model,
+                                   @RequestParam("image") MultipartFile multipartFile) throws IOException {
 
         if (result.hasErrors()) {
+            signUp(model,prisoner);
             return "prisoner-add";
         }
 
