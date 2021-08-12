@@ -24,6 +24,7 @@ public class CapacityController {
 
         Long freeSpaces = prisonCapacityCheck.getFreePlacesByDate(LocalDate.now());
         map.addAttribute("prisonFreePlaces", "Prison currently has: " + freeSpaces + " free places");
+        map.addAttribute("errorFromController","Registering of new prisoner denied because there are now free places in prison now");
 
         if (freeSpaces < 1) {
 

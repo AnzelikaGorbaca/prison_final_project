@@ -5,6 +5,7 @@ import com.prison.project.model.Prisoner;
 import com.prison.project.model.PrisonerSearch;
 import com.prison.project.model.Punishment;
 import com.prison.project.service.crime.GetCrimeService;
+import com.prison.project.service.prisonCapacity.PrisonCapacityCheck;
 import com.prison.project.service.prisoner.*;
 import com.prison.project.service.punishment.GetPunishmentService;
 import com.prison.project.utilities.FileUploadUtil;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -40,6 +42,7 @@ public class PrisonerController {
     private final GetCrimeService getCrimeService;
     private final GetPunishmentService getPunishmentService;
     private final SearchPrisonerService searchPrisonerService;
+    private final PrisonCapacityCheck prisonCapacityCheck;
 
 
     @GetMapping
@@ -51,6 +54,10 @@ public class PrisonerController {
 
     @GetMapping("/prisoner-add")
     public String signUp(Model map, Prisoner prisoner) {
+        if(prisonCapacityCheck.getFreePlacesByDate(LocalDate.now())<1) {
+            return "redirect:/prison-management-system/capacities/capacity-now";
+
+        }
         map.addAttribute("pageName", "Add New Prisoner");
 
         List<Punishment> punishmentList = getPunishmentService.getAllPunishments();
@@ -68,7 +75,7 @@ public class PrisonerController {
                                    @RequestParam("image") MultipartFile multipartFile) throws IOException {
 
         if (result.hasErrors()) {
-            signUp(model,prisoner);
+            signUp(model, prisoner);
             return "prisoner-add";
         }
 
@@ -96,6 +103,7 @@ public class PrisonerController {
         Prisoner savedPrisoner = createPrisonerService.registerPrisoner(prisoner);
         String uploadDir = "photos/" + "prisoner_" + savedPrisoner.getId();
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+
 
         return prisonerIndex(model);//"redirect:/prison-management-system/prisoners";
     }
