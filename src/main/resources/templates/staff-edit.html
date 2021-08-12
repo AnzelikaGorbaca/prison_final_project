@@ -91,7 +91,7 @@
 
 <div class="col-md-3"></div>
 <div class="col-md-4">
-    <form th:object="${staff}" method="post" th:action="@{/prison-management-system/staffs/update/{id}(id=${staff.id})}">
+    <form th:object="${staff}" method="post" th:action="@{/prison-management-system/staffs/update/{id}(id=${staff.id})}" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="exampleInputName" class="form-label">Name</label>
             <input type="text" class="form-control" required th:field="*{name}" id="exampleInputName"
