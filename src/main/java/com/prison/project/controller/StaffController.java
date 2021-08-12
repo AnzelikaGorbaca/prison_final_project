@@ -49,9 +49,6 @@ public class StaffController {
         List<Occupation> occupationList = occupationEnumSorting.getSortedList();
         map.addAttribute("occupationList",occupationList);
 
-        //  map.addAttribute("prisonFreePlaces","Prison currently has " +prisonCapacityCheck.getFreePlacesNow()+" free places");
-
-
         return "staff-add";
     }
 

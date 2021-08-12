@@ -1,7 +1,5 @@
 package com.prison.project.model;
 
-
-
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
@@ -10,8 +8,5 @@ import org.springframework.stereotype.Component;
 public class PrisonCapacity {
 
     private final int capacity = 5;
-
-
-
 
 }
