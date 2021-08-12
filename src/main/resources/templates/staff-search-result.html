@@ -2,6 +2,9 @@
 <head>
     <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+    <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
 </head>
 <body class="container">
 
@@ -16,7 +19,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link"  href="/prison-management-system">Home</a>
+                    <a class="nav-link" href="/prison-management-system">Home</a>
                 </li>
 
                 <li class="nav-item dropdown">
@@ -27,21 +30,26 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-add">Add
                             Prisoner</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-search">Search Prisoner</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-search">Search
+                            Prisoner</a></li>
                         <li><a class="dropdown-item" href="/prison-management-system/prisoners">View all Prisoners</a>
                         </li>
                     </ul>
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle  active" aria-current="page" href="#" id="navbarDropdownStaff" role="button"
+                    <a class="nav-link dropdown-toggle  active" aria-current="page" href="#" id="navbarDropdownStaff"
+                       role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         Staff
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-add">Add Staff Member</a></li>
-                        <li><a class="dropdown-item active" href="/prison-management-system/staffs/staff-search">Search Staff Member</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/staffs">View All Staff Members</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-add">Add Staff
+                            Member</a></li>
+                        <li><a class="dropdown-item active" href="/prison-management-system/staffs/staff-search">Search
+                            Staff Member</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs">View All Staff Members</a>
+                        </li>
                     </ul>
                 </li>
 
@@ -70,21 +78,27 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCapacity" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCapacity" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         Capacity
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-now">Check current</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-otherDay">Check on other date</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-now">Check
+                            current</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-otherDay">Check
+                            on other date</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStatistics" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStatistics" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         Statistics
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/prison-management-system/statistics-duration">By Imprisonment Duration</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/statistics-crimes">By Crimes Committed</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-duration">By
+                            Imprisonment Duration</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-crimes">By Crimes
+                            Committed</a></li>
                     </ul>
                 </li>
 
@@ -125,9 +139,9 @@
                 <td th:text="${staff.personalCode}"></td>
                 <td th:text="${staff.phoneNumber}"></td>
                 <td th:text="${staff.address}"></td>
-                <td style="text-align:center"><a
-                        th:href="@{/prison-management-system/staffs/edit/{id}(id=${staff.id})}"
-                        class="btn btn-primary"><i class="fas fa-address-card"></i></a></td>
+                <td style="text-align:center"><a th:href="@{/prison-management-system/staffs/profile/{id}(id=${staff.id})}"
+                                                 class="btn btn-primary">
+                    <i class="fas fa-address-card"></i></a></td>
 
             </tr>
             </tbody>
