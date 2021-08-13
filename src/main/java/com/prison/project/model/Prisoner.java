@@ -58,7 +58,7 @@ public class Prisoner {
 //    private List<Crime> crimes;
 
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "prisoner_crime",
             joinColumns = @JoinColumn(
                     name = "prisoner_id"),

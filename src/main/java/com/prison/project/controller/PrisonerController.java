@@ -246,7 +246,7 @@ public class PrisonerController {
 //            }
 //        }
 
-        return prisonerProfileById(id, model);
+        return "redirect:/prison-management-system/prisoners/profile/"+id;//prisonerProfileById(id, model);
     }
 
 }
