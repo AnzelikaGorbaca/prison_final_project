@@ -4,6 +4,33 @@
     <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script th:inline="javascript">
+
+
+
+    var countDownDate = new Date([[${prisoner.endDate}]]).getTime();
+
+    var x = setInterval(function() {
+    var now1 = new Date();
+    now1.setHours(now1.getHours()+3);
+    var now = now1.getTime();
+
+    var distance = countDownDate - now;
+
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+  + minutes + "m " + seconds + "s ";
+
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+  }
+}, 1000);
+                            </script>
     <style type="text/css">
        body {
     margin: 0;
@@ -112,6 +139,8 @@ top: 0;
   font-size: 25px;
   margin-top: 0px;
 }
+
+
     </style>
 
 </head>
@@ -126,11 +155,12 @@ top: 0;
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link"  href="/prison-management-system">Home</a>
+                    <a class="nav-link" href="/prison-management-system">Home</a>
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle  active" aria-current="page" href="#" id="navbarDropdownPrisoner" role="button"
+                    <a class="nav-link dropdown-toggle  active" aria-current="page" href="#" id="navbarDropdownPrisoner"
+                       role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         Prisoner
                     </a>
@@ -196,12 +226,15 @@ top: 0;
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStatistics" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStatistics" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         Statistics
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/prison-management-system/statistics-duration">By Imprisonment Duration</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/statistics-crimes">By Crimes Committed</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-duration">By
+                            Imprisonment Duration</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-crimes">By Crimes
+                            Committed</a></li>
                     </ul>
                 </li>
 
@@ -217,7 +250,7 @@ top: 0;
 <!--<h2 th:text="${pageName}"></h2>-->
 <h2>Prisoner Profile</h2><br>
 <div th:object="${prisoner}" method="post"
-     th:action="@{/prison-management-system/prisoners/profile/{id}(id=${prisoner.id})}" class="container" >
+     th:action="@{/prison-management-system/prisoners/profile/{id}(id=${prisoner.id})}" class="container">
     <div class="row gutters">
         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
             <div class="card h-100">
@@ -226,16 +259,16 @@ top: 0;
                         <div class="user-profile">
                             <div class="user-avatar-img">
                                 <img th:src="@{${prisoner.getPhotoImagePath}}"/>
-<!--                                <div class="file btn btn-sm btn-secondary">-->
-<!--                                    &lt;!&ndash;                                        <a href="#" class="btn btn-secondary btn-lg disabled" tabindex="-1" role="button" aria-disabled="true">Link</a>&ndash;&gt;-->
-<!--                                    Change Photo-->
+                                <!--                                <div class="file btn btn-sm btn-secondary">-->
+                                <!--                                    &lt;!&ndash;                                        <a href="#" class="btn btn-secondary btn-lg disabled" tabindex="-1" role="button" aria-disabled="true">Link</a>&ndash;&gt;-->
+                                <!--                                    Change Photo-->
 
-<!--                                    <input type="file" name="image" accept="image/jpeg" id="exampleInputPhoto"/>-->
-<!--                                </div>-->
-<!--                                <div>-->
-<!--                                    <label for="exampleInputPhoto" class="form-label"> Change Photo:</label>-->
-<!--                                    <input type="file" class="form-control" name="image" accept="image/jpeg" id="exampleInputPhoto">-->
-<!--                                </div>-->
+                                <!--                                    <input type="file" name="image" accept="image/jpeg" id="exampleInputPhoto"/>-->
+                                <!--                                </div>-->
+                                <!--                                <div>-->
+                                <!--                                    <label for="exampleInputPhoto" class="form-label"> Change Photo:</label>-->
+                                <!--                                    <input type="file" class="form-control" name="image" accept="image/jpeg" id="exampleInputPhoto">-->
+                                <!--                                </div>-->
                             </div>
                             <div class="name-name">
                                 <h5 th:text="${prisoner.name}+ ' ' +${prisoner.surname}" style="font-weight:bold"></h5>
@@ -247,34 +280,9 @@ top: 0;
                             <h5 th:text="${prisoner.id}"></h5>
                         </div>
                         <div class="countdown" style="text-align: center">
-                            <label >Time till emancipation:</label>
+                            <label>Time till emancipation:</label>
                             <p id="demo"></p>
 
-                            <script>
-
-var countDownDate = new Date("Aug 25, 2021 18:30:00").getTime();
-
-var x = setInterval(function() {
-
-  var now = new Date().getTime();
-
-  var distance = countDownDate - now;
-
-  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-  + minutes + "m " + seconds + "s ";
-
-  if (distance < 0) {
-    clearInterval(x);
-    document.getElementById("demo").innerHTML = "EXPIRED";
-  }
-}, 1000);
-
-                        </script>
                         </div>
                     </div>
                 </div>
@@ -282,7 +290,7 @@ var x = setInterval(function() {
         </div>
         <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
             <form th:object="${prisoner}" method="post"
-                  th:action="@{/prison-management-system/prisoners/profile/{id}(id=${prisoner.id})}" >
+                  th:action="@{/prison-management-system/prisoners/profile/{id}(id=${prisoner.id})}">
                 <div class="card h-100">
                     <div class="card-body">
                         <div class="row gutters">
@@ -292,7 +300,7 @@ var x = setInterval(function() {
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="exampleInputName">Name</label>
-                                    <input type="text" class="form-control"  th:field="*{name}"
+                                    <input type="text" class="form-control" th:field="*{name}"
                                            id="exampleInputName"
                                            aria-describedby="nameHelp" readonly="readonly">
 
@@ -301,7 +309,7 @@ var x = setInterval(function() {
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="exampleInputSurname">Surname</label>
-                                    <input type="text" class="form-control"  th:field="*{surname}"
+                                    <input type="text" class="form-control" th:field="*{surname}"
                                            id="exampleInputSurname"
                                            aria-describedby="usernameHelp" readonly="readonly">
                                     <div id="usernameHelp" class="form-text"></div>
@@ -311,7 +319,7 @@ var x = setInterval(function() {
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="exampleInputPersonalCode">Personal Code</label>
-                                    <input type="text" th:field="*{personalCode}"  class="form-control"
+                                    <input type="text" th:field="*{personalCode}" class="form-control"
                                            id="exampleInputPersonalCode" readonly="readonly">
 
                                 </div>
@@ -324,15 +332,15 @@ var x = setInterval(function() {
 
                                 </div>
                             </div>
-<!--                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">-->
-<!--                                <div class="form-group">-->
-<!--                                    <label for="exampleInputPhoto">Change photo</label>-->
-<!--                                    <input type="file" class="form-control" name="image" accept="image/jpeg"-->
-<!--                                           aria-describedby="nameHelp">-->
-<!--                                   <label for="exampleInputPhoto" class="form-label"> Change Photo:</label>-->
-                                    <!--  <input type="file" class="form-control" name="image" accept="image/jpeg" id="exampleInputPhoto">-->
-<!--                                </div>-->
-<!--                            </div>-->
+                            <!--                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">-->
+                            <!--                                <div class="form-group">-->
+                            <!--                                    <label for="exampleInputPhoto">Change photo</label>-->
+                            <!--                                    <input type="file" class="form-control" name="image" accept="image/jpeg"-->
+                            <!--                                           aria-describedby="nameHelp">-->
+                            <!--                                   <label for="exampleInputPhoto" class="form-label"> Change Photo:</label>-->
+                            <!--  <input type="file" class="form-control" name="image" accept="image/jpeg" id="exampleInputPhoto">-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
 
                         </div>
                         <div class="row gutters">
@@ -342,28 +350,33 @@ var x = setInterval(function() {
 
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label for="exampleInputStartDate" >Start Date</label>
-                                    <input type="text" th:field="*{startDate}"  class="form-control" id="exampleInputStartDate" readonly="readonly">
+                                    <label for="exampleInputStartDate">Start Date</label>
+                                    <input type="text" th:field="*{startDate}" class="form-control"
+                                           id="exampleInputStartDate" readonly="readonly">
                                 </div>
 
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label for="exampleInputEndDate" >End Date</label>
-                                    <input type="text" th:field="*{endDate}"  class="form-control" id="exampleInputEndDate" readonly="readonly">
+                                    <label for="exampleInputEndDate">End Date</label>
+                                    <input type="text" th:field="*{endDate}" class="form-control"
+                                           id="exampleInputEndDate" readonly="readonly">
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="exampleDataListCrimes" class="form-label">Crimes</label>
-                                    <input class="form-control" th:value="${prisoner.crimeDescriptions}"  id="exampleDataListCrimes" readonly="readonly">
+                                    <input class="form-control" th:value="${prisoner.crimeDescriptions}"
+                                           id="exampleDataListCrimes" readonly="readonly">
                                 </div>
 
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="exampleDataListPunishment">Imprisonment Months</label>
-                                    <input class="form-control" th:field="*{punishment.imprisonmentMonths}"  th:value="${prisoner.punishment.imprisonmentMonths}" id="exampleDataListPunishment" readonly="readonly">
+                                    <input class="form-control" th:field="*{punishment.imprisonmentMonths}"
+                                           th:value="${prisoner.punishment.imprisonmentMonths}"
+                                           id="exampleDataListPunishment" readonly="readonly">
 
                                 </div>
                             </div>
@@ -375,15 +388,16 @@ var x = setInterval(function() {
                                 <div class="text-right">
                                     <a class="btn btn-secondary btn-sm" th:href="@{/prison-management-system/prisoners}"
                                        role="button">Cancel</a>
-<!--                                    <button type="button" id="submit" name="submit" class="btn btn-secondary btn-sm">Cancel</button>-->
+                                    <!--                                    <button type="button" id="submit" name="submit" class="btn btn-secondary btn-sm">Cancel</button>-->
 
-<!--                                    <button type="submit" id="submit" name="submit" class="btn btn-primary btn-sm">-->
-<!--                                        Edit profile-->
-<!--                                    </button>-->
+                                    <!--                                    <button type="submit" id="submit" name="submit" class="btn btn-primary btn-sm">-->
+                                    <!--                                        Edit profile-->
+                                    <!--                                    </button>-->
 
-                                    <a class="btn btn-primary btn-sm" th:href="@{/prison-management-system/prisoners/update/{id}(id=${prisoner.id})}"
-                                      role="button">Edit profile</a>
-<!--                                    <button type="button" id="submit" name="submit" class="btn btn-primary btn-sm"> Edit profile</button>-->
+                                    <a class="btn btn-primary btn-sm"
+                                       th:href="@{/prison-management-system/prisoners/update/{id}(id=${prisoner.id})}"
+                                       role="button">Edit profile</a>
+                                    <!--                                    <button type="button" id="submit" name="submit" class="btn btn-primary btn-sm"> Edit profile</button>-->
 
                                     <a class="btn btn-danger btn-sm"
                                        th:href="@{/prison-management-system/prisoners/delete/{id}(id=${prisoner.id})}"
