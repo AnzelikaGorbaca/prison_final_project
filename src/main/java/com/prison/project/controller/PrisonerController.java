@@ -182,8 +182,7 @@ public class PrisonerController {
     @PostMapping("/update/{id}")
     public String updatePrisoner(@PathVariable("id") Long id,
                                  @Valid Prisoner prisoner,
-                                 @RequestParam("image") MultipartFile multipartFile,
-                                 BindingResult result, Model model) {
+                                 BindingResult result, Model model, @RequestParam("image") MultipartFile multipartFile) {
         if (result.hasErrors()) {
             return "prisoner-edit";
         }
@@ -194,6 +193,9 @@ public class PrisonerController {
             updatePrisonerById(id, model);
             return "prisoner-edit";
         }
+
+        List<Crime> selectedCrimes = getCrimeService.getCrimesJson(prisoner.getCrimesJson());
+        prisoner.setCrimes(selectedCrimes);
 
         try {
             updatePrisonerService.updatePrisoner(id, prisoner);
@@ -207,8 +209,6 @@ public class PrisonerController {
             }
         }
 
-        List<Crime> selectedCrimes = getCrimeService.getCrimesJson(prisoner.getCrimesJson());
-        prisoner.setCrimes(selectedCrimes);
 
         if (!multipartFile.isEmpty()) {
             if (photoServicePrisoner.checkPhotoForErrorsAndUpload(id, prisoner, multipartFile)) {

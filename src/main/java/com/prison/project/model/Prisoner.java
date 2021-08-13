@@ -41,9 +41,9 @@ public class Prisoner {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
     private String photo;
-    private Boolean inPrison = true;
+    private Boolean inPrison;
     @Transient
-    private String status = "In Prison";
+    private String status;
 
 
 //    @ManyToMany(fetch = EAGER)
@@ -80,18 +80,24 @@ public class Prisoner {
     @Transient
     public String getPhotoImagePath() {
         if (photo == null || id == null) return null;
-        return "/photos/" +"prisoner_" + id + "/" + photo;
+        return "/photos/" + "prisoner_" + id + "/" + photo;
     }
 
     @Transient
-    public String crimeDescriptions(){
+    public String crimeDescriptions() {
         return emptyIfNullStream(crimes)
                 .map(Crime::getCrimeDescription)
                 .collect(Collectors.joining(", "));
     }
 
-    private Stream<Crime> emptyIfNullStream(List<Crime> crimes){
+    private Stream<Crime> emptyIfNullStream(List<Crime> crimes) {
         return crimes.isEmpty() ? Stream.empty() : crimes.stream();
     }
 
+//    private String getStatus() {
+//        if (inPrison) {
+//            return "In Prison";
+//        }
+//        else return "Freed";
+//    }
 }

@@ -16,6 +16,12 @@ public class StatusPrisonerService {
             prisoner.setInPrison(false);
             prisoner.setStatus("Freed");
         }
+        else {
+            prisoner.setInPrison(true);
+            prisoner.setStatus("In Prison");
+        }
     }
+
+
 
 }

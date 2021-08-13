@@ -39,6 +39,7 @@ public class SearchPrisonerService {
 
         String status = prisonerSearch.getStatus();
         prisoner.setInPrison(setBooleanInPrison(status));
+        prisoner.setStatus(status);
         Example<Prisoner> prisonerExample = Example.of(prisoner, matchingAll().withIgnoreNullValues().withIgnoreCase());
         return repository.findAll(prisonerExample);
     }

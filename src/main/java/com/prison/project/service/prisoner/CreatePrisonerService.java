@@ -17,15 +17,18 @@ public class CreatePrisonerService {
 
     private final PrisonerRepository prisonerRepository;
     private final PunishmentRepository punishmentRepository;
+    private final StatusPrisonerService statusPrisonerService;
 
     public Prisoner registerPrisoner (Prisoner prisoner) {
         Punishment punishment = punishmentRepository.getById(prisoner.getPunishmentId());
         prisoner.setPunishment(punishment);
         var endDate = prisoner.getStartDate().plusMonths(punishment.getImprisonmentMonths());
-
         prisoner.setEndDate(endDate);
+        statusPrisonerService.checkIfInPrison(prisoner);
         prisonerRepository.save(prisoner);
         return prisoner;
     }
+
+
 
 }
