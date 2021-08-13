@@ -167,6 +167,8 @@ public class StaffController {
                 if ((e.getCause().getCause()).getLocalizedMessage().contains("Duplicate entry")) {
                     String errorMessage = ((e.getCause().getCause()).getLocalizedMessage().substring(15, 30));
                     model.addAttribute("errorFromController", "Staff with personal code " + errorMessage + " already exists");
+                    List<Occupation> occupationList = occupationEnumSorting.getSortedList();
+                    model.addAttribute("occupationList", occupationList);
                     return "staff-edit";
                 }
             }
