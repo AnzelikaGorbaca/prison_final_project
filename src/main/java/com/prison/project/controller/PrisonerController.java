@@ -15,7 +15,9 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -180,6 +182,7 @@ public class PrisonerController {
         model.addAttribute("prisoner", prisoner);
         return "prisoner-edit";
     }
+
 
     @PostMapping("/update/{id}")
     public String updatePrisoner(@PathVariable("id") Long id,

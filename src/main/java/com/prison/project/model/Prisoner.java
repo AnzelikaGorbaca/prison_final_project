@@ -94,10 +94,4 @@ public class Prisoner {
         return crimes.isEmpty() ? Stream.empty() : crimes.stream();
     }
 
-//    private String getStatus() {
-//        if (inPrison) {
-//            return "In Prison";
-//        }
-//        else return "Freed";
-//    }
 }

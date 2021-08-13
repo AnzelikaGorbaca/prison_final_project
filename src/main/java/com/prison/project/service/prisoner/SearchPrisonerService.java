@@ -24,6 +24,8 @@ public class SearchPrisonerService {
     public final PrisonerRepository repository;
     public final GetPunishmentService punishmentService;
     public final GetCrimeService getCrimeService;
+    public final GetPrisonerService getPrisonerService;
+    public final StatusPrisonerService statusPrisonerService;
 
     public List<Prisoner> searchPrisoner(PrisonerSearch prisonerSearch) {
         Prisoner prisoner = new Prisoner();
@@ -41,7 +43,11 @@ public class SearchPrisonerService {
         prisoner.setInPrison(setBooleanInPrison(status));
         prisoner.setStatus(status);
         Example<Prisoner> prisonerExample = Example.of(prisoner, matchingAll().withIgnoreNullValues().withIgnoreCase());
-        return repository.findAll(prisonerExample);
+        List<Prisoner> prisoners = repository.findAll(prisonerExample);
+        for (Prisoner p : prisoners) {
+            statusPrisonerService.checkIfInPrison(p);
+        }
+        return prisoners;
     }
 
     private Boolean setBooleanInPrison(String status) {
