@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -173,6 +174,7 @@ public class PrisonerController {
         List<Punishment> punishmentList = getPunishmentService.getAllPunishments();
         List<Crime> crimeList = getCrimeService.getAllCrime();
 
+
         model.addAttribute("crimeList", crimeList);
         model.addAttribute("punishmentList", punishmentList);
         model.addAttribute("prisoner", prisoner);
@@ -217,8 +219,6 @@ public class PrisonerController {
                 return "prisoner-edit";
             }
         }
-
-
 
 
 //        Prisoner savedPrisoner = updatePrisonerService.updatePrisoner(id, prisoner);
