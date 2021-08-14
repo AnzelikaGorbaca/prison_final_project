@@ -5,7 +5,10 @@
     <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script th:inline="javascript">
-    var countDownDate = new Date([[${prisoner.endDate}]]).getTime();
+    var countDownDateHours = new Date([[${prisoner.endDate}]]);
+    countDownDateHours.setHours(countDownDateHours.getHours()+12);
+    var countDownDate = countDownDateHours.getTime();
+
     var x = setInterval(function() {
     var now1 = new Date();
     now1.setHours(now1.getHours()+3);

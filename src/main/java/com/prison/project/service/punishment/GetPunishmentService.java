@@ -1,4 +1,5 @@
 package com.prison.project.service.punishment;
+import com.prison.project.exception.NotFoundException;
 import com.prison.project.model.Punishment;
 import com.prison.project.repository.PunishmentRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,10 +20,12 @@ public class GetPunishmentService {
     }
 
     public Punishment getPunishmentById(Long id){
-        return punishmentRepository.getById(id);
+        return punishmentRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Punishment with id "+ id + " does not exist"));
     }
 
     public List<Punishment> getAllPunishmentsOrderedAsc(){
         return punishmentRepository.findAllByOrderByImprisonmentMonthsAsc();
     }
+
 }
