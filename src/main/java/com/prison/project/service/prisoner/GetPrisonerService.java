@@ -22,9 +22,7 @@ public class GetPrisonerService {
 
     public List<Prisoner> getAllWithStatus() {
         List<Prisoner> prisoners = prisonerRepository.findAll();
-        for (Prisoner p : prisoners) {
-            statusPrisonerService.checkIfInPrison(p);
-        }
+        statusPrisonerService.checkIfInPrisonAndSetStatus(prisoners);
         return prisoners;
     }
 
@@ -32,11 +30,9 @@ public class GetPrisonerService {
         return prisonerRepository.getById(id);
     }
 
-    public List<Prisoner> getTopPrisonersByImprisonmentMonths(){
-        List<Prisoner> resultList= prisonerRepository.findTop10ByOrderByPunishment_ImprisonmentMonthsDesc();
-        for (Prisoner p : resultList) {
-            statusPrisonerService.checkIfInPrison(p);
-        }
+    public List<Prisoner> getTopPrisonersByImprisonmentMonths() {
+        List<Prisoner> resultList = prisonerRepository.findTop10ByOrderByPunishment_ImprisonmentMonthsDesc();
+            statusPrisonerService.checkIfInPrisonAndSetStatus(resultList);
         return resultList;
     }
 }

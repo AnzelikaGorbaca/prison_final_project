@@ -24,7 +24,7 @@ public class CreatePrisonerService {
         prisoner.setPunishment(punishment);
         var endDate = prisoner.getStartDate().plusMonths(punishment.getImprisonmentMonths());
         prisoner.setEndDate(endDate);
-        statusPrisonerService.checkIfInPrison(prisoner);
+        statusPrisonerService.checkIfInPrisonAndSetStatus(prisoner);
         prisonerRepository.save(prisoner);
         return prisoner;
     }

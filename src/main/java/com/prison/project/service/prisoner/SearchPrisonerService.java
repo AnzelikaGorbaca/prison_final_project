@@ -44,9 +44,7 @@ public class SearchPrisonerService {
         prisoner.setStatus(status);
         Example<Prisoner> prisonerExample = Example.of(prisoner, matchingAll().withIgnoreNullValues().withIgnoreCase());
         List<Prisoner> prisoners = repository.findAll(prisonerExample);
-        for (Prisoner p : prisoners) {
-            statusPrisonerService.checkIfInPrison(p);
-        }
+        statusPrisonerService.checkIfInPrisonAndSetStatus(prisoners);
         return prisoners;
     }
 

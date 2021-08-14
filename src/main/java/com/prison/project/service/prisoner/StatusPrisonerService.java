@@ -5,23 +5,35 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.List;
+
 @Transactional
 @Service
 public class StatusPrisonerService {
 
 
-    public void checkIfInPrison(Prisoner prisoner) {
-        LocalDate endDate = prisoner.getEndDate();
-        if (endDate.compareTo(LocalDate.now()) <= 0) {
-            prisoner.setInPrison(false);
-            prisoner.setStatus("Freed");
-        }
-        else {
-            prisoner.setInPrison(true);
-            prisoner.setStatus("In Prison");
+    public void checkIfInPrisonAndSetStatus(List<Prisoner> prisoners) {
+        for (Prisoner p: prisoners) {
+            LocalDate endDate = p.getEndDate();
+            if (endDate.compareTo(LocalDate.now()) <= 0) {
+                p.setInPrison(false);
+                p.setStatus("Freed");
+            } else {
+                p.setInPrison(true);
+                p.setStatus("In Prison");
+            }
         }
     }
 
+    public void checkIfInPrisonAndSetStatus(Prisoner p) {
+            LocalDate endDate = p.getEndDate();
+            if (endDate.compareTo(LocalDate.now()) <= 0) {
+                p.setInPrison(false);
+                p.setStatus("Freed");
+            } else {
+                p.setInPrison(true);
+                p.setStatus("In Prison");
+            }
+        }
+    }
 
-
-}
