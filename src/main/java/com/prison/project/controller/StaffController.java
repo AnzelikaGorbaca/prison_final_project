@@ -197,6 +197,6 @@ public class StaffController {
                 }
             }
         }
-        return staffProfileById(id, model);
+        return "redirect:/prison-management-system/staffs/profile/"+id;
     }
 }
