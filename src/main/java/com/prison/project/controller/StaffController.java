@@ -47,7 +47,6 @@ public class StaffController {
     @GetMapping("/staff-add")
     public String staffAdd(Model map, Staff staff) {
         map.addAttribute("pageName", "Add New Staff Member");
-
         List<Occupation> occupationList = occupationEnumSorting.getSortedList();
         map.addAttribute("occupationList", occupationList);
 
@@ -60,6 +59,7 @@ public class StaffController {
         FileUploadUtil.deleteFile(path);
         Path dir = Paths.get("photos/" + "staff_" + id);
         FileUploadUtil.deleteFile(dir);
+
         deleteStaffService.deleteStaff(id);
         return "redirect:/prison-management-system/staffs";
     }
@@ -80,8 +80,10 @@ public class StaffController {
     @GetMapping("update/{id}")
     public String editStaffById(@PathVariable("id") Long id, Model model) {
         model.addAttribute("pageName", "Edit Staff Member Profile");
+
         Staff staff = getStaffService.findStaffById(id);
         model.addAttribute("staff", staff);
+
         List<Occupation> occupationList = occupationEnumSorting.getSortedList();
         model.addAttribute("occupationList", occupationList);
 
@@ -92,8 +94,10 @@ public class StaffController {
     @GetMapping(value = "/staff-search")
     public String searchStaff(StaffSearch staffsearch, Model model) {
         model.addAttribute("pageName", "Staff Search");
+
         List<Occupation> occupationList = occupationEnumSorting.getSortedList();
         model.addAttribute("occupationList", occupationList);
+
         return "staff-search";
     }
 
@@ -134,6 +138,7 @@ public class StaffController {
                 //  staffAdd(model,staff);
                 return "staff-add";
             }
+
         }
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
         staff.setPhoto(fileName);
