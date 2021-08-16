@@ -146,7 +146,7 @@
         <div>
             <label for="exampleInputPhoto" class="form-label">Change photo</label>
             <input type="file" class="form-control" name="image" accept="image/jpeg" id="exampleInputPhoto"
-                   aria-describedby="nameHelp" >
+                   aria-describedby="nameHelp">
             <span th:text="${PhotoError}" class="text-danger"></span>
         </div>
 
@@ -200,9 +200,12 @@
             </div>
         </div>
 
-
-        <button type="submit" class="btn btn-primary">Save</button>
-
+        <div class="text-left">
+            <a class="btn btn-secondary btn-sm" th:href="@{/prison-management-system/prisoners}"
+               role="button">Cancel</a>
+<!--            <button class="btn btn-secondary" th:href = "@{/prison-management-system/prisoners}">Cancel</button>-->
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
 
 
     </form>
@@ -225,6 +228,7 @@
 
 
 
+
 </script>
 <script>
     $('.dropdown-mul-1').dropdown({
@@ -235,6 +239,7 @@
         readOnly: true,
         input: '<input type="text" maxLength="20" placeholder="Search">'
     });
+
 
 
 
