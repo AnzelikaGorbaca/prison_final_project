@@ -76,7 +76,7 @@ public class PrisonerController {
     @PostMapping
     public String registerPrisoner(@Valid Prisoner prisoner,
                                    BindingResult result, Model model,
-                                   @RequestParam("image") MultipartFile multipartFile) throws IOException {
+                                   @RequestParam("image") MultipartFile multipartFile) {
 
         if (result.hasErrors()) {
             signUp(model, prisoner);
@@ -102,14 +102,9 @@ public class PrisonerController {
         List<Crime> selectedCrimes = getCrimeService.getCrimesJson(prisoner.getCrimesJson());
         prisoner.setCrimes(selectedCrimes);
 
-        String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
-        prisoner.setPhoto(fileName);
-        Prisoner savedPrisoner = createPrisonerService.registerPrisoner(prisoner);
-        String uploadDir = "photos/" + "prisoner_" + savedPrisoner.getId();
-        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        photoServicePrisoner.uploadPhotoRegister (prisoner, multipartFile);
 
-
-        return prisonerIndex(model);//"redirect:/prison-management-system/prisoners";
+        return prisonerIndex(model);
     }
 
 
@@ -144,12 +139,7 @@ public class PrisonerController {
 
     @GetMapping("/delete/{id}")
     public String deletePrisonerById(@PathVariable("id") Long id, Model model) {
-
-        Path path = Paths.get("photos/" + "prisoner_" + id + "/" + getPrisonerService.getPrisonerById(id).getPhoto());
-        FileUploadUtil.deleteFile(path);
-        Path dir = Paths.get("photos/" + "prisoner_" + id);
-        FileUploadUtil.deleteFile(dir);
-
+        photoServicePrisoner.deletePhoto (id);
         deletePrisonerService.deletePrisoner(id);
         return "redirect:/prison-management-system/prisoners";
     }
@@ -224,29 +214,7 @@ public class PrisonerController {
         }
 
 
-//        Prisoner savedPrisoner = updatePrisonerService.updatePrisoner(id, prisoner);
-
-
-//        if (!multipartFile.isEmpty())
-//            FileUploadUtil.deleteFile(Paths.get("photos/" + "prisoner_" + id + "/" + savedPrisoner.getPhoto()));
-//        try {
-//            String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
-//            String uploadDir = "photos/" + "prisoner_" + id;
-//
-//            if (!fileName.isEmpty()) savedPrisoner.setPhoto(fileName);
-//            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-//            updatePrisonerService.updatePrisoner(id, prisoner);
-//        } catch (RuntimeException | IOException e) {
-//            if (e.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
-//                if ((e.getCause().getCause()).getLocalizedMessage().contains("Duplicate entry")) {
-//                    String errorMessage = ((e.getCause().getCause()).getLocalizedMessage().substring(15, 30));
-//                    model.addAttribute("errorFromController", "Prisoner with personal code " + errorMessage + " already exists");
-//                    return "prisoner-edit";
-//                }
-//            }
-//        }
-
-        return "redirect:/prison-management-system/prisoners/profile/"+id;//prisonerProfileById(id, model);
+        return "redirect:/prison-management-system/prisoners/profile/"+id;
     }
 
 }
