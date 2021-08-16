@@ -35,6 +35,7 @@ public class StaffController {
     private final UpdateStaffService updateStaffService;
     private final OccupationDropDownRestore occupationDropDownRestore;
     private final SearchStaffService searchStaffService;
+    private final PhotoServiceStaff photoServiceStaff;
 
 
     @GetMapping
@@ -109,7 +110,6 @@ public class StaffController {
                                 BindingResult result, Model model,
                                 @RequestParam("image") MultipartFile multipartFile) {
 
-
         if (result.hasErrors()) {
             occupationDropDownRestore.occupationDropDownList(model);
             return "staff-add";
@@ -121,7 +121,6 @@ public class StaffController {
                 occupationDropDownRestore.occupationDropDownList(model);
                 return "staff-add";
             }
-
         }
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
         staff.setPhoto(fileName);
@@ -131,7 +130,6 @@ public class StaffController {
             FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
         } catch (IOException io) {
             staffAdd(model, staff);
-
         }
         createStaffService.registerStaff(staff);
         return staffStart(model);
@@ -141,7 +139,7 @@ public class StaffController {
     public String updateStaff(@PathVariable("id") Long id,
                               @Valid Staff staff,
                               @RequestParam("image") MultipartFile multipartFile,
-                              BindingResult result, Model model) {
+                              BindingResult result, Model model) throws IOException {
         if (result.hasErrors()) {
             occupationDropDownRestore.occupationDropDownList(model);
             return "staff-edit";
@@ -159,29 +157,62 @@ public class StaffController {
                 }
             }
         }
-
-
         Staff savedStaff = updateStaffService.updateStaff(id, staff);
-        if (!multipartFile.isEmpty())
-            FileUploadUtil.deleteFile(Paths.get("photos/" + "staff_" + id + "/" + savedStaff.getPhoto()));
-        try {
-            String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
-            String uploadDir = "photos/" + "staff_" + id;
 
-            if (!fileName.isEmpty()) savedStaff.setPhoto(fileName);
-            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-            updateStaffService.updateStaff(id, staff);
-        } catch (RuntimeException | IOException e) {
-            if (e.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
-                if ((e.getCause().getCause()).getLocalizedMessage().contains("Duplicate entry")) {
-
-                    String errorMessage = ((e.getCause().getCause()).getLocalizedMessage().substring(15, 30));
-                    model.addAttribute("errorFromController", "Staff member with personal code " + errorMessage + " already exists");
-                    occupationDropDownRestore.occupationDropDownList(model);
-                    return "staff-edit";
-                }
+        if (!multipartFile.isEmpty()) {
+            if (photoServiceStaff.checkPhotoForErrorsAndUpload(id, staff, multipartFile)) {
+                model.addAttribute("PhotoError", "Maximum permitted size of photo is 1048576 bytes");
+                editStaffById(id, model);
+                return "staff-edit";
             }
         }
-        return "redirect:/prison-management-system/staffs/profile/"+id;
+        return "redirect:/prison-management-system/staffs/profile/" + id;
     }
 }
+
+// @PostMapping("/update/{id}")
+//    public String updateStaff(@PathVariable("id") Long id,
+//                              @Valid Staff staff,
+//                              @RequestParam("image") MultipartFile multipartFile,
+//                              BindingResult result, Model model) {
+//        if (result.hasErrors()) {
+//            occupationDropDownRestore.occupationDropDownList(model);
+//            return "staff-edit";
+//        }
+//
+//        try {
+//            updateStaffService.updateStaff(id, staff);
+//        } catch (RuntimeException e) {
+//            if (e.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
+//                if ((e.getCause().getCause()).getLocalizedMessage().contains("Duplicate entry")) {
+//                    String errorMessage = ((e.getCause().getCause()).getLocalizedMessage().substring(15, 30));
+//                    model.addAttribute("errorFromController", "Staff with personal code " + errorMessage + " already exists");
+//                    occupationDropDownRestore.occupationDropDownList(model);
+//                    return "staff-edit";
+//                }
+//            }
+//        }
+//        Staff savedStaff = updateStaffService.updateStaff(id, staff);
+//
+//        if (!multipartFile.isEmpty())
+//            FileUploadUtil.deleteFile(Paths.get("photos/" + "staff_" + id + "/" + savedStaff.getPhoto()));
+//        try {
+//            String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
+//            String uploadDir = "photos/" + "staff_" + id;
+//
+//            if (!fileName.isEmpty()) savedStaff.setPhoto(fileName);
+//            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+//            updateStaffService.updateStaff(id, staff);
+//        } catch (RuntimeException | IOException e) {
+//            if (e.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
+//                if ((e.getCause().getCause()).getLocalizedMessage().contains("Duplicate entry")) {
+//
+//                    String errorMessage = ((e.getCause().getCause()).getLocalizedMessage().substring(15, 30));
+//                    model.addAttribute("errorFromController", "Staff member with personal code " + errorMessage + " already exists");
+//                    occupationDropDownRestore.occupationDropDownList(model);
+//                    return "staff-edit";
+//                }
+//            }
+//        }
+//        return "redirect:/prison-management-system/staffs/profile/"+id;
+//    }
