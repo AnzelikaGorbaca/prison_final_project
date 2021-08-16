@@ -16,16 +16,18 @@
     <h1> Prison Management System </h1>
 </div>
 
-
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link" href="/prison-management-system">Home</a>
                 </li>
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPrisoner" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -40,7 +42,6 @@
                         </li>
                     </ul>
                 </li>
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle active" aria-current="page" href="#" id="navbarDropdownStaff"
                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -51,11 +52,10 @@
                             Member</a></li>
                         <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-search">Search Staff
                             Member</a></li>
-                        <li><a class="dropdown-item active" href="/prison-management-system/staffs">View All Staff
+                        <li><a class="dropdown-item active" style="background-color: #212529" href="/prison-management-system/staffs">View All Staff
                             Members</a></li>
                     </ul>
                 </li>
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCrime" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -67,7 +67,6 @@
                         <li><a class="dropdown-item" href="/prison-management-system/crimes">View all Crimes</a></li>
                     </ul>
                 </li>
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPunishment" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -105,12 +104,6 @@
                     </ul>
                 </li>
             </ul>
-
-
-<!--            <form class="d-flex">-->
-<!--                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
-<!--                <button class="btn btn-outline-primary" type="submit">Search</button>-->
-<!--            </form>-->
         </div>
     </div>
 </nav>
@@ -128,9 +121,7 @@
                        data-filter-control="true"
                        data-search="true"
                        id="table">
-
                     <thead>
-
                     <tr>
                         <th data-field="Id" data-filter-control="input">Id</th>
                         <th data-field="Name" data-filter-control="input">Name</th>
@@ -139,7 +130,6 @@
                         <th data-field="Personal Code" data-filter-control="input">Personal Code</th>
                         <th>Phone Number</th>
                         <th>View Profile</th>
-
                     </thead>
                     <tbody>
                     <tr th:each="staff : ${staffs}">
@@ -152,7 +142,6 @@
                         <td style="text-align:center"><a
                                 th:href="@{/prison-management-system/staffs/profile/{id}(id=${staff.id})}"
                                 class="btn btn-primary"><i class="fas fa-address-card"></i></a></td>
-
                     </tr>
                     </tbody>
                 </table>

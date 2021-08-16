@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
 
-
     <style type="text/css">
     body {
     margin: 0;
@@ -16,7 +15,6 @@
     .account-settings .user-profile {
     margin: 0 0 1rem 0;
     text-align: center;
-
     }
     .account-settings .user-profile .user-avatar {
     margin: 0 0 1rem 0;
@@ -36,34 +34,12 @@
     max-width: 80%;
     max-height:90 px
     }
-
- .account-settings .user-profile .user-avatar-img .file {
-position: relative;
-overflow: hidden;
-margin-top: 5%;
-width: 70%;
-border: none;
-border-radius: .2rem;
-font-size: .875rem;
-color: #fff;
-background: #6c757d;
-    border-color: #6c757d;
-}
- .account-settings .user-profile .user-avatar-img .file input {
-position: absolute;
-opacity: 0;
-right: 0;
-top: 0;
-}
-
     .account-settings .user-profile {
     margin: 0 0 0.5rem 0;
     }
-
     .account-settings .user-profile .name-name h5 {
     padding-top: 250px;
     }
-
     .account-settings .about {
     margin: 2rem 0 0 0;
     text-align: center;
@@ -72,15 +48,12 @@ top: 0;
     margin: 0 0 15px 0;
     color: #007ae1;
     }
-
     .form-group {
     margin-top: 3%;
-
     }
     .form-group label{
     margin-bottom: 1%
     }
-
     .form-control {
     border: 1px solid #cfd1d8;
     -webkit-border-radius: 2px;
@@ -90,7 +63,6 @@ top: 0;
     background: #ffffff;
     color: #2e323c;
     }
-
     .card {
     background: #ffffff;
     -webkit-border-radius: 5px;
@@ -106,11 +78,9 @@ top: 0;
     .d-grid{
     margin-top: 10px;
     }
-
     .h2
     margin: 5px 0 5px 0;
     }
-
 
     </style>
 
@@ -118,94 +88,105 @@ top: 0;
 <body class="container">
 
 <div style="text-align: center;">
-    <h1>   Prison Management System   </h1>
+    <h1> Prison Management System </h1>
 </div>
 
-
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link"  href="/prison-management-system">Home</a>
+                    <a class="nav-link" href="/prison-management-system">Home</a>
                 </li>
-
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPrisoner" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPrisoner" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         Prisoner
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-add">Add Prisoner</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-search">Search Prisoner</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/prisoners">View all Prisoners</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-add">Add
+                            Prisoner</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-search">Search
+                            Prisoner</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/prisoners">View all Prisoners</a>
+                        </li>
                     </ul>
                 </li>
-
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active" aria-current="page" href="#" id="navbarDropdownStaff" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle active" aria-current="page" href="#" id="navbarDropdownStaff"
+                       role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Staff
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-add">Add Staff Member</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-search">Search Staff Member</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/staffs">View all Staff Members</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-add">Add Staff
+                            Member</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-search">Search Staff
+                            Member</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs">View all Staff Members</a>
+                        </li>
                     </ul>
                 </li>
-
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCrime" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCrime" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         Crime
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/prison-management-system/crimes/crime-add">Add Crime</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/crimes/crime-add">Add Crime</a>
+                        </li>
                         <li><a class="dropdown-item" href="/prison-management-system/crimes">View all Crimes</a></li>
                     </ul>
                 </li>
-
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPunishment" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPunishment" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         Punishment
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/prison-management-system/punishments/punishment-add">Add Punishment</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/punishments">View all Punishments</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/punishments/punishment-add">Add
+                            Punishment</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/punishments">View all
+                            Punishments</a></li>
                     </ul>
                 </li>
-
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCapacity" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCapacity" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         Capacity
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-now">Check current</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-otherDay">Check on other date</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-now">Check
+                            current</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-otherDay">Check
+                            on other date</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStatistics" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStatistics" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         Statistics
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/prison-management-system/statistics-duration">By Imprisonment Duration</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/statistics-crimes">By Crimes Committed</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-duration">By
+                            Imprisonment Duration</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-crimes">By Crimes
+                            Committed</a></li>
                     </ul>
                 </li>
             </ul>
-<!--            <form class="d-flex">-->
-<!--                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
-<!--                <button class="btn btn-outline-primary" type="submit">Search</button>-->
-<!--            </form>-->
-
         </div>
     </div>
 </nav>
-
 <br>
 <h2>Staff Member Profile</h2>
-<!--<h2 th:text="${pageName}"></h2>-->
 <br>
-<div th:object="${staff}" method="post" th:action="@{/prison-management-system/staffs/profile/{id}(id=${staff.id})}" class="container">
+<div th:object="${staff}" method="post" th:action="@{/prison-management-system/staffs/profile/{id}(id=${staff.id})}"
+     class="container">
     <div class="row gutters">
         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
             <div class="card h-100">
@@ -213,24 +194,12 @@ top: 0;
                     <div class="account-settings">
                         <div class="user-profile">
                             <div class="user-avatar-img">
-<!--                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin"/>-->
-
-<!--                                <div class="file btn btn-sm btn-primary">-->
-
-                                    <img th:src="@{${staff.getStaffPhotoImagePath}}"/>
-
-<!--                                <div class="file btn btn-sm btn-secondary">-->
-<!--&lt;!&ndash;                                        <a href="#" class="btn btn-secondary btn-lg disabled" tabindex="-1" role="button" aria-disabled="true">Link</a>&ndash;&gt;-->
-<!--                                    Change Photo-->
-<!--                                    <input type="file" name="file"/>-->
-<!--                                </div>-->
-
+                                <img th:src="@{${staff.getStaffPhotoImagePath}}"/>
                             </div>
                             <div class="name-name">
-                                <h5 th:text="${staff.name}+ ' ' +${staff.surname}" class="user-name" style="font-weight:bold"></h5>
-
+                                <h5 th:text="${staff.name}+ ' ' +${staff.surname}" class="user-name"
+                                    style="font-weight:bold"></h5>
                             </div>
-
                         </div>
                         <div class="about">
                             <label>Staff Member Number</label>
@@ -240,8 +209,9 @@ top: 0;
                 </div>
             </div>
         </div>
-        <div  class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-            <form th:object="${staff}" method="post" th:action="@{/prison-management-system/staffs/profile/{id}(id=${staff.id})}">
+        <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+            <form th:object="${staff}" method="post"
+                  th:action="@{/prison-management-system/staffs/profile/{id}(id=${staff.id})}">
                 <div class="card h-100">
                     <div class="card-body">
                         <div class="row gutters">
@@ -251,55 +221,60 @@ top: 0;
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="exampleInputName">Name</label>
-                                    <input type="text" class="form-control" required th:field="*{name}" id="exampleInputName"
+                                    <input type="text" class="form-control" required th:field="*{name}"
+                                           id="exampleInputName"
                                            aria-describedby="nameHelp" readonly="readonly">
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label for="exampleInputSurname" >Surname</label>
-                                    <input type="text" class="form-control" required th:field="*{surname}" id="exampleInputSurname"
+                                    <label for="exampleInputSurname">Surname</label>
+                                    <input type="text" class="form-control" required th:field="*{surname}"
+                                           id="exampleInputSurname"
                                            aria-describedby="usernameHelp" readonly="readonly">
                                     <div id="usernameHelp" class="form-text"></div>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label for="exampleInputPersonalCode" >Personal Code</label>
-                                    <input type="text" th:field="*{personalCode}" required class="form-control" id="exampleInputPersonalCode" readonly="readonly">
+                                    <label for="exampleInputPersonalCode">Personal Code</label>
+                                    <input type="text" th:field="*{personalCode}" required class="form-control"
+                                           id="exampleInputPersonalCode" readonly="readonly">
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label for="exampleInputPhoneNumber" >Phone Number</label>
-                                    <input type="text" th:field="*{phoneNumber}" required class="form-control" id="exampleInputPhoneNumber" readonly="readonly">
+                                    <label for="exampleInputPhoneNumber">Phone Number</label>
+                                    <input type="text" th:field="*{phoneNumber}" required class="form-control"
+                                           id="exampleInputPhoneNumber" readonly="readonly">
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label for="exampleInputOccupation" >Occupation</label>
-                                    <input type="text" th:field="*{occupation}" required class="form-control" id="exampleInputOccupation" readonly="readonly">
+                                    <label for="exampleInputOccupation">Occupation</label>
+                                    <input type="text" th:field="*{occupation}" required class="form-control"
+                                           id="exampleInputOccupation" readonly="readonly">
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label for="exampleInputAddress" >Address</label>
-                                    <input type="text" th:field="*{address}" required class="form-control" id="exampleInputAddress" readonly="readonly">
+                                    <label for="exampleInputAddress">Address</label>
+                                    <input type="text" th:field="*{address}" required class="form-control"
+                                           id="exampleInputAddress" readonly="readonly">
                                 </div>
                             </div>
                         </div>
                         <div class="row gutters">
-                            <!--                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">-->
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                 <div class="text-right">
-                                    <a class="btn btn-secondary btn-sm" th:href="@{/prison-management-system/staffs}" role="button">Cancel</a>
-<!--                                    <button type="cancel" id="cancel" name="cancel" class="btn btn-secondary btn-sm">Cancel</button>-->
-                                    <a class="btn btn-primary btn-sm" th:href="@{/prison-management-system/staffs/update/{id}(id=${staff.id})}"
+                                    <a class="btn btn-secondary btn-sm" th:href="@{/prison-management-system/staffs}"
+                                       role="button">Cancel</a>
+                                    <a class="btn btn-primary btn-sm"
+                                       th:href="@{/prison-management-system/staffs/update/{id}(id=${staff.id})}"
                                        role="button">Edit profile</a>
-<!--                                    <button type="submit" id="submit" name="submit" class="btn btn-primary btn-sm">Edit profile</button>-->
-                                    <a class="btn btn-danger btn-sm" th:href="@{/prison-management-system/staffs/delete/{id}(id=${staff.id})}" role="button">Delete Profile</a>
-
-
+                                    <a class="btn btn-danger btn-sm"
+                                       th:href="@{/prison-management-system/staffs/delete/{id}(id=${staff.id})}"
+                                       role="button">Delete Profile</a>
                                 </div>
                             </div>
                         </div>

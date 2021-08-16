@@ -19,16 +19,18 @@
     <h1> Prison Management System </h1>
 </div>
 
-
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link" href="/prison-management-system">Home</a>
                 </li>
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle  active" aria-current="page" href="#" id="navbarDropdownPrisoner"
                        role="button"
@@ -42,7 +44,6 @@
                         </li>
                     </ul>
                 </li>
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStaff" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -57,7 +58,6 @@
                         </li>
                     </ul>
                 </li>
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCrime" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,6 @@
                         <li><a class="dropdown-item" href="/prison-management-system/crimes">View all Crimes</a></li>
                     </ul>
                 </li>
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPunishment" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -93,7 +92,6 @@
                             on other date</a></li>
                     </ul>
                 </li>
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStatistics" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -107,16 +105,12 @@
                     </ul>
                 </li>
             </ul>
-<!--            <form class="d-flex">-->
-<!--                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
-<!--                <button class="btn btn-outline-primary" type="submit">Search</button>-->
-<!--            </form>-->
         </div>
     </div>
 </nav>
-
+<br>
 <h2 th:text="${pageName}"></h2>
-
+<br>
 <div class="col-md-3"></div>
 <div class="col-md-4">
     <form th:object="${prisoner}" method="post"
@@ -134,7 +128,6 @@
                    aria-describedby="usernameHelp">
             <div id="usernameHelp" class="form-text"></div>
             <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="text-danger"></span>
-
         </div>
         <div class="mb-3">
             <label for="exampleInputPersonalCode" class="form-label">Personal Code</label>
@@ -142,20 +135,17 @@
             <span th:if="${#fields.hasErrors('personalCode')}" th:errors="*{personalCode}" class="text-danger"></span>
             <span th:text="${errorFromController}" class="text-danger"></span>
         </div>
-
         <div>
             <label for="exampleInputPhoto" class="form-label">Change photo</label>
             <input type="file" class="form-control" name="image" accept="image/jpeg" id="exampleInputPhoto"
                    aria-describedby="nameHelp">
             <span th:text="${PhotoError}" class="text-danger"></span>
         </div>
-
         <div class="mb-3">
             <label for="exampleInputAddress" class="form-label">Address</label>
             <input type="text" th:field="*{address}" required class="form-control" id="exampleInputAddress">
             <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-danger"></span>
         </div>
-
         <div class="mb-3">
             <label for="exampleDataListCrimes" class="form-label">Change existing crimes</label>
             <br>
@@ -175,15 +165,11 @@
             <span th:if="${#fields.hasErrors('crimes')}" th:errors="*{crimes}" class="text-danger"></span>
             <span th:text="${errorForCrime}" class="text-danger"></span>
         </div>
-
-
         <div class="mb-3">
             <label for="exampleInputStartDate" class="form-label">Start Date</label>
             <input type="date" th:field="*{startDate}" required class="form-control" id="exampleInputStartDate">
             <span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" class="text-danger"></span>
         </div>
-
-
         <div class="mb-3">
             <label for="exampleDataListPunishment" class="form-label">Imprisonment Months</label>
             <div class="row">
@@ -199,15 +185,13 @@
                 </div>
             </div>
         </div>
-
         <div class="text-left">
             <button class="btn btn-secondary" th:href="@{/prison-management-system/prisoners}"
-               role="button">Cancel</button>
-<!--            <button class="btn btn-secondary" th:href = "@{/prison-management-system/prisoners}">Cancel</button>-->
+                    role="button">Cancel
+            </button>
+            <!--            <button class="btn btn-secondary" th:href = "@{/prison-management-system/prisoners}">Cancel</button>-->
             <button type="submit" class="btn btn-primary">Save</button>
         </div>
-
-
     </form>
 </div>
 
@@ -226,9 +210,6 @@
     today = yyyy+'-'+mm+'-'+dd;
     document.getElementById("exampleInputStartDate").setAttribute("max", today);
 
-
-
-
 </script>
 <script>
     $('.dropdown-mul-1').dropdown({
@@ -239,9 +220,6 @@
         readOnly: true,
         input: '<input type="text" maxLength="20" placeholder="Search">'
     });
-
-
-
 
 </script>
 
