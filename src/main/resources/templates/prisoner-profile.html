@@ -18,14 +18,16 @@
     var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-  + minutes + "m " + seconds + "s ";
-  if (distance < 0) {
+    document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+     + minutes + "m " + seconds + "s ";
+    if (distance < 0) {
     clearInterval(x);
     document.getElementById("demo").innerHTML = "FREED";
-  }
-}, 1000);
-                            </script>
+    }
+    }, 1000);
+
+
+    </script>
     <style type="text/css">
        body {
     margin: 0;
@@ -37,7 +39,6 @@
     .account-settings .user-profile {
     margin: 0 0 1rem 0;
     text-align: center;
-
     }
     .account-settings .user-profile .user-avatar {
     margin: 0 0 1rem 0;
@@ -57,35 +58,9 @@
     max-width: 100%;
     max-height: 100%
     }
-
-
- .account-settings .user-profile .user-avatar-img .file {
-position: relative;
-overflow: hidden;
-margin-top: 5%;
-width: 70%;
-border: none;
-border-radius: .2rem;
-font-size: .875rem;
-color: #fff;
-background: #6c757d;
-    border-color: #6c757d;
-}
- .account-settings .user-profile .user-avatar-img .file input {
-position: absolute;
-opacity: 0;
-right: 0;
-top: 0;
-}
-
-<!--    .account-settings .user-profile {-->
-<!--    margin: 0 0 0.5rem 0;-->
-<!--    }-->
-
     .account-settings .user-profile .name-name  h5 {
     padding-top: 250px;
     }
-
     .account-settings .about {
     margin: 2rem 0 0 0;
     text-align: center;
@@ -94,15 +69,12 @@ top: 0;
     margin: 0 0 15px 0;
     color: #007ae1;
     }
-
     .form-group {
     margin-top: 3%;
-
     }
     .form-group label{
     margin-bottom: 1%
     }
-
     .form-control {
     border: 1px solid #cfd1d8;
     -webkit-border-radius: 2px;
@@ -112,7 +84,6 @@ top: 0;
     background: #ffffff;
     color: #2e323c;
     }
-
     .card {
     background: #ffffff;
     -webkit-border-radius: 5px;
@@ -128,31 +99,31 @@ top: 0;
     .d-grid{
     margin-top: 10px;
     }
-
     p {
-  text-align: center;
-  font-size: 25px;
-  margin-top: 0px;
-}
+     text-align: center;
+     font-size: 25px;
+    margin-top: 0px;
+    }
 
 
     </style>
-
 </head>
 <body class="container">
 <div style="text-align: center;">
     <h1> Prison Management System </h1>
 </div>
 
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link" href="/prison-management-system">Home</a>
                 </li>
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle  active" aria-current="page" href="#" id="navbarDropdownPrisoner"
                        role="button"
@@ -168,7 +139,6 @@ top: 0;
                         </li>
                     </ul>
                 </li>
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStaff" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -183,7 +153,6 @@ top: 0;
                         </li>
                     </ul>
                 </li>
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCrime" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -195,7 +164,6 @@ top: 0;
                         <li><a class="dropdown-item" href="/prison-management-system/crimes">View all Crimes</a></li>
                     </ul>
                 </li>
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPunishment" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -232,17 +200,11 @@ top: 0;
                             Committed</a></li>
                     </ul>
                 </li>
-
             </ul>
-<!--            <form class="d-flex">-->
-<!--                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
-<!--                <button class="btn btn-outline-primary" type="submit">Search</button>-->
-<!--            </form>-->
         </div>
     </div>
 </nav>
 <br>
-<!--<h2 th:text="${pageName}"></h2>-->
 <h2>Prisoner Profile</h2><br>
 <div th:object="${prisoner}" method="post"
      th:action="@{/prison-management-system/prisoners/profile/{id}(id=${prisoner.id})}" class="container">
@@ -254,21 +216,10 @@ top: 0;
                         <div class="user-profile">
                             <div class="user-avatar-img">
                                 <img th:src="@{${prisoner.getPhotoImagePath}}"/>
-                                <!--                                <div class="file btn btn-sm btn-secondary">-->
-                                <!--                                    &lt;!&ndash;                                        <a href="#" class="btn btn-secondary btn-lg disabled" tabindex="-1" role="button" aria-disabled="true">Link</a>&ndash;&gt;-->
-                                <!--                                    Change Photo-->
-
-                                <!--                                    <input type="file" name="image" accept="image/jpeg" id="exampleInputPhoto"/>-->
-                                <!--                                </div>-->
-                                <!--                                <div>-->
-                                <!--                                    <label for="exampleInputPhoto" class="form-label"> Change Photo:</label>-->
-                                <!--                                    <input type="file" class="form-control" name="image" accept="image/jpeg" id="exampleInputPhoto">-->
-                                <!--                                </div>-->
                             </div>
                             <div class="name-name">
                                 <h5 th:text="${prisoner.name}+ ' ' +${prisoner.surname}" style="font-weight:bold"></h5>
                             </div>
-
                         </div>
                         <div class="about">
                             <label>Prisoner Number</label>
@@ -277,7 +228,6 @@ top: 0;
                         <div class="countdown" style="text-align: center">
                             <label>Time till emancipation:</label>
                             <p id="demo"></p>
-
                         </div>
                     </div>
                 </div>
@@ -298,7 +248,6 @@ top: 0;
                                     <input type="text" class="form-control" th:field="*{name}"
                                            id="exampleInputName"
                                            aria-describedby="nameHelp" readonly="readonly">
-
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -308,7 +257,6 @@ top: 0;
                                            id="exampleInputSurname"
                                            aria-describedby="usernameHelp" readonly="readonly">
                                     <div id="usernameHelp" class="form-text"></div>
-
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -316,7 +264,6 @@ top: 0;
                                     <label for="exampleInputPersonalCode">Personal Code</label>
                                     <input type="text" th:field="*{personalCode}" class="form-control"
                                            id="exampleInputPersonalCode" readonly="readonly">
-
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -324,32 +271,19 @@ top: 0;
                                     <label for="exampleInputAddress">Address</label>
                                     <input type="text" th:field="*{address}" class="form-control"
                                            id="exampleInputAddress" readonly="readonly">
-
                                 </div>
                             </div>
-                            <!--                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">-->
-                            <!--                                <div class="form-group">-->
-                            <!--                                    <label for="exampleInputPhoto">Change photo</label>-->
-                            <!--                                    <input type="file" class="form-control" name="image" accept="image/jpeg"-->
-                            <!--                                           aria-describedby="nameHelp">-->
-                            <!--                                   <label for="exampleInputPhoto" class="form-label"> Change Photo:</label>-->
-                            <!--  <input type="file" class="form-control" name="image" accept="image/jpeg" id="exampleInputPhoto">-->
-                            <!--                                </div>-->
-                            <!--                            </div>-->
-
                         </div>
                         <div class="row gutters">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <h6 class="mt-3 mb-2 text-primary">Imprisonment Details</h6>
                             </div>
-
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="exampleInputStartDate">Start Date</label>
                                     <input type="text" th:field="*{startDate}" class="form-control"
                                            id="exampleInputStartDate" readonly="readonly">
                                 </div>
-
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
@@ -364,7 +298,6 @@ top: 0;
                                     <input class="form-control" th:value="${prisoner.crimeDescriptions}"
                                            id="exampleDataListCrimes" readonly="readonly">
                                 </div>
-
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
@@ -372,32 +305,20 @@ top: 0;
                                     <input class="form-control" th:field="*{punishment.imprisonmentMonths}"
                                            th:value="${prisoner.punishment.imprisonmentMonths}"
                                            id="exampleDataListPunishment" readonly="readonly">
-
                                 </div>
                             </div>
-
                         </div>
                         <div class="row gutters">
-                            <!--                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">-->
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                 <div class="text-right">
                                     <a class="btn btn-secondary btn-sm" th:href="@{/prison-management-system/prisoners}"
                                        role="button">Cancel</a>
-                                    <!--                                    <button type="button" id="submit" name="submit" class="btn btn-secondary btn-sm">Cancel</button>-->
-
-                                    <!--                                    <button type="submit" id="submit" name="submit" class="btn btn-primary btn-sm">-->
-                                    <!--                                        Edit profile-->
-                                    <!--                                    </button>-->
-
                                     <a class="btn btn-primary btn-sm"
                                        th:href="@{/prison-management-system/prisoners/update/{id}(id=${prisoner.id})}"
                                        role="button">Edit profile</a>
-                                    <!--                                    <button type="button" id="submit" name="submit" class="btn btn-primary btn-sm"> Edit profile</button>-->
-
                                     <a class="btn btn-danger btn-sm"
                                        th:href="@{/prison-management-system/prisoners/delete/{id}(id=${prisoner.id})}"
                                        role="button">Delete Profile</a>
-
                                 </div>
                             </div>
                         </div>

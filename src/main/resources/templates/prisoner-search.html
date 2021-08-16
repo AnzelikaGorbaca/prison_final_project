@@ -1,6 +1,5 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-
     <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
 
@@ -15,21 +14,21 @@
     <script th:src="@{~/js/jquery.dropdown.js}"></script>
 </head>
 <body class="container">
-
 <div style="text-align: center;">
     <h1> Prison Management System </h1>
 </div>
-
-
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+<nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
     <div class="container-fluid">
-
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link" href="/prison-management-system">Home</a>
                 </li>
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle active" aria-current="page" href="#" id="navbarDropdownPrisoner"
                        role="button"
@@ -39,13 +38,13 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-add">Add
                             Prisoner</a></li>
-                        <li><a class="dropdown-item active" href="/prison-management-system/prisoners/prisoner-search">Search
+                        <li><a class="dropdown-item active" style="background-color: #212529"
+                               href="/prison-management-system/prisoners/prisoner-search">Search
                             Prisoner</a></li>
                         <li><a class="dropdown-item" href="/prison-management-system/prisoners">View all Prisoners</a>
                         </li>
                     </ul>
                 </li>
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStaff" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -60,7 +59,6 @@
                         </li>
                     </ul>
                 </li>
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCrime" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -72,7 +70,6 @@
                         <li><a class="dropdown-item" href="/prison-management-system/crimes">View all Crimes</a></li>
                     </ul>
                 </li>
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPunishment" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -109,12 +106,7 @@
                             Committed</a></li>
                     </ul>
                 </li>
-
             </ul>
-<!--            <form class="d-flex">-->
-<!--                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
-<!--                <button class="btn btn-outline-primary" type="submit">Search</button>-->
-<!--            </form>-->
         </div>
     </div>
 </nav>
@@ -125,7 +117,6 @@
 <div class="col-md-4">
     <form th:object="${prisonerSearch}" method="post"
           th:action="@{/prison-management-system/prisoners/prisoner-search-result}">
-
         <div class="mb-3">
             <div>
                 <br>
@@ -139,7 +130,6 @@
             </select>
         </div>
 
-
         <div class="mb-3">
             <div>
                 <br>
@@ -149,7 +139,6 @@
                    aria-describedby="nameHelp">
             <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
         </div>
-
 
         <div class="mb-3">
             <label for="exampleInputSurname" class="form-label">Surname</label>
@@ -163,7 +152,6 @@
             <label for="exampleInputPersonalCode" class="form-label">Personal Code</label>
             <input type="text" th:field="*{personalCode}" class="form-control" id="exampleInputPersonalCode">
             <span th:if="${#fields.hasErrors('personalCode')}" th:errors="*{personalCode}" class="text-danger"></span>
-
 
             <div class="mb-3">
                 <label for="exampleInputAddress" class="form-label">Address</label>
@@ -193,7 +181,6 @@
                 <span th:text="${errorForCrime}" class="text-danger"></span>
             </div>
 
-
             <div class="mb-3">
                 <label for="exampleDataListPunishment" class="form-label"> Imprisonment Months</label>
                 <select th:field="*{punishment}" class="form-control" id="exampleDataListPunishment">
@@ -208,7 +195,6 @@
                 </select>
                 <span th:if="${#fields.hasErrors('punishment')}" th:errors="*{punishment}" class="text-danger"></span>
             </div>
-
         </div>
 
         <div class="mb-3">
@@ -224,7 +210,6 @@
         </div>
         <br>
         <button type="submit" class="btn btn-primary">Submit</button>
-
 
     </form>
 </div>

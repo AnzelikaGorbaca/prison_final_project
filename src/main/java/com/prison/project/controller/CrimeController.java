@@ -39,7 +39,6 @@ public class CrimeController {
 
     @GetMapping ("/crime-add")
     public String addCrime(Model map, Crime crime){
-        map.addAttribute("pageName", "Add New Crime");
         return "crime-add";    }
 
 

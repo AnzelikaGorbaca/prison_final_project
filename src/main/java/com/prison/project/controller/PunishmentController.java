@@ -35,8 +35,6 @@ public class PunishmentController {
 
     @GetMapping("/punishment-add")
     public String addPunishment(Model map, Punishment punishment){
-        map.addAttribute("pageName", "Add New Punishment");
-
         return "punishment-add";
     }
 

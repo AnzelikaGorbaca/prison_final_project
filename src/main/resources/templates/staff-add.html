@@ -9,16 +9,18 @@
     <h1> Prison Management System </h1>
 </div>
 
-
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link"  href="/prison-management-system">Home</a>
+                    <a class="nav-link" href="/prison-management-system">Home</a>
                 </li>
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPrisoner" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -27,24 +29,27 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-add">Add
                             Prisoner</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-search">Search Prisoner</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-search">Search
+                            Prisoner</a></li>
                         <li><a class="dropdown-item" href="/prison-management-system/prisoners">View all Prisoners</a>
                         </li>
                     </ul>
                 </li>
-
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle  active" aria-current="page" href="#" id="navbarDropdownStaff" role="button"
+                    <a class="nav-link dropdown-toggle  active" aria-current="page" href="#" id="navbarDropdownStaff"
+                       role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         Staff
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item active" href="/prison-management-system/staffs/staff-add">Add Staff Member</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-search">Search Staff Member</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/staffs">View All Staff Members</a></li>
+                        <li><a class="dropdown-item active" style="background-color: #212529" href="/prison-management-system/staffs/staff-add">Add Staff
+                            Member</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-search">Search Staff
+                            Member</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs">View All Staff Members</a>
+                        </li>
                     </ul>
                 </li>
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCrime" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -56,7 +61,6 @@
                         <li><a class="dropdown-item" href="/prison-management-system/crimes">View all Crimes</a></li>
                     </ul>
                 </li>
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPunishment" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -70,29 +74,30 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCapacity" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCapacity" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         Capacity
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-now">Check current</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-otherDay">Check on other date</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-now">Check
+                            current</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-otherDay">Check
+                            on other date</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStatistics" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStatistics" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         Statistics
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/prison-management-system/statistics-duration">By Imprisonment Duration</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/statistics-crimes">By Crimes Committed</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-duration">By
+                            Imprisonment Duration</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-crimes">By Crimes
+                            Committed</a></li>
                     </ul>
                 </li>
-
             </ul>
-<!--            <form class="d-flex">-->
-<!--                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
-<!--                <button class="btn btn-outline-primary" type="submit">Search</button>-->
-<!--            </form>-->
         </div>
     </div>
 </nav>
@@ -101,7 +106,8 @@
 <br>
 <div class="col-md-3"></div>
 <div class="col-md-4">
-    <form th:object="${staff}" method="post" th:action="@{/prison-management-system/staffs}" enctype="multipart/form-data">
+    <form th:object="${staff}" method="post" th:action="@{/prison-management-system/staffs}"
+          enctype="multipart/form-data">
         <div class="mb-3">
             <label for="exampleInputName" class="form-label">Name</label>
             <input type="text" class="form-control" required th:field="*{name}" id="exampleInputName"
@@ -114,7 +120,6 @@
                    aria-describedby="usernameHelp">
             <div id="usernameHelp" class="form-text"></div>
             <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="text-danger"></span>
-
         </div>
         <div class="mb-3">
             <label for="exampleInputPersonalCode" class="form-label">Personal Code</label>
@@ -122,7 +127,6 @@
             <span th:if="${#fields.hasErrors('personalCode')}" th:errors="*{personalCode}" class="text-danger"></span>
             <span th:text="${errorFromController}" class="text-danger"></span>
         </div>
-
         <div class="mb-3">
             <label for="exampleInputPhoto" class="form-label">Photo:</label>
             <input type="file" class="form-control" name="image" accept="image/jpeg" id="exampleInputPhoto">
@@ -147,17 +151,14 @@
             </select>
             <span th:if="${#fields.hasErrors('occupation')}" th:errors="*{occupation}" class="text-danger"></span>
         </div>
-
         <div class="mb-3">
             <label for="exampleInputAddress" class="form-label">Address</label>
             <input type="text" th:field="*{address}" required class="form-control" id="exampleInputAddress">
             <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-danger"></span>
         </div>
-
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
-
 
 </body>
 </html>
