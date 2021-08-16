@@ -8,9 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.util.ReflectionTestUtils;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 
@@ -23,9 +21,7 @@ class DeletePunishmentServiceTest {
 
     @Test
     void shouldDeletePunishment() {
-        final Punishment punishment = new Punishment();
-        punishment.setId(15L);
-        ReflectionTestUtils.setField(punishment, "imprisonmentMonths", 12);
+        final Punishment punishment = new Punishment(15L, 12);
 
         doNothing().when(punishmentRepository).deleteById(15L);
         deletePunishmentService.deletePunishment(15L);

@@ -1,6 +1,5 @@
 package com.prison.project.controller;
 
-import com.prison.project.model.Prisoner;
 import com.prison.project.service.prisoner.GetPrisonerService;
 import com.prison.project.service.statistics.StatisticsService;
 import lombok.RequiredArgsConstructor;
@@ -8,9 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Controller
