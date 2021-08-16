@@ -2,6 +2,7 @@ package com.prison.project.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.format.annotation.DateTimeFormat;;
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class PrisonerSearch {
 
     private String name;
