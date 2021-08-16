@@ -62,8 +62,9 @@ class UpdatePrisonerServiceTest {
         when(prisonerRepository.save(existingPrisoner)).thenReturn(existingPrisoner);
         Prisoner updatedPrisoner = updatePrisonerService.updatePrisoner(2L, updatePrisoner);
 
-        assertEquals(updatedPrisoner, existingPrisoner);
-        assertEquals(updatedPrisoner.getPunishment(), existingPrisoner.getPunishment());
+        assertEquals(existingPrisoner,updatedPrisoner);
+        assertEquals(existingPrisoner.getPunishment(),updatedPrisoner.getPunishment());
+        assertEquals(existingPrisoner.getPhoto(), updatedPrisoner.getPhoto());
         assertEquals(1L, updatedPrisoner.getPunishmentId());
 
         verify(prisonerRepository).findById(2L);
