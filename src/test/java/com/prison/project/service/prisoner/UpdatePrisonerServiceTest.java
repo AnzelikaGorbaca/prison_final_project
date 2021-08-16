@@ -43,7 +43,7 @@ class UpdatePrisonerServiceTest {
     Punishment newPunishment = new Punishment(1L, 5);
 
     Prisoner updatePrisoner = new Prisoner(2L, "Karlis", "Upitis", "310855-10605",
-            "Dzirnavu iela 15-3", startDate, endDate, "janis.jpg", true,
+            "Dzirnavu iela 15-3", startDate, endDate, "karlis.jpg", true,
             "In Prison", crimes, newPunishment, 1L, "Robbery");
 
     @Test
