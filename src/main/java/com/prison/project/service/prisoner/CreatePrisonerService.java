@@ -19,16 +19,19 @@ public class CreatePrisonerService {
     private final PunishmentRepository punishmentRepository;
     private final StatusPrisonerService statusPrisonerService;
 
-    public Prisoner registerPrisoner (Prisoner prisoner) {
+    public Prisoner registerPrisoner(Prisoner prisoner) {
         Punishment punishment = punishmentRepository.getById(prisoner.getPunishmentId());
         prisoner.setPunishment(punishment);
-        var endDate = prisoner.getStartDate().plusMonths(punishment.getImprisonmentMonths());
+        var endDate = calculateEndDate(prisoner, punishment);
         prisoner.setEndDate(endDate);
         statusPrisonerService.checkIfInPrisonAndSetStatus(prisoner);
         prisonerRepository.save(prisoner);
         return prisoner;
     }
 
+    private LocalDate calculateEndDate(Prisoner prisoner, Punishment punishment) {
+        return prisoner.getStartDate().plusMonths(punishment.getImprisonmentMonths());
+    }
 
 
 }
