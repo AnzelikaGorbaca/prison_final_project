@@ -1,7 +1,9 @@
 package com.prison.project.model;
 
 import com.prison.project.exception.BadRequestException;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.UniqueElements;
 
@@ -15,6 +17,8 @@ import java.util.List;
 @Data
 @Entity
 @Table(name="staff")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Staff {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
