@@ -50,17 +50,6 @@ public class Prisoner {
     private String status;
 
 
-//    @ManyToMany(fetch = EAGER)
-//    @JoinTable(
-//            name = "crime_prisoner",
-//            joinColumns = @JoinColumn(
-//                    name = "prisoner_id", referencedColumnName = "id"),
-//            inverseJoinColumns = @JoinColumn(
-//                    name = "crime_id", referencedColumnName = "id"
-//            )
-//    )
-//    private List<Crime> crimes;
-
 
     @ManyToMany
     @JoinTable(name = "prisoner_crime",
@@ -76,7 +65,6 @@ public class Prisoner {
     private Punishment punishment;
 
     @Transient
-//    @NotNull(message = "Punishment is required")
     private Long punishmentId;
     @Transient
     private String crimesJson;
