@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,6 +25,9 @@ class GetCrimeServiceTest {
 
     @Mock
     private CrimeRepository repository;
+
+    private final List<Crime> crimes = Arrays.asList(new Crime(1L, "Murder"), new Crime(2L, "Robbery"));
+
 
     @Test
     void getAllCrime() {
@@ -97,6 +101,26 @@ class GetCrimeServiceTest {
         verify(repository).findByCrimeDescription("Murder");
     }
 
+    @Test
+    void getCrimesJson() {
+        String jsonString = "1,2";
+        when (getCrimeService.getCrimeByIds(Arrays.asList(1L,2L))).thenReturn(crimes);
 
+        List<Crime> crimeResult = getCrimeService.getCrimesJson(jsonString);
+
+        assertEquals(crimes, crimeResult);
+    }
+
+    @Test
+    void getCrimeByIds() {
+        List<Long> ids = Arrays.asList(1L, 2L);
+        when(repository.findAllById(ids)).thenReturn(crimes);
+
+        List<Crime> crimesResult = getCrimeService.getCrimeByIds(ids);
+
+        assertEquals(crimes, crimesResult);
+
+        verify(repository).findAllById(ids);
+    }
 
 }

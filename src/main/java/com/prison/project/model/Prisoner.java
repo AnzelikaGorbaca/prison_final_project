@@ -1,6 +1,8 @@
 package com.prison.project.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -16,6 +18,8 @@ import java.util.stream.Stream;
 @Data
 @Entity
 @Table(name = "Prisoner")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Prisoner {
 
 

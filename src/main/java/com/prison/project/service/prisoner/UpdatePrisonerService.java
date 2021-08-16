@@ -27,6 +27,7 @@ public class UpdatePrisonerService {
         existingPrisoner.setAddress(updatePrisoner.getAddress());
         existingPrisoner.setCrimesJson(updatePrisoner.getCrimesJson());
         existingPrisoner.setCrimes(updatePrisoner.getCrimes());
+        existingPrisoner.setPunishmentId(updatePrisoner.getPunishmentId());
         existingPrisoner.setPunishment (punishment);
         existingPrisoner.setStartDate(updatePrisoner.getStartDate());
 
