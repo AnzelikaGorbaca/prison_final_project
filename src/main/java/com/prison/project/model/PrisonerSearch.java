@@ -1,5 +1,6 @@
 package com.prison.project.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.format.annotation.DateTimeFormat;;
@@ -9,6 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Data
+@AllArgsConstructor
 public class PrisonerSearch {
 
     private String name;

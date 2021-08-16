@@ -41,8 +41,8 @@ class SearchPrisonerServiceTest {
     GetPrisonerService getPrisonerService;
     @Mock
     StatusPrisonerService statusPrisonerService;
-    @Mock
-    PrisonerSearch prisonerSearch;
+//    @Mock
+//    PrisonerSearch prisonerSearch;
 
 
     private LocalDate getStartDate() {
@@ -63,22 +63,25 @@ class SearchPrisonerServiceTest {
     @Test
     void searchPrisonerWhenAllDataArePassedInSearch() {
 
-        when(prisonerSearch.getPunishmentId()).thenReturn(1L);
-        when(prisonerSearch.getName()).thenReturn("Janis");
-        when(prisonerSearch.getSurname()).thenReturn("Berzins");
-        when(prisonerSearch.getAddress()).thenReturn("Ozolnieku iela 15-3");
-        when(prisonerSearch.getPersonalCode()).thenReturn("310856-10605");
-        when(prisonerSearch.getCrimes()).thenReturn(crimes);
-        when(prisonerSearch.getPunishmentId()).thenReturn(1L);
-        when(prisonerSearch.getPunishment()).thenReturn(punishment);
-        when(prisonerSearch.getStartDate()).thenReturn(getStartDate());
-        when(prisonerSearch.getEndDate()).thenReturn(getEndDate());
-        when(prisonerSearch.getStatus()).thenReturn("In Prison");
+//        when(prisonerSearch.getPunishmentId()).thenReturn(1L);
+//        when(prisonerSearch.getName()).thenReturn("Janis");
+//        when(prisonerSearch.getSurname()).thenReturn("Berzins");
+//        when(prisonerSearch.getAddress()).thenReturn("Ozolnieku iela 15-3");
+//        when(prisonerSearch.getPersonalCode()).thenReturn("310856-10605");
+//        when(prisonerSearch.getCrimesJson()).thenReturn("Robbery, Murder");
+//        when(prisonerSearch.getCrimes()).thenReturn(crimes);
+//        when(prisonerSearch.getPunishmentId()).thenReturn(1L);
+//        when(prisonerSearch.getPunishment()).thenReturn(punishment);
+//        when(prisonerSearch.getStartDate()).thenReturn(getStartDate());
+//        when(prisonerSearch.getEndDate()).thenReturn(getEndDate());
+//        when(prisonerSearch.getStatus()).thenReturn("In Prison");
 
-
+        PrisonerSearch prisonerSearch = new PrisonerSearch ("Jannis", "Berzins", "310856-10605",
+                "Ozolnieku iela 15-3", getStartDate(), getEndDate(), crimes, 1L, punishment, "Robbery, Murder",
+                "In Prison");
 
         Prisoner prisoner = new Prisoner();
-        prisoner.setName (prisonerSearch.getName());
+        prisoner.setName(prisonerSearch.getName());
         prisoner.setSurname(prisonerSearch.getSurname());
         prisoner.setPersonalCode(prisonerSearch.getPersonalCode());
         prisoner.setAddress(prisonerSearch.getAddress());
@@ -87,19 +90,22 @@ class SearchPrisonerServiceTest {
         prisoner.setStartDate(prisonerSearch.getStartDate());
         prisoner.setEndDate(prisonerSearch.getEndDate());
         prisoner.setPunishmentId(prisonerSearch.getPunishmentId());
-        prisoner.setInPrison(true);
-        prisoner.setStatus(prisonerSearch.getStatus());
+
 
         Example<Prisoner> prisonerExample = Example.of(prisoner, matchingAll().withIgnoreNullValues().withIgnoreCase());
         List<Prisoner> prisoners = Arrays.asList(new Prisoner(1L, "Jannis", "Berzins", "310856-10605",
-                "Ozolnieku iela 15-3", getStartDate(), getEndDate(), "janis.jpg", true,
-                "In Prison", crimes, punishment, 1L, "Robbery, Murder"));
+                "Ozolnieku iela 15-3", getStartDate(), getEndDate(), "janis.jpg", null,
+                null, crimes, punishment, 1L, "Robbery, Murder"));
 
         when(repository.findAll(prisonerExample)).thenReturn(prisoners);
         doNothing().when(statusPrisonerService).checkIfInPrisonAndSetStatus(prisoners);
-        List <Prisoner> prisonersActual = searchPrisonerService.searchPrisoner(prisonerSearch);
 
-        assertEquals(prisoners.size(),prisonersActual.size());
+        prisoners.get (0).setInPrison(true);
+        prisoners.get (0).setStatus("In Prison");
+
+        List<Prisoner> prisonersActual = searchPrisonerService.searchPrisoner(prisonerSearch);
+
+        assertEquals(prisoners.size(), prisonersActual.size());
         assertEquals(prisoners.get(0), prisonersActual.get(0));
 
         verify(repository).findAll(prisonerExample);
@@ -126,27 +132,27 @@ class SearchPrisonerServiceTest {
         String crimeJsonNull = null;
         String crimeJson = "Murder";
 
-        List <Crime> crimes = Arrays.asList (new Crime(1L, "Murder"));
-        when (getCrimeService.getCrimesJson(crimeJson)).thenReturn(crimes);
-        List <Crime> crimeJsonWhenNull = searchPrisonerService.getCrimesJson(crimeJsonNull);
-        List <Crime> crimeJsonWhenIsValue = searchPrisonerService.getCrimesJson(crimeJson);
+        List<Crime> crimes = Arrays.asList(new Crime(1L, "Murder"));
+        when(getCrimeService.getCrimesJson(crimeJson)).thenReturn(crimes);
+        List<Crime> crimeJsonWhenNull = searchPrisonerService.getCrimesJson(crimeJsonNull);
+        List<Crime> crimeJsonWhenIsValue = searchPrisonerService.getCrimesJson(crimeJson);
 
         assertNull(crimeJsonWhenNull);
         assertEquals(crimes, crimeJsonWhenIsValue);
 
-        verify (getCrimeService).getCrimesJson(crimeJson);
+        verify(getCrimeService).getCrimesJson(crimeJson);
     }
 
     @Test
-    void setBooleanInPrison () throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    void setBooleanInPrison() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
         Method method = SearchPrisonerService.class
                 .getDeclaredMethod("setBooleanInPrison", String.class);
         method.setAccessible(true);
 
-       String statusNull = null;
-       String statusInPrison = "In Prison";
-       String statusFreed = "Freed";
+        String statusNull = null;
+        String statusInPrison = "In Prison";
+        String statusFreed = "Freed";
 
         Boolean statusNullResult = (Boolean) method.invoke(searchPrisonerService, statusNull);
         Boolean statusInPrisonResult = (Boolean) method.invoke(searchPrisonerService, statusInPrison);
@@ -154,12 +160,12 @@ class SearchPrisonerServiceTest {
 
         assertNull(statusNullResult);
         assertTrue(statusInPrisonResult);
-        assertFalse (statusFreedResult);
+        assertFalse(statusFreedResult);
 
     }
 
     @Test
-    void getPunishmentByID () throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    void getPunishmentByID() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
         Method method = SearchPrisonerService.class
                 .getDeclaredMethod("getPunishmentByID", Long.class);
@@ -169,7 +175,7 @@ class SearchPrisonerServiceTest {
         Long idNull = null;
         Long id = 24L;
         Punishment punishment = new Punishment(24L, 5);
-        when (punishmentService.getPunishmentById(24L)).thenReturn(punishment);
+        when(punishmentService.getPunishmentById(24L)).thenReturn(punishment);
 
         Punishment whenPunishmentNull = (Punishment) method.invoke(searchPrisonerService, idNull);
         Punishment punishmentResult = (Punishment) method.invoke(searchPrisonerService, id);
@@ -179,4 +185,5 @@ class SearchPrisonerServiceTest {
 
         verify(punishmentService).getPunishmentById(24L);
 
-    }}
+    }
+}

@@ -39,7 +39,6 @@ class CreatePrisonerServiceTest {
     @BeforeEach
     void setUp() {
         when(punishment.getId()).thenReturn(1L);
-        when(punishment.getImprisonmentMonths()).thenReturn(5);
     }
 
     private final List<Crime> crimes = Arrays.asList(new Crime(2L, "Murder"),
@@ -63,6 +62,7 @@ class CreatePrisonerServiceTest {
         String end = "2022-01-13";
         LocalDate startDate = LocalDate.parse(start);
         LocalDate endDate = LocalDate.parse(end);
+
 
         Prisoner samplePrisoner = new Prisoner(2L, "Janis", "Ozolins", "310856 - 10605",
                 "Rigas iela 4-5", getStartDate(), null, "Change Color.jpg",
@@ -96,6 +96,7 @@ class CreatePrisonerServiceTest {
 
     @Test
     void calculateEndDate() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        when(punishment.getImprisonmentMonths()).thenReturn(5);
         Method method = CreatePrisonerService.class
                 .getDeclaredMethod("calculateEndDate", Prisoner.class, Punishment.class);
         method.setAccessible(true);
@@ -106,6 +107,8 @@ class CreatePrisonerServiceTest {
 
         LocalDate result = (LocalDate) method.invoke(createPrisonerService,samplePrisoner,punishment);
         assertEquals(result, getEndDate());
+        verify(punishment).getId();
+        verify(punishment).getImprisonmentMonths();
     }
 
 }
