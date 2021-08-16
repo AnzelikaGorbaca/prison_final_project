@@ -25,6 +25,6 @@ public class CreateStaffService {
     public Staff registerStaff(Staff staff)  {
 
        staffRepository.save(staff);
-        return staff;
+       return staff;
     }
 }
