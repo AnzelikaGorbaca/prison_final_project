@@ -39,12 +39,13 @@ class UpdatePrisonerServiceTest {
 
 
     List<Crime> crimes = Arrays.asList(new Crime(1L, "Robbery"), new Crime(2L, "Murder"));
+    List<Crime> newCrimes = Arrays.asList(crimes.get(0));
     Punishment oldPunishment = new Punishment(2L, 10);
     Punishment newPunishment = new Punishment(1L, 5);
 
     Prisoner updatePrisoner = new Prisoner(2L, "Karlis", "Upitis", "310855-10605",
-            "Dzirnavu iela 15-3", startDate, endDate, "karlis.jpg", true,
-            "In Prison", crimes, newPunishment, 1L, "Robbery");
+            "Dzirnavu iela 15-3", startDate, endDate, "karlis.jpg", false,
+            "Freed", newCrimes, newPunishment, 1L, "Robbery");
 
     @Test
     void updatePrisonerWhenIsPrisoner() {
@@ -54,7 +55,7 @@ class UpdatePrisonerServiceTest {
 
         Prisoner existingPrisoner = new Prisoner(2L, "Jannis", "Berzins", "310856-10605",
                 "Ozolnieku iela 15-3", startDate, endDate, "janis.jpg", true,
-                "In Prison", crimes, oldPunishment, 2L, "Robbery");
+                "In Prison", crimes, oldPunishment, 2L, "Robbery,Murder");
 
 
         when(prisonerRepository.findById(2L)).thenReturn(java.util.Optional.of(existingPrisoner));
