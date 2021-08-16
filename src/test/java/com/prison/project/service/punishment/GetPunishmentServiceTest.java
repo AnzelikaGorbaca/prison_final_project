@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -28,16 +27,10 @@ class GetPunishmentServiceTest {
     private GetPunishmentService getPunishmentService;
 
 
-
     @Test
     void shouldReturnAllPunishments() {
-        final Punishment punishment1 = new Punishment();
-        punishment1.setId(15L);
-        ReflectionTestUtils.setField(punishment1, "imprisonmentMonths", 12);
-
-        final Punishment punishment2 = new Punishment();
-        punishment2.setId(16L);
-        ReflectionTestUtils.setField(punishment2, "imprisonmentMonths", 10);
+        final Punishment punishment1 = new Punishment(15L, 12);
+        final Punishment punishment2 = new Punishment(16L, 10);
 
         when(punishmentRepository.findAll()).thenReturn(
                 Arrays.asList(punishment1, punishment2));
@@ -62,9 +55,10 @@ class GetPunishmentServiceTest {
         when(punishmentRepository.findById(999L))
                 .thenReturn(Optional.of(punishment));
 
-        Punishment foundPunishment = getPunishmentService.getPunishmentById(999L);
+        final Punishment foundPunishment = getPunishmentService.getPunishmentById(999L);
 
-        assertEquals(expectedId,foundPunishment.getId());
+        assertEquals(punishment, foundPunishment);
+        assertEquals(expectedId, foundPunishment.getId());
         assertEquals(12, foundPunishment.getImprisonmentMonths());
         verify(punishmentRepository).findById(expectedId);
     }
@@ -76,29 +70,22 @@ class GetPunishmentServiceTest {
         when(punishmentRepository.findById(expectedId))
                 .thenReturn(Optional.empty());
 
-       try {
-           getPunishmentService.getPunishmentById(expectedId);
-           fail();
-       } catch(Exception e) {
-           assertEquals(String.format("Punishment with id "+ expectedId + " does not exist"), e.getMessage());
-       }
+        try {
+            getPunishmentService.getPunishmentById(expectedId);
+            fail();
+        } catch (Exception e) {
+            assertEquals(String.format("Punishment with id " + expectedId + " does not exist"), e.getMessage());
+        }
 
-       verify(punishmentRepository).findById(expectedId);
+        verify(punishmentRepository).findById(expectedId);
     }
 
     @Test
     void shouldReturnAllPunishmentsAscByImprisonmentMonths() {
-        final Punishment punishment1 = new Punishment();
-        ReflectionTestUtils.setField(punishment1, "imprisonmentMonths", 600);
-
-        final Punishment punishment2 = new Punishment();
-        ReflectionTestUtils.setField(punishment2, "imprisonmentMonths", 100);
-
-        final Punishment punishment3 = new Punishment();
-        ReflectionTestUtils.setField(punishment3, "imprisonmentMonths", 200);
-
-        final Punishment punishment4 = new Punishment();
-        ReflectionTestUtils.setField(punishment4, "imprisonmentMonths", 500);
+        final Punishment punishment1 = new Punishment(1L, 600);
+        final Punishment punishment2 = new Punishment(2L, 100);
+        final Punishment punishment3 = new Punishment(3L, 200);
+        final Punishment punishment4 = new Punishment(4L, 500);
 
         when(punishmentRepository.findAllByOrderByImprisonmentMonthsAsc()).thenReturn(
                 Arrays.asList(punishment1, punishment4, punishment3, punishment2));
@@ -114,5 +101,4 @@ class GetPunishmentServiceTest {
 
         verify(punishmentRepository).findAllByOrderByImprisonmentMonthsAsc();
     }
-
 }
