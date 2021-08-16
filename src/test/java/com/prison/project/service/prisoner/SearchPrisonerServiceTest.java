@@ -62,68 +62,26 @@ class SearchPrisonerServiceTest {
 
     @Test
     void searchPrisonerWhenAllDataArePassedInSearch() {
-
-//        when(prisonerSearch.getPunishmentId()).thenReturn(1L);
-//        when(prisonerSearch.getName()).thenReturn("Janis");
-//        when(prisonerSearch.getSurname()).thenReturn("Berzins");
-//        when(prisonerSearch.getAddress()).thenReturn("Ozolnieku iela 15-3");
-//        when(prisonerSearch.getPersonalCode()).thenReturn("310856-10605");
-//        when(prisonerSearch.getCrimesJson()).thenReturn("Robbery, Murder");
-//        when(prisonerSearch.getCrimes()).thenReturn(crimes);
-//        when(prisonerSearch.getPunishmentId()).thenReturn(1L);
-//        when(prisonerSearch.getPunishment()).thenReturn(punishment);
-//        when(prisonerSearch.getStartDate()).thenReturn(getStartDate());
-//        when(prisonerSearch.getEndDate()).thenReturn(getEndDate());
-//        when(prisonerSearch.getStatus()).thenReturn("In Prison");
-
-        PrisonerSearch prisonerSearch = new PrisonerSearch ("Jannis", "Berzins", "310856-10605",
+        PrisonerSearch prisonerSearch = new PrisonerSearch("Jannis", "Berzins", "310856-10605",
                 "Ozolnieku iela 15-3", getStartDate(), getEndDate(), crimes, 1L, punishment, "Robbery, Murder",
                 "In Prison");
 
-        Prisoner prisoner = new Prisoner();
-        prisoner.setName(prisonerSearch.getName());
-        prisoner.setSurname(prisonerSearch.getSurname());
-        prisoner.setPersonalCode(prisonerSearch.getPersonalCode());
-        prisoner.setAddress(prisonerSearch.getAddress());
-        prisoner.setCrimes(prisonerSearch.getCrimes());
-        prisoner.setPunishment(prisonerSearch.getPunishment());
-        prisoner.setStartDate(prisonerSearch.getStartDate());
-        prisoner.setEndDate(prisonerSearch.getEndDate());
-        prisoner.setPunishmentId(prisonerSearch.getPunishmentId());
 
-
-        Example<Prisoner> prisonerExample = Example.of(prisoner, matchingAll().withIgnoreNullValues().withIgnoreCase());
-        List<Prisoner> prisoners = Arrays.asList(new Prisoner(1L, "Jannis", "Berzins", "310856-10605",
+        List<Prisoner> prisoners = List.of(new Prisoner(1L, "Jannis", "Berzins", "310856-10605",
                 "Ozolnieku iela 15-3", getStartDate(), getEndDate(), "janis.jpg", null,
                 null, crimes, punishment, 1L, "Robbery, Murder"));
 
-        when(repository.findAll(prisonerExample)).thenReturn(prisoners);
+        when(repository.findAll(isA(Example.class))).thenReturn(prisoners);
         doNothing().when(statusPrisonerService).checkIfInPrisonAndSetStatus(prisoners);
 
-        prisoners.get (0).setInPrison(true);
-        prisoners.get (0).setStatus("In Prison");
 
         List<Prisoner> prisonersActual = searchPrisonerService.searchPrisoner(prisonerSearch);
 
         assertEquals(prisoners.size(), prisonersActual.size());
         assertEquals(prisoners.get(0), prisonersActual.get(0));
 
-        verify(repository).findAll(prisonerExample);
+        verify(repository).findAll(isA(Example.class));
         verify(statusPrisonerService).checkIfInPrisonAndSetStatus(prisoners);
-
-        verify(prisonerSearch).getPunishmentId();
-        verify(prisonerSearch).getName();
-        verify(prisonerSearch).getSurname();
-        verify(prisonerSearch).getAddress();
-        verify(prisonerSearch).getPersonalCode();
-        verify(prisonerSearch).getCrimes();
-        verify(prisonerSearch).getPunishmentId();
-        verify(prisonerSearch).getPunishment();
-        verify(prisonerSearch).getStartDate();
-        verify(prisonerSearch).getEndDate();
-        verify(prisonerSearch).getStatus();
-
-
     }
 
     @Test
