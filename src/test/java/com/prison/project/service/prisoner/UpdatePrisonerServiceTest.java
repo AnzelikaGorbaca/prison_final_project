@@ -53,7 +53,7 @@ class UpdatePrisonerServiceTest {
 
 
         Prisoner existingPrisoner = new Prisoner(2L, "Jannis", "Berzins", "310856-10605",
-                "Ozolnieku iela 15-3", startDate, endDate, "janis.jpg", true,
+                "Ozolnieku iela 15-3", startDate, endDate, "janis1.jpg", true,
                 "In Prison", crimes, oldPunishment, 2L, "Robbery");
 
 
