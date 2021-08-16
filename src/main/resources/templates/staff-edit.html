@@ -6,7 +6,7 @@
 <body class="container">
 
 <div style="text-align: center;">
-    <h1>   Prison Management System   </h1>
+    <h1> Prison Management System </h1>
 </div>
 
 
@@ -20,60 +20,78 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPrisoner" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPrisoner" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         Prisoner
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-add">Add Prisoner</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/prisoners">View all Prisoners</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-add">Add
+                            Prisoner</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/prisoners">View all Prisoners</a>
+                        </li>
                     </ul>
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle  active" aria-current="page"  href="#" id="navbarDropdownStaff" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle  active" aria-current="page" href="#" id="navbarDropdownStaff"
+                       role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Staff
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-add">Add Staff Member</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-add">Search Staff Member</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/staffs">View All Staff Members</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-add">Add Staff
+                            Member</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-add">Search Staff
+                            Member</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs">View All Staff Members</a>
+                        </li>
                     </ul>
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCrime" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCrime" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         Crime
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/prison-management-system/crimes/crime-add">Add Crime</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/crimes/crime-add">Add Crime</a>
+                        </li>
                         <li><a class="dropdown-item" href="/prison-management-system/crimes">View all Crimes</a></li>
                     </ul>
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPunishment" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPunishment" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         Punishment
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/prison-management-system/punishments/punishment-add">Add Punishment</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/punishments">View all Punishments</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/punishments/punishment-add">Add
+                            Punishment</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/punishments">View all
+                            Punishments</a></li>
                     </ul>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCapacity" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCapacity" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         Capacity
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-now">Check current</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-otherDay">Check on other date</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-now">Check
+                            current</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-otherDay">Check
+                            on other date</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStatistics" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStatistics" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         Statistics
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/prison-management-system/statistics-duration">By Imprisonment Duration</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/statistics-crimes">By Crimes Committed</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-duration">By
+                            Imprisonment Duration</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-crimes">By Crimes
+                            Committed</a></li>
                     </ul>
                 </li>
 
@@ -91,7 +109,8 @@
 
 <div class="col-md-3"></div>
 <div class="col-md-4">
-    <form th:object="${staff}" method="post" th:action="@{/prison-management-system/staffs/update/{id}(id=${staff.id})}" enctype="multipart/form-data">
+    <form th:object="${staff}" method="post" th:action="@{/prison-management-system/staffs/update/{id}(id=${staff.id})}"
+          enctype="multipart/form-data">
         <div class="mb-3">
             <label for="exampleInputName" class="form-label">Name</label>
             <input type="text" class="form-control" required th:field="*{name}" id="exampleInputName"
@@ -116,7 +135,7 @@
             <label for="exampleInputPersonalCode" class="form-label">Personal Code</label>
             <input type="text" th:field="*{personalCode}" required class="form-control" id="exampleInputPersonalCode">
             <span th:if="${#fields.hasErrors('personalCode')}" th:errors="*{personalCode}" class="text-danger"></span>
-            <span th:text="${errorFromController}"class="text-danger"></span>
+            <span th:text="${errorFromController}" class="text-danger"></span>
 
         </div>
         <div class="mb-3">
@@ -146,7 +165,7 @@
         <div class="text-left">
             <a class="btn btn-secondary btn-sm" th:href="@{/prison-management-system/staffs}"
                role="button">Cancel</a>
-            <a class="btn btn-primary btn-sm" role="button">Save</a>
+            <button type="submit" class="btn btn-primary">Save</button>
         </div>
     </form>
 </div>
