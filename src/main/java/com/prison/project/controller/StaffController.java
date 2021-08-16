@@ -33,7 +33,7 @@ public class StaffController {
     private final DeleteStaffService deleteStaffService;
     private final GetStaffService getStaffService;
     private final UpdateStaffService updateStaffService;
-    private final OccupationEnumSorting occupationEnumSorting;
+    private final OccupationDropDownRestore occupationDropDownRestore;
     private final SearchStaffService searchStaffService;
 
 
@@ -47,9 +47,7 @@ public class StaffController {
     @GetMapping("/staff-add")
     public String staffAdd(Model map, Staff staff) {
         map.addAttribute("pageName", "Add New Staff Member");
-        List<Occupation> occupationList = occupationEnumSorting.getSortedList();
-        map.addAttribute("occupationList", occupationList);
-
+        occupationDropDownRestore.occupationDropDownList(map);
         return "staff-add";
     }
 
@@ -59,7 +57,6 @@ public class StaffController {
         FileUploadUtil.deleteFile(path);
         Path dir = Paths.get("photos/" + "staff_" + id);
         FileUploadUtil.deleteFile(dir);
-
         deleteStaffService.deleteStaff(id);
         return "redirect:/prison-management-system/staffs";
     }
@@ -67,13 +64,9 @@ public class StaffController {
     @GetMapping("/profile/{id}")
     public String staffProfileById(@PathVariable("id") Long id, Model model) {
         model.addAttribute("pageName", "Staff Member Profile");
-
         Staff staff = getStaffService.findStaffById(id);
         model.addAttribute("staff", staff);
-
-        List<Occupation> occupationList = occupationEnumSorting.getSortedList();
-        model.addAttribute("occupationList", occupationList);
-
+        occupationDropDownRestore.occupationDropDownList(model);
         return "staff-profile";
     }
 
@@ -83,10 +76,7 @@ public class StaffController {
 
         Staff staff = getStaffService.findStaffById(id);
         model.addAttribute("staff", staff);
-
-        List<Occupation> occupationList = occupationEnumSorting.getSortedList();
-        model.addAttribute("occupationList", occupationList);
-
+        occupationDropDownRestore.occupationDropDownList(model);
         return "staff-edit";
     }
 
@@ -94,10 +84,7 @@ public class StaffController {
     @GetMapping(value = "/staff-search")
     public String searchStaff(StaffSearch staffsearch, Model model) {
         model.addAttribute("pageName", "Staff Search");
-
-        List<Occupation> occupationList = occupationEnumSorting.getSortedList();
-        model.addAttribute("occupationList", occupationList);
-
+        occupationDropDownRestore.occupationDropDownList(model);
         return "staff-search";
     }
 
@@ -124,18 +111,14 @@ public class StaffController {
 
 
         if (result.hasErrors()) {
-            List<Occupation> occupationList = occupationEnumSorting.getSortedList();
-            model.addAttribute("occupationList", occupationList);
-            //  staffAdd(model,staff);
+            occupationDropDownRestore.occupationDropDownList(model);
             return "staff-add";
         }
         List<Staff> staffList = getStaffService.findAllStaff();
         for (Staff s : staffList) {
             if (staff.getPersonalCode().contains(s.getPersonalCode())) {
                 model.addAttribute("errorFromController", "Staff member with personal code " + s.getPersonalCode() + " already exists");
-                List<Occupation> occupationList = occupationEnumSorting.getSortedList();
-                model.addAttribute("occupationList", occupationList);
-                //  staffAdd(model,staff);
+                occupationDropDownRestore.occupationDropDownList(model);
                 return "staff-add";
             }
 
@@ -147,7 +130,7 @@ public class StaffController {
         try {
             FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
         } catch (IOException io) {
-            staffAdd(model, staff); //probablu something else will be needed here
+            staffAdd(model, staff);
 
         }
         createStaffService.registerStaff(staff);
@@ -160,8 +143,7 @@ public class StaffController {
                               @RequestParam("image") MultipartFile multipartFile,
                               BindingResult result, Model model) {
         if (result.hasErrors()) {
-            List<Occupation> occupationList = occupationEnumSorting.getSortedList();
-            model.addAttribute("occupationList", occupationList);
+            occupationDropDownRestore.occupationDropDownList(model);
             return "staff-edit";
         }
 
@@ -172,8 +154,7 @@ public class StaffController {
                 if ((e.getCause().getCause()).getLocalizedMessage().contains("Duplicate entry")) {
                     String errorMessage = ((e.getCause().getCause()).getLocalizedMessage().substring(15, 30));
                     model.addAttribute("errorFromController", "Staff with personal code " + errorMessage + " already exists");
-                    List<Occupation> occupationList = occupationEnumSorting.getSortedList();
-                    model.addAttribute("occupationList", occupationList);
+                    occupationDropDownRestore.occupationDropDownList(model);
                     return "staff-edit";
                 }
             }
@@ -196,8 +177,7 @@ public class StaffController {
 
                     String errorMessage = ((e.getCause().getCause()).getLocalizedMessage().substring(15, 30));
                     model.addAttribute("errorFromController", "Staff member with personal code " + errorMessage + " already exists");
-                    List<Occupation> occupationList = occupationEnumSorting.getSortedList();
-                    model.addAttribute("occupationList", occupationList);
+                    occupationDropDownRestore.occupationDropDownList(model);
                     return "staff-edit";
                 }
             }
