@@ -4,32 +4,22 @@ import com.prison.project.model.Crime;
 import com.prison.project.model.Prisoner;
 import com.prison.project.model.PrisonerSearch;
 import com.prison.project.model.Punishment;
+import com.prison.project.service.PhotoService.PhotoServicePrisoner;
 import com.prison.project.service.crime.GetCrimeService;
 import com.prison.project.service.prisonCapacity.PrisonCapacityCheck;
 import com.prison.project.service.prisoner.*;
 import com.prison.project.service.punishment.GetPunishmentService;
-import com.prison.project.utilities.FileUploadUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -38,6 +28,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping(value = "/prison-management-system/prisoners", produces = APPLICATION_JSON_VALUE)
 public class PrisonerController {
 
+    private final CreatePrisonerService createPrisonerService;
     private final DeletePrisonerService deletePrisonerService;
     private final GetPrisonerService getPrisonerService;
     private final UpdatePrisonerService updatePrisonerService;
@@ -102,6 +93,7 @@ public class PrisonerController {
         prisoner.setCrimes(selectedCrimes);
 
         photoServicePrisoner.uploadPhotoRegister (prisoner, multipartFile);
+        createPrisonerService.registerPrisoner(prisoner);
 
         return prisonerIndex(model);
     }

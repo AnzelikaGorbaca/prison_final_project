@@ -1,10 +1,8 @@
 package com.prison.project.controller;
 
-import com.prison.project.model.Occupation;
-import com.prison.project.model.PrisonCapacity;
 import com.prison.project.model.Staff;
 import com.prison.project.model.StaffSearch;
-import com.prison.project.service.prisonCapacity.PrisonCapacityCheck;
+import com.prison.project.service.PhotoService.PhotoServiceStaff;
 import com.prison.project.service.staff.*;
 import com.prison.project.utilities.FileUploadUtil;
 import lombok.RequiredArgsConstructor;
@@ -55,10 +53,7 @@ public class StaffController {
 
     @GetMapping("/delete/{id}")
     public String deleteStaffById(@PathVariable("id") Long id, Model model) {
-        Path path = Paths.get("photos/" + "staff_" + id + "/" + getStaffService.findStaffById(id).getPhoto());
-        FileUploadUtil.deleteFile(path);
-        Path dir = Paths.get("photos/" + "staff_" + id);
-        FileUploadUtil.deleteFile(dir);
+        photoServiceStaff.deletePhoto (id);
         deleteStaffService.deleteStaff(id);
         return "redirect:/prison-management-system/staffs";
     }
@@ -123,15 +118,8 @@ public class StaffController {
                 return "staff-add";
             }
         }
-        String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
-        staff.setPhoto(fileName);
-        Staff savedStaff = createStaffService.registerStaff(staff);
-        String uploadDir = "photos/" + "staff_" + savedStaff.getId();
-        try {
-            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-        } catch (IOException io) {
-            staffAdd(model, staff);
-        }
+
+        photoServiceStaff.uploadPhotoRegister (staff, multipartFile);
         createStaffService.registerStaff(staff);
         return staffStart(model);
     }
@@ -158,7 +146,6 @@ public class StaffController {
                 }
             }
         }
-        Staff savedStaff = updateStaffService.updateStaff(id, staff);
 
         if (!multipartFile.isEmpty()) {
             if (photoServiceStaff.checkPhotoForErrorsAndUpload(id, staff, multipartFile)) {
