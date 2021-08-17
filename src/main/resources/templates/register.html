@@ -1,0 +1,44 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registration</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container text-center">
+    <div>
+        <h1> Registration - sign up </h1>
+    </div>
+
+    <form th:object = "${user}" th:action="@{/register}" method="post"
+          style="max-width: 600px; margin: auto;"
+    >
+
+        <div class="m-3">
+            <div class="form-group row">
+                <label class="col-form-Label col-4">Username</label>
+                <div class="col-8">
+                    <input type="text" class="form-control" th:field="*{userName}" required
+                    />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-form-Label col-4">Password</label>
+                <div class="col-8">
+                    <input type="password" class="form-control" th:field="*{password}" required
+                           minlength="2" maxlength="20"/>
+                </div>
+            </div>
+
+
+            <div>
+                <button type="submit" class="btn btn-primary">Sign up</button>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

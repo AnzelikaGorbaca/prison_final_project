@@ -1,3 +1,4 @@
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 
@@ -84,9 +85,27 @@
                 </li>
 
             </ul>
+            <div>
+                <form th:action="@{/logout}" method="post" name="logoutForm">
+<!--                    <input type="submit" value="Logout" />-->
+                    <a id="logoutLink" href="/logout">Logout</a>
+                </form>
+<!--                <a href="<c:url value=@"logout"/>">Logout</a>-->
+            </div>
 
 
+<!--            <div sec:authorize="isAuthenticated()">-->
+<!--                <a href="javascript: document.logoutForm.submit()" class="dropdown-toggle">Sign out</a>-->
+<!--                <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">-->
+<!--                    <input hidden type="submit" value="Sign Out" />-->
+<!--                </form>-->
+<!--            </div>-->
 
+<!--            <a href="/main">Logout</a>-->
+
+<!--            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Logout"/>
+            </form>-->
 
 <!--            <form class="d-flex">-->
 <!--                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
@@ -96,8 +115,10 @@
     </div>
 </nav>
 
+<!--<form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">-->
 
 <!--<h2 th:text="${pageName}"></h2>-->
+
 
 </body>
 </html>
