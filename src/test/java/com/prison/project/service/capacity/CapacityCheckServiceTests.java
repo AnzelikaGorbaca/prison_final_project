@@ -1,6 +1,7 @@
 package com.prison.project.service.capacity;
 
 import com.prison.project.model.PrisonCapacity;
+import com.prison.project.model.Prisoner;
 import com.prison.project.repository.PrisonerRepository;
 import com.prison.project.service.prisonCapacity.PrisonCapacityCheck;
 import org.junit.jupiter.api.Test;
@@ -11,8 +12,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -26,16 +29,17 @@ public class CapacityCheckServiceTests {
 
     @Mock
     private PrisonCapacity prisonCapacity;
+    @Mock
+    private Prisoner prisoner;
 
 
     @Test
-    void shouldReturnFreeSpacesOnDistinctDate()  {
-        String date = "2022-01-01";
-        LocalDate localDate = LocalDate.parse(date);
+    void shouldReturnFreeSpacesOnDistinctDate() {
+        LocalDate localDate = LocalDate.now();
 
         when(prisonerRepository.countByEndDateGreaterThan(localDate)).thenReturn(90L);
 
-      //  prisonCapacity.getCapacity().longValue();
+        when(prisonCapacity.getCapacity()).thenReturn(100);
 
         Long freePlaces = prisonCapacityCheck.getFreePlacesByDate(localDate);
 
@@ -43,16 +47,58 @@ public class CapacityCheckServiceTests {
 
     }
 
-    /*
+    @Test
+    void shouldReturnZeroIfFreeSpacesLeesThanOne() {
+        LocalDate localDate = LocalDate.now();
 
-    public Long getFreePlacesByDate(LocalDate localDate) {
-        Long prisonerCount = prisonerRepository.countByEndDateGreaterThan(localDate);
-        long freeSpaces = prisonCapacity.getCapacity() - prisonerCount;
+        when(prisonerRepository.countByEndDateGreaterThan(localDate)).thenReturn(100L);
+
+        when(prisonCapacity.getCapacity()).thenReturn(100);
+
+        Long freePlaces = prisonCapacityCheck.getFreePlacesByDate(localDate);
+
+        assertEquals(0, freePlaces);
+
+        verify(prisonerRepository).countByEndDateGreaterThan(localDate);
+
+    }
+
+    @Test
+    void shouldReturnClosestDateWithFreePlaces(){
+        //   Prisoner prisoner = new Prisoner();
+        LocalDate localDate = LocalDate.now();
+
+        when(prisonerRepository.findTopByEndDateGreaterThanOrderByEndDateAsc(localDate)).thenReturn(Optional.of(prisoner));
+        //
+        LocalDate closestDate = prisonCapacityCheck.getClosestDateWithFreePlaces(localDate);
+    }
+
+    /*
+    public LocalDate getClosestDateWithFreePlaces(LocalDate localDate) throws NotFoundException {
+        Optional<Prisoner> prisoner = prisonerRepository.findTopByEndDateGreaterThanOrderByEndDateAsc(localDate);
+        if (prisoner.isPresent()) {
+            return (prisoner.get().getEndDate()).plusDays(1);
+        } else {
+            throw new NotFoundException("There are no prisoners registered in the system");
+        }
+    }
+     */
+    /*
+      public Long getNumberOfFreePlacesInClosestDate(LocalDate localDate) {
+        Long prisonerCount = prisonerRepository.countByEndDateGreaterThan(getClosestDateWithFreePlaces(LocalDate.now().minusDays(1)));
+        Long freeSpaces = prisonCapacity.getCapacity() - prisonerCount;
+
         if (freeSpaces > 0) {
             return freeSpaces;
         }
         return 0L;
     }
+
      */
+
+
+
+
+
 
 }
