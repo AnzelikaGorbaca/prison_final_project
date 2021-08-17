@@ -1,6 +1,8 @@
 package com.prison.project.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -9,6 +11,8 @@ import java.util.Set;
 @Data
 @Table(name = "User")
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id
