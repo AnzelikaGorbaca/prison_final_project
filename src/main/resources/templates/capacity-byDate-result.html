@@ -83,12 +83,13 @@
     </div>
 </nav>
 <br>
-<h3 th:text="${errorFromController}"></h3>
-<h3 th:text="${noPrisonerExists}"></h3>
-<h3 th:text="${prisonFreePlaces}"></h3>
-<h3 th:text="${closestDay}"></h3>
-<h3 th:text="${freePlacesOnClosestDate}"></h3>
+
+<h3 th:text="${pageName1}"></h3>
 <br>
+
+
+<td><a th:href="@{/prison-management-system/capacities/capacity-otherDate}"
+       class="btn btn-secondary btn-sm"role="button">Search On Other Date</a></td>
 
 </body>
 </html>
