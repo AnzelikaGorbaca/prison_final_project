@@ -33,7 +33,7 @@ public class StaffController {
     private final DeleteStaffService deleteStaffService;
     private final GetStaffService getStaffService;
     private final UpdateStaffService updateStaffService;
-    private final OccupationDropDownRestore occupationDropDownRestore;
+    private final OccupationEnumSorting occupationEnumSorting;
     private final SearchStaffService searchStaffService;
     private final PhotoServiceStaff photoServiceStaff;
 
@@ -48,7 +48,8 @@ public class StaffController {
     @GetMapping("/staff-add")
     public String staffAdd(Model map, Staff staff) {
         map.addAttribute("pageName", "Add New Staff Member");
-        occupationDropDownRestore.occupationDropDownList(map);
+        map.addAttribute("occupationList", occupationEnumSorting.getSortedList());
+
         return "staff-add";
     }
 
@@ -67,7 +68,7 @@ public class StaffController {
         model.addAttribute("pageName", "Staff Member Profile");
         Staff staff = getStaffService.findStaffById(id);
         model.addAttribute("staff", staff);
-        occupationDropDownRestore.occupationDropDownList(model);
+        model.addAttribute("occupationList", occupationEnumSorting.getSortedList());
         return "staff-profile";
     }
 
@@ -77,7 +78,7 @@ public class StaffController {
 
         Staff staff = getStaffService.findStaffById(id);
         model.addAttribute("staff", staff);
-        occupationDropDownRestore.occupationDropDownList(model);
+        model.addAttribute("occupationList", occupationEnumSorting.getSortedList());
         return "staff-edit";
     }
 
@@ -85,7 +86,7 @@ public class StaffController {
     @GetMapping(value = "/staff-search")
     public String searchStaff(StaffSearch staffsearch, Model model) {
         model.addAttribute("pageName", "Staff Search");
-        occupationDropDownRestore.occupationDropDownList(model);
+        model.addAttribute("occupationList", occupationEnumSorting.getSortedList());
         return "staff-search";
     }
 
@@ -111,14 +112,14 @@ public class StaffController {
                                 @RequestParam("image") MultipartFile multipartFile) {
 
         if (result.hasErrors()) {
-            occupationDropDownRestore.occupationDropDownList(model);
+            model.addAttribute("occupationList", occupationEnumSorting.getSortedList());
             return "staff-add";
         }
         List<Staff> staffList = getStaffService.findAllStaff();
         for (Staff s : staffList) {
             if (staff.getPersonalCode().contains(s.getPersonalCode())) {
                 model.addAttribute("errorFromController", "Staff member with personal code " + s.getPersonalCode() + " already exists");
-                occupationDropDownRestore.occupationDropDownList(model);
+                model.addAttribute("occupationList", occupationEnumSorting.getSortedList());
                 return "staff-add";
             }
         }
@@ -141,7 +142,7 @@ public class StaffController {
                               @RequestParam("image") MultipartFile multipartFile,
                               BindingResult result, Model model) throws IOException {
         if (result.hasErrors()) {
-            occupationDropDownRestore.occupationDropDownList(model);
+            model.addAttribute("occupationList", occupationEnumSorting.getSortedList());
             return "staff-edit";
         }
 
@@ -152,7 +153,7 @@ public class StaffController {
                 if ((e.getCause().getCause()).getLocalizedMessage().contains("Duplicate entry")) {
                     String errorMessage = ((e.getCause().getCause()).getLocalizedMessage().substring(15, 30));
                     model.addAttribute("errorFromController", "Staff with personal code " + errorMessage + " already exists");
-                    occupationDropDownRestore.occupationDropDownList(model);
+                    model.addAttribute("occupationList", occupationEnumSorting.getSortedList());
                     return "staff-edit";
                 }
             }
