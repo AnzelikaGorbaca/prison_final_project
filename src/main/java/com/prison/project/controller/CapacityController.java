@@ -61,7 +61,7 @@ public class CapacityController {
         Long freeSpaces = prisonCapacityCheck.getFreePlacesByDate(capacityDate.getDistinctDate().minusDays(1));
         map.addAttribute("pageName1","There will be "+ freeSpaces+ " free places on the "+capacityDate.getDistinctDate()+ " by currently available data");
 
-        return "capacity-index";
+        return "capacity-byDate-result";
     }
 
 
