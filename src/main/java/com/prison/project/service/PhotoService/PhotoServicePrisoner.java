@@ -1,6 +1,9 @@
-package com.prison.project.service.prisoner;
+package com.prison.project.service.PhotoService;
 
 import com.prison.project.model.Prisoner;
+import com.prison.project.service.prisoner.CreatePrisonerService;
+import com.prison.project.service.prisoner.GetPrisonerService;
+import com.prison.project.service.prisoner.UpdatePrisonerService;
 import com.prison.project.utilities.FileUploadUtil;
 import lombok.AllArgsConstructor;
 import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
@@ -21,6 +24,8 @@ public class PhotoServicePrisoner {
     private final UpdatePrisonerService updatePrisonerService;
     private final CreatePrisonerService createPrisonerService;
     private final GetPrisonerService getPrisonerService;
+    private final PhotoServiceDeletePhoto photoServiceDeletePhoto;
+    private final PhotoServiceAddPhoto photoServiceAddPhoto;
 
     public boolean checkPhotoForErrorsAndUpload(Long id, Prisoner prisoner, MultipartFile multipartFile) {
 
@@ -45,49 +50,18 @@ public class PhotoServicePrisoner {
         prisoner.setPhoto(fileName);
         Prisoner savedPrisoner = createPrisonerService.registerPrisoner(prisoner);
         String uploadDir = "photos/" + "prisoner_" + savedPrisoner.getId();
-        saveFile(uploadDir, fileName, multipartFile);
+        photoServiceAddPhoto.savePhoto(uploadDir, fileName, multipartFile);
     }
 
     public void deletePhoto (Long id){
         Path path = Paths.get("photos/" + "prisoner_" + id + "/" + getPrisonerService.getPrisonerById(id).getPhoto());
         FileUploadUtil.deleteFile(path);
         Path dir = Paths.get("photos/" + "prisoner_" + id);
-        deleteFile(dir);
+        photoServiceDeletePhoto.deletePhoto(dir);
     }
 
 
-    private void saveFile(String uploadDir, String fileName,
-                          MultipartFile multipartFile) {
-        Path uploadPath = Paths.get(uploadDir);
 
-        if (!Files.exists(uploadPath)) {
-            try {
-                Files.createDirectories(uploadPath);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        try (InputStream inputStream = multipartFile.getInputStream()) {
-            Path filePath = uploadPath.resolve(fileName);
-            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException ioe) {
-            throw new RuntimeException("Could not save image file: " + fileName, ioe);
-        }
-
-    }
-
-    private void deleteFile(Path path) {
-
-        try {
-            Files.delete(path);
-        } catch (NoSuchFileException ex) {
-            System.out.printf("No such file or directory: %s\n", path);
-        } catch (DirectoryNotEmptyException ex) {
-            System.out.printf("Directory %s is not empty\n", path);
-        } catch (IOException ex) {
-            System.out.println(ex);
-        }
-    }
 }
 
 
