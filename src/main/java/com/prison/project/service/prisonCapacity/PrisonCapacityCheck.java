@@ -22,7 +22,7 @@ public class PrisonCapacityCheck {
 
     public Long getFreePlacesByDate(LocalDate localDate) {
         Long prisonerCount = prisonerRepository.countByEndDateGreaterThan(localDate);
-        long freeSpaces = prisonCapacity.getCapacity() - prisonerCount;
+        Long freeSpaces = prisonCapacity.getCapacity() - prisonerCount;
         if (freeSpaces > 0) {
             return freeSpaces;
         }
@@ -42,7 +42,10 @@ public class PrisonCapacityCheck {
         Long prisonerCount = prisonerRepository.countByEndDateGreaterThan(getClosestDateWithFreePlaces(LocalDate.now().minusDays(1)));
         Long freeSpaces = prisonCapacity.getCapacity() - prisonerCount;
 
-        return freeSpaces;
+        if (freeSpaces > 0) {
+            return freeSpaces;
+        }
+        return 0L;
     }
 
 
