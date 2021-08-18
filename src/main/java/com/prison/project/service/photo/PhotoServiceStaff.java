@@ -9,10 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
-
+@Transactional
 @Service
 @AllArgsConstructor
 public class PhotoServiceStaff {

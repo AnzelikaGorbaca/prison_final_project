@@ -5,13 +5,15 @@ import com.prison.project.service.prisoner.CreatePrisonerService;
 import com.prison.project.service.prisoner.GetPrisonerService;
 import com.prison.project.service.prisoner.UpdatePrisonerService;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.nio.file.*;
 import java.util.Objects;
-
+@Transactional
 @Service
 @AllArgsConstructor
 public class PhotoServicePrisoner {

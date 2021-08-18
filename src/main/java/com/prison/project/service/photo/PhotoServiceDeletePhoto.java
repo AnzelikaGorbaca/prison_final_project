@@ -1,12 +1,16 @@
 package com.prison.project.service.photo;
 
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.nio.file.*;
 
+@Transactional
 @Service
+@AllArgsConstructor
 public class PhotoServiceDeletePhoto {
 
 
