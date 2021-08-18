@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -29,8 +30,7 @@ public class CapacityCheckServiceTests {
 
     @Mock
     private PrisonCapacity prisonCapacity;
-    @Mock
-    private Prisoner prisoner;
+
 
 
     @Test
@@ -65,12 +65,15 @@ public class CapacityCheckServiceTests {
 
     @Test
     void shouldReturnClosestDateWithFreePlaces(){
-        //   Prisoner prisoner = new Prisoner();
+        Prisoner samplePrisoner = new Prisoner();
         LocalDate localDate = LocalDate.now();
 
-        when(prisonerRepository.findTopByEndDateGreaterThanOrderByEndDateAsc(localDate)).thenReturn(Optional.of(prisoner));
-        //
+        when(prisonerRepository.findTopByEndDateGreaterThanOrderByEndDateAsc(localDate)).thenReturn(Optional.of(samplePrisoner));
+        samplePrisoner.setEndDate(localDate);
+
         LocalDate closestDate = prisonCapacityCheck.getClosestDateWithFreePlaces(localDate);
+
+        assertEquals(localDate.plusDays(1),closestDate);
     }
 
     /*
