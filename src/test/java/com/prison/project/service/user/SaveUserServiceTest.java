@@ -1,6 +1,6 @@
 package com.prison.project.service.user;
 
-import com.prison.project.model.Roles;
+import com.prison.project.model.Role;
 import com.prison.project.model.User;
 import com.prison.project.repository.UserRepository;
 import com.prison.project.service.role.GetRoleService;
@@ -16,6 +16,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 @ExtendWith(MockitoExtension.class)
 class SaveUserServiceTest {
     @InjectMocks
@@ -25,17 +26,18 @@ class SaveUserServiceTest {
     @Mock
     public GetRoleService getRoleService;
 
-    private Set<Roles> getRolesUser () {
-        Set<Roles> user = new HashSet<>();
-        user.add (new Roles(1L, "SITE_USER"));
+    private Set<Role> getRolesUser() {
+        Set<Role> user = new HashSet<>();
+        user.add(new Role(1L, "SITE_USER"));
         return user;
     }
+
     User user = new User(1L, "username", "123", true,
             null);
 
     @Test
     void saveUser() {
-        when (getRoleService.findByRoleName("SITE_USER")).thenReturn(new Roles(1L, "SITE_USER"));
+        when(getRoleService.findByRoleName("SITE_USER")).thenReturn(new Role(1L, "SITE_USER"));
         when(userRepository.save(user)).thenReturn(user);
 
         User userResult = saveUserService.saveUser(user);

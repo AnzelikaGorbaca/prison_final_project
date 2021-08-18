@@ -11,11 +11,15 @@ import javax.persistence.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Roles {
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name= "role_id")
+    @Column(name = "role_id")
     private Long roleID;
-    @Column(name ="role_name")
+    @Column(name = "role_name")
     private String roleName;
+
+    public Role(String roleName) {
+        this.roleName = roleName;
+    }
 }

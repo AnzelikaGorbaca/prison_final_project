@@ -1,26 +1,22 @@
 package com.prison.project.service.user;
 
-import com.prison.project.model.Roles;
+import com.prison.project.model.Role;
 import com.prison.project.model.User;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CustomUserDetailsTest {
 
 
-    private Set<Roles> getRoles() {
-        Set<Roles> user = new HashSet<>();
-        user.add(new Roles(1L, "SITE_USER"));
+    private Set<Role> getRoles() {
+        Set<Role> user = new HashSet<>();
+        user.add(new Role(1L, "SITE_USER"));
         return user;
     }
 
@@ -33,10 +29,10 @@ class CustomUserDetailsTest {
     void getAuthorities() {
 
 
-        Set<Roles> roles = getRoles();
+        Set<Role> roles = getRoles();
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
-        for (Roles role : roles) {
+        for (Role role : roles) {
             authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
         }
 

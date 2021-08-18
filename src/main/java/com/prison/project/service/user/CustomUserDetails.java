@@ -1,13 +1,12 @@
 package com.prison.project.service.user;
 
-import com.prison.project.model.Roles;
+import com.prison.project.model.Role;
 import com.prison.project.model.User;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,10 +24,10 @@ public class CustomUserDetails implements  UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<Roles> roles = user.getRoles();
+        Set<Role> roles = user.getRoles();
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
-        for (Roles role : roles) {
+        for (Role role : roles) {
             authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
 
         } return authorities;
