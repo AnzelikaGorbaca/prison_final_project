@@ -34,7 +34,7 @@ public class StaffController {
 
     @GetMapping
     public String staffStart(Model model) {
-        model.addAttribute("pageName", "All Staff");
+        model.addAttribute("pageName", "All Staff Members");
         model.addAttribute("staffs", getStaffService.findAllStaff());
         return "staff-index";
     }
