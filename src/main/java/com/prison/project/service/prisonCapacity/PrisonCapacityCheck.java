@@ -39,7 +39,8 @@ public class PrisonCapacityCheck {
     }
 
     public Long getNumberOfFreePlacesInClosestDate(LocalDate localDate) {
-        Long prisonerCount = prisonerRepository.countByEndDateGreaterThan(getClosestDateWithFreePlaces(LocalDate.now().minusDays(1)));
+        localDate = getClosestDateWithFreePlaces(LocalDate.now().minusDays(1));
+        Long prisonerCount = prisonerRepository.countByEndDateGreaterThan(localDate);
         Long freeSpaces = prisonCapacity.getCapacity() - prisonerCount;
 
         if (freeSpaces > 0) {
