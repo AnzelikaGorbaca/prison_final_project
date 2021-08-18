@@ -47,18 +47,16 @@ class CustomUserDetailsTest {
 
     @Test
     void getPassword() {
-        String password = user.getPassword();
         String result = customUserDetails.getPassword();
 
-        assertEquals(password, result);
+        assertNull(result);
     }
 
     @Test
     void getUsername() {
-        String username = user.getUserName();
         String result = customUserDetails.getUsername();
 
-        assertEquals(username, result);
+        assertNull(result);
     }
 
 
