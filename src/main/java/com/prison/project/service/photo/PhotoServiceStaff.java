@@ -50,10 +50,8 @@ public class PhotoServiceStaff {
 
     public void deletePhoto (Long id){
         Path path = Paths.get("photos/" + "staff_" + id + "/" + getStaffService.findStaffById(id).getPhoto());
-//        FileUploadUtil.deleteFile(path);
         photoServiceDeletePhoto.deletePhoto(path);
         Path dir = Paths.get("photos/" + "staff_" + id);
         photoServiceDeletePhoto.deletePhoto(dir);
-//        FileUploadUtil.deleteFile(dir);
     }
 }
