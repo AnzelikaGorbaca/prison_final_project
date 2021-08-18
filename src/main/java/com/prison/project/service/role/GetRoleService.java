@@ -17,15 +17,4 @@ public class GetRoleService {
         return roleRepository.findByRoleName(role);
     }
 
-    public boolean chekIfIsAdmin(Set<Role> roles) {
-        String role = null;
-        if (roles.stream().findFirst().isPresent()) {
-            role = roles.stream().findFirst().get().getRoleName();
-        }
-        System.out.println(role);
-        if (role.contains("ADMIN")) {
-            return true;
-        }
-        return false;
-    }
 }

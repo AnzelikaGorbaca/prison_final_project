@@ -19,8 +19,6 @@ public class LogInController {
 
     private final SaveUserService saveUserService;
     private final GetRoleService getRoleService;
-    private final BCryptPasswordEncoder passwordEncoder;
-    private final RoleRepository roleRepository;
 
     @GetMapping
     public String mainIndex(Model model) {
@@ -50,10 +48,7 @@ public class LogInController {
 
     @PostMapping("/login")
     public String logIn(User user) {
-//        UserDetails userDetails = customUserDetailsService.loadUserByUsername(user.getUserName());
-//        if (getRoleService.chekIfIsAdmin(user.getRoles())){
-//            return "admin-page";
-//        }
+
         return "redirect:/prison-management-system";
     }
 
