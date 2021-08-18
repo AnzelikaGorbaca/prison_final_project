@@ -105,6 +105,11 @@
                     </ul>
                 </li>
             </ul>
+            <div>
+                <form th:action="@{/logout}" method="post" name="logoutForm">
+                    <a id="logoutLink" href="/logout">Logout</a>
+                </form>
+            </div>
         </div>
     </div>
 </nav>
@@ -186,9 +191,8 @@
             </div>
         </div>
         <div class="text-left">
-            <button class="btn btn-secondary" th:href="@{/prison-management-system/prisoners}"
-                    role="button">Cancel
-            </button>
+            <a class="btn btn-secondary btn-sm" th:href="@{/prison-management-system/prisoners}"
+               role="button">Cancel</a>
             <!--            <button class="btn btn-secondary" th:href = "@{/prison-management-system/prisoners}">Cancel</button>-->
             <button type="submit" class="btn btn-primary">Save</button>
         </div>

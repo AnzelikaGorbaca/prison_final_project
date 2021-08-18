@@ -24,19 +24,21 @@ public class PhotoServiceStaff {
     private final UpdateStaffService updateStaffService;
     private final CreateStaffService createStaffService;
     private final PhotoServiceAddPhoto photoServiceAddPhoto;
+    private final PhotoServiceDeletePhoto photoServiceDeletePhoto;
     private final GetStaffService getStaffService;
 
     public boolean checkPhotoForErrorsAndUpload(Long id, Staff staff, MultipartFile multipartFile) {
         Staff savedStaff = updateStaffService.updateStaff(id, staff);
-        FileUploadUtil.deleteFile(Paths.get("photos/" + "staff_" + id + "/" + savedStaff.getPhoto()));
-
+//        FileUploadUtil.deleteFile(Paths.get("photos/" + "staff_" + id + "/" + savedStaff.getPhoto()));
+        photoServiceDeletePhoto.deletePhoto(Paths.get("photos/" + "staff_" + id + "/" + savedStaff.getPhoto()));
         try {
             String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
             String uploadDir = "photos/" + "staff_" + id;
             if (!fileName.isEmpty()) savedStaff.setPhoto(fileName);
-            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+//            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+            photoServiceAddPhoto.savePhoto(uploadDir, fileName, multipartFile);
             updateStaffService.updateStaff(id, staff);
-        } catch (RuntimeException | IOException e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
             return true;
         }
@@ -55,8 +57,10 @@ public class PhotoServiceStaff {
 
     public void deletePhoto (Long id){
         Path path = Paths.get("photos/" + "staff_" + id + "/" + getStaffService.findStaffById(id).getPhoto());
-        FileUploadUtil.deleteFile(path);
+//        FileUploadUtil.deleteFile(path);
+        photoServiceDeletePhoto.deletePhoto(path);
         Path dir = Paths.get("photos/" + "staff_" + id);
-        FileUploadUtil.deleteFile(dir);
+        photoServiceDeletePhoto.deletePhoto(dir);
+//        FileUploadUtil.deleteFile(dir);
     }
 }
