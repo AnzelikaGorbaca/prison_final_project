@@ -25,14 +25,12 @@ public class PhotoServicePrisoner {
     public boolean checkPhotoForErrorsAndUpload(Long id, Prisoner prisoner, MultipartFile multipartFile) {
 
         Prisoner savedPrisoner = updatePrisonerService.updatePrisoner(id, prisoner);
-//        FileUploadUtil.deleteFile(Paths.get("photos/" + "prisoner_" + id + "/" + savedPrisoner.getPhoto()));
           photoServiceDeletePhoto.deletePhoto(Paths.get("photos/" + "prisoner_" + id + "/" + savedPrisoner.getPhoto()));
         try {
             String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
             String uploadDir = "photos/" + "prisoner_" + id;
 
             if (!fileName.isEmpty()) savedPrisoner.setPhoto(fileName);
-//            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
             photoServiceAddPhoto.savePhoto(uploadDir,fileName,multipartFile);
             updatePrisonerService.updatePrisoner(id, prisoner);
         } catch (RuntimeException e) {
