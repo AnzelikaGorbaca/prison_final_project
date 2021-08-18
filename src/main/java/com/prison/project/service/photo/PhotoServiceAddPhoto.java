@@ -1,6 +1,9 @@
 package com.prison.project.service.photo;
 
+
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -12,7 +15,9 @@ import java.nio.file.StandardCopyOption;
 
 
 
+@Transactional
 @Service
+@AllArgsConstructor
 public class PhotoServiceAddPhoto {
 
 

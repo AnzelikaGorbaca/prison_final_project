@@ -3,14 +3,20 @@ package com.prison.project.controller;
 import com.prison.project.model.User;
 import com.prison.project.repository.UserRepository;
 import com.prison.project.service.role.GetRoleService;
+import com.prison.project.service.user.CustomUserDetails;
+import com.prison.project.service.user.CustomUserDetailsService;
 import com.prison.project.service.user.SaveUserService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Collection;
 
 
 @Controller
@@ -19,6 +25,7 @@ public class LogInController {
 
     private final SaveUserService saveUserService;
     private final GetRoleService getRoleService;
+    private final CustomUserDetailsService customUserDetailsService;
 
     @GetMapping
     public String mainIndex(Model model) {
@@ -50,6 +57,7 @@ public class LogInController {
 
     @PostMapping("/login")
     public String logIn(User user) {
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername(user.getUserName());
 //        if (getRoleService.chekIfIsAdmin(user.getRoles())){
 //            return "admin-page";
 //        }
