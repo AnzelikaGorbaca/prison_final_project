@@ -1,4 +1,4 @@
-package com.prison.project.service.PhotoService;
+package com.prison.project.service.photo;
 
 
 import org.springframework.stereotype.Service;

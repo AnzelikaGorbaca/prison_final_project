@@ -1,19 +1,14 @@
-package com.prison.project.service.PhotoService;
+package com.prison.project.service.photo;
 
-import com.prison.project.model.Prisoner;
 import com.prison.project.model.Staff;
-import com.prison.project.service.prisoner.UpdatePrisonerService;
 import com.prison.project.service.staff.CreateStaffService;
 import com.prison.project.service.staff.GetStaffService;
 import com.prison.project.service.staff.UpdateStaffService;
-import com.prison.project.utilities.FileUploadUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
@@ -29,13 +24,11 @@ public class PhotoServiceStaff {
 
     public boolean checkPhotoForErrorsAndUpload(Long id, Staff staff, MultipartFile multipartFile) {
         Staff savedStaff = updateStaffService.updateStaff(id, staff);
-//        FileUploadUtil.deleteFile(Paths.get("photos/" + "staff_" + id + "/" + savedStaff.getPhoto()));
         photoServiceDeletePhoto.deletePhoto(Paths.get("photos/" + "staff_" + id + "/" + savedStaff.getPhoto()));
         try {
             String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
             String uploadDir = "photos/" + "staff_" + id;
             if (!fileName.isEmpty()) savedStaff.setPhoto(fileName);
-//            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
             photoServiceAddPhoto.savePhoto(uploadDir, fileName, multipartFile);
             updateStaffService.updateStaff(id, staff);
         } catch (RuntimeException e) {

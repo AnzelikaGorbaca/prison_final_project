@@ -1,19 +1,14 @@
-package com.prison.project.service.PhotoService;
+package com.prison.project.service.photo;
 
 import com.prison.project.model.Prisoner;
 import com.prison.project.service.prisoner.CreatePrisonerService;
 import com.prison.project.service.prisoner.GetPrisonerService;
 import com.prison.project.service.prisoner.UpdatePrisonerService;
-import com.prison.project.utilities.FileUploadUtil;
 import lombok.AllArgsConstructor;
-import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-import org.thymeleaf.exceptions.TemplateInputException;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.*;
 import java.util.Objects;
 

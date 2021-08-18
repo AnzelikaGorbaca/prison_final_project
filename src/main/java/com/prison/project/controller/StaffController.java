@@ -2,13 +2,11 @@ package com.prison.project.controller;
 
 import com.prison.project.model.Staff;
 import com.prison.project.model.StaffSearch;
-import com.prison.project.service.PhotoService.PhotoServiceStaff;
+import com.prison.project.service.photo.PhotoServiceStaff;
 import com.prison.project.service.staff.*;
-import com.prison.project.utilities.FileUploadUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,8 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.*;
 

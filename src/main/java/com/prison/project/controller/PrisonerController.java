@@ -4,7 +4,7 @@ import com.prison.project.model.Crime;
 import com.prison.project.model.Prisoner;
 import com.prison.project.model.PrisonerSearch;
 import com.prison.project.model.Punishment;
-import com.prison.project.service.PhotoService.PhotoServicePrisoner;
+import com.prison.project.service.photo.PhotoServicePrisoner;
 import com.prison.project.service.crime.GetCrimeService;
 import com.prison.project.service.prisonCapacity.PrisonCapacityCheck;
 import com.prison.project.service.prisoner.*;
