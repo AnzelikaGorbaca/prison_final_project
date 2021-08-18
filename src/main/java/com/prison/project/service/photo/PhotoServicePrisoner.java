@@ -49,7 +49,6 @@ public class PhotoServicePrisoner {
 
     public void deletePhoto (Long id){
         Path path = Paths.get("photos/" + "prisoner_" + id + "/" + getPrisonerService.getPrisonerById(id).getPhoto());
-//        FileUploadUtil.deleteFile(path);
         photoServiceDeletePhoto.deletePhoto(path);
         Path dir = Paths.get("photos/" + "prisoner_" + id);
         photoServiceDeletePhoto.deletePhoto(dir);
