@@ -2,6 +2,7 @@ package com.prison.project.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Table(name = "roles")
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 public class Roles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
