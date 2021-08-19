@@ -22,7 +22,7 @@ public class LogInController {
 
     @GetMapping
     public String mainIndex(Model model) {
-        return "main";
+        return "redirect:/prison-management-system";
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
