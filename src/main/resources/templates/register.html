@@ -1,47 +1,148 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>Registration</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
 </head>
-<body>
-<div class="container text-center">
-    <div>
-        <h1> Registration - sign up </h1>
-    </div>
+<body class="container">
 
-    <form th:object = "${user}" th:action="@{/register}" method="post"
-          style="max-width: 600px; margin: auto;"
-    >
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/prison-management-system">Home</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPrisoner" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Prisoner
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-add">Add
+                            Prisoner</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-search">Search
+                            Prisoner</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/prisoners">View all Prisoners</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStaff" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Staff
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-add">Add Staff
+                            Member</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-search">Search Staff
+                            Member</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs">View All Staff Members</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCrime" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Crime
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/prison-management-system/crimes/crime-add">Add Crime</a>
+                        </li>
+                        <li><a class="dropdown-item" href="/prison-management-system/crimes">View all Crimes</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" aria-current="page" href="#"
+                       id="navbarDropdownPunishment" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Punishment
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/prison-management-system/punishments/punishment-add">Add
+                            Punishment</a></li>
+                        <li><a class="dropdown-item active" style="background-color: #212529"
+                               href="/prison-management-system/punishments">View all Punishments</a></li>
+                    </ul>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCapacity" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Capacity
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-now">Check
+                            current</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-otherDay">Check
+                            on other date</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStatistics" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Statistics
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-duration">By
+                            Imprisonment Duration</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-crimes">By Crimes
+                            Committed</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="navbar-nav text-right">
+                <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a class="nav-link" href="/register">Register</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" href="/logout">Log out</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div>
+    <br>
+    <h2> New User Registration </h2>
+    <br>
+</div>
+
+<div class="col-md-3"></div>
+<div class="col-md-4">
+    <form th:object="${user}" th:action="@{/register}" method="post"
+          style="max-width: 600px; margin: auto;">
 
         <div class="m-3">
             <div class="form-group row">
-                <label class="col-form-Label col-4">Username</label>
+                <label class="col-form-Label col-5">Username</label>
                 <div class="col-8">
                     <input type="text" class="form-control" th:field="*{userName}" required
                     />
+                    <span th:utext="${message}" class="text-danger"> </span>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label class="col-form-Label col-4">Password</label>
+                <label class="col-form-Label col-5">Password</label>
                 <div class="col-8">
                     <input type="password" class="form-control" th:field="*{password}" required
                            minlength="2" maxlength="20"/>
                 </div>
             </div>
 
-
+            <br>
             <div>
-                <button type="submit" class="btn btn-primary">Sign up</button>
+                <button type="submit" class="btn btn-primary">Register</button>
             </div>
 
         </div>
 
-        <span th:utext="${message}" class="text-danger"> </span>
+
 
     </form>
 </div>

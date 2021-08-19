@@ -8,18 +8,113 @@
 
 </head>
 <body class="container">
-<div style="text-align: center;">
-    <h1>   Prison Management System   </h1>
-</div>
 
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/prison-management-system">Home</a>
+                </li>
 
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPrisoner" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Prisoner
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-add">Add
+                            Prisoner</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-search">Search
+                            Prisoner</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/prisoners">View all Prisoners</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStaff" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Staff
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-add">Add Staff
+                            Member</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-search">Search Staff
+                            Member</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs">View All Staff Members</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCrime" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Crime
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/prison-management-system/crimes/crime-add">Add Crime</a>
+                        </li>
+                        <li><a class="dropdown-item" href="/prison-management-system/crimes">View all Crimes</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" aria-current="page" href="#"
+                       id="navbarDropdownPunishment" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Punishment
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/prison-management-system/punishments/punishment-add">Add
+                            Punishment</a></li>
+                        <li><a class="dropdown-item active" style="background-color: #212529"
+                               href="/prison-management-system/punishments">View all Punishments</a></li>
+                    </ul>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCapacity" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Capacity
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-now">Check
+                            current</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-otherDay">Check
+                            on other date</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStatistics" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Statistics
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-duration">By
+                            Imprisonment Duration</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-crimes">By Crimes
+                            Committed</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="navbar-nav text-right">
+                <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a class="nav-link" href="/register">Register</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" href="/logout">Log out</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
 
 <h2 th:text="${pageName}"></h2>
 <div class="container text-center">
     <div>
-        <h3> You have signed in succesfully </h3>
-        <h4> <a th:href="@{/login}">Click to login</a></h4>
+        <br>
+        <h3> User is registered successfully </h3>
     </div>
 
 

@@ -42,6 +42,7 @@ public class LogInController {
         } else {
             saveUserService.saveUser(user);
         }
+
         return "register_success";
     }
 
