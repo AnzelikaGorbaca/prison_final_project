@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class LogInController {
 
     private final SaveUserService saveUserService;
-    private final GetRoleService getRoleService;
+
 
     @GetMapping
     public String mainIndex(Model model) {

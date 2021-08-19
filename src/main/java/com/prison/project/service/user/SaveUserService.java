@@ -18,11 +18,12 @@ public class SaveUserService {
     public final UserRepository userRepository;
     public final GetRoleService getRoleService;
     private final BCryptPasswordEncoder passwordEncoder;
-    private final RoleRepository roleRepository;
+
+
 
     public User saveUser(User user) {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
-        Role role = roleRepository.findByRoleNameIgnoreCase("ROLE_USER")
+        Role role = getRoleService.findByRoleNameIgnoreCase("ROLE_USER")
                 .orElseGet(() -> new Role("ROLE_USER"));
 
         user.setPassword(encodedPassword);
