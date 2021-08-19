@@ -7,8 +7,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.util.List;
@@ -50,7 +48,6 @@ public class Prisoner {
     private String status;
 
 
-
     @ManyToMany
     @JoinTable(name = "prisoner_crime",
             joinColumns = @JoinColumn(
@@ -82,8 +79,13 @@ public class Prisoner {
                 .collect(Collectors.joining(", "));
     }
 
+    public List<String> getCrimeString() {
+        return emptyIfNullStream(crimes)
+                .map(Crime::getCrimeDescription)
+                .collect(Collectors.toList());
+    }
+
     private Stream<Crime> emptyIfNullStream(List<Crime> crimes) {
         return crimes.isEmpty() ? Stream.empty() : crimes.stream();
     }
-
 }
