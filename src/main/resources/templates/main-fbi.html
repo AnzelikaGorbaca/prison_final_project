@@ -1,0 +1,248 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+    <style type="text/css">
+       img {
+    position: relative;
+     top: -600px;
+    left: 500px;
+    }
+    .carousel-indicators{
+    bottom: 150px;
+    }
+     .carousel-caption {
+    top: 230px;
+    }
+
+    </style>
+</head>
+<body class="container">
+<div style="text-align: center;">
+    <h1> Prison Management System </h1>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/prison-management-system">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPrisoner" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Prisoner
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-add">Add
+                            Prisoner</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-search">Search
+                            Prisoner</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/prisoners">View all Prisoners</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStaff" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Staff
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-add">Add Staff
+                            Member</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-search">Search Staff
+                            Member</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs">View All Staff Members</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCrime" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Crime
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/prison-management-system/crimes/crime-add">Add Crime</a>
+                        </li>
+                        <li><a class="dropdown-item" href="/prison-management-system/crimes">View all Crimes</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPunishment" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Punishment
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/prison-management-system/punishments/punishment-add">Add
+                            Punishment</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/punishments">View all
+                            Punishments</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCapacity" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Capacity
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-now">Check
+                            current</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-otherDay">Check
+                            on other date</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStatistics" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Statistics
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-duration">By
+                            Imprisonment Duration</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-crimes">By Crimes
+                            Committed</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="navbar-nav text-right">
+                <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a class="nav-link" href="/register">Register</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()" >
+                    <a class="nav-link" href="/logout">Log out</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<br>
+<h1 style="text-align: center">FBI MOST WANTED</h1>
+
+<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="4" aria-label="Slide 5"></button>
+    </div>
+    <div class="carousel-inner">
+        <div th:object="${fugitive}" class="carousel-item active" data-bs-interval="10000">
+            <svg class="bd-placeholder-img" width="100%" height="100%"
+                 aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <rect width="100%" height="100%"
+                      fill="#8c8c8c"></rect>
+            </svg>
+            <img th:src="@{${fugitive.image}}" style="max-width: 120px" class="d-block w-100">
+
+            <div class="carousel-caption d-none d-md-block">
+                <h5 th:text="${fugitive.title}"></h5>
+                <h6 th:text="${fugitive.sex}" class="user-email"></h6>
+                <p th:text="${fugitive.details}"></p>
+                <p th:text="${fugitive.remarks}"></p>
+                <p th:text="${fugitive.caution}"></p>
+                <p th:text="${fugitive.message}" style="font-weight: bold"></p>
+                <p th:text="${fugitive.reward}" style="font-weight:500"></p>
+                <a class="nav-link" th:href="@{${fugitive.pdfLink}}" style="color:white">More info..</a>
+            </div>
+        </div>
+        <div th:object="${fugitive1}" class="carousel-item" data-bs-interval="10000">
+            <svg class="bd-placeholder-img" width="100%" height="100%"
+                 aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <rect width="100%" height="100%"
+                      fill=#8c8c8c></rect>
+            </svg>
+            <img th:src="@{${fugitive1.image}}" style="max-width: 120px" class="d-block w-100">
+            <div class="carousel-caption d-none d-md-block">
+                <h5 th:text="${fugitive1.title}"></h5>
+                <h6 th:text="${fugitive1.sex}" class="user-email"></h6>
+                <p th:text="${fugitive1.details}"></p>
+                <p th:text="${fugitive1.remarks}"></p>
+                <p th:text="${fugitive1.caution}"></p>
+                <p th:text="${fugitive1.message}" style="font-weight: bold"></p>
+                <p th:text="${fugitive1.reward}" style="font-weight:500"></p>
+                <a class="nav-link" th:href="@{${fugitive1.pdfLink}}" style="color:white">More info..</a>
+            </div>
+        </div>
+        <div th:object="${fugitive2}" class="carousel-item" data-bs-interval="10000">
+            <svg class="bd-placeholder-img" width="100%" height="100%"
+                 aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <rect width="100%" height="100%"
+                      fill=#8c8c8c></rect>
+            </svg>
+            <img th:src="@{${fugitive2.image}}" style="max-width: 120px" class="d-block w-100">
+            <div class="carousel-caption d-none d-md-block">
+                <h5 th:text="${fugitive2.title}"></h5>
+                <h6 th:text="${fugitive2.sex}" class="user-email"></h6>
+                <p th:text="${fugitive2.details}"></p>
+                <p th:text="${fugitive2.remarks}"></p>
+                <p th:text="${fugitive2.caution}"></p>
+                <p th:text="${fugitive2.message}" style="font-weight: bold"></p>
+                <p th:text="${fugitive2.reward}" style="font-weight:500"></p>
+                <a class="nav-link" th:href="@{${fugitive2.pdfLink}}" style="color:white">More info..</a>
+            </div>
+        </div>
+        <div th:object="${fugitive3}" class="carousel-item" data-bs-interval="10000">
+            <svg class="bd-placeholder-img" width="100%" height="100%"
+                 aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <rect width="100%" height="100%"
+                      fill=#8c8c8c></rect>
+            </svg>
+            <img th:src="@{${fugitive3.image}}" style="max-width: 120px">
+            <div class="carousel-caption d-none d-md-block">
+                <h5 th:text="${fugitive3.title}"></h5>
+                <h6 th:text="${fugitive3.sex}" class="user-email"></h6>
+                <p th:text="${fugitive3.details}"></p>
+                <p th:text="${fugitive3.remarks}"></p>
+                <p th:text="${fugitive3.caution}"></p>
+                <p th:text="${fugitive3.message}" style="font-weight: bold"></p>
+                <p th:text="${fugitive3.reward}" style="font-weight:500"></p>
+                <a class="nav-link" th:href="@{${fugitive3.pdfLink}}" style="color:white">More info..</a>
+            </div>
+        </div>
+        <div th:object="${fugitive4}" class="carousel-item" data-bs-interval="10000">
+            <svg class="bd-placeholder-img" width="100%" height="100%"
+                 aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <rect width="100%" height="100%"
+                      fill=#8c8c8c></rect>
+            </svg>
+            <img th:src="@{${fugitive4.image}}" style="max-width: 120px" class="d-block w-100">
+            <div class="carousel-caption d-none d-md-block">
+                <h5 th:text="${fugitive4.title}"></h5>
+                <h6 th:text="${fugitive4.sex}" class="user-email"></h6>
+                <p th:text="${fugitive4.details}"></p>
+                <p th:text="${fugitive4.remarks}"></p>
+                <p th:text="${fugitive4.caution}"></p>
+                <p th:text="${fugitive4.message}" style="font-weight: bold"></p>
+                <p th:text="${fugitive4.reward}" style="font-weight:500"></p>
+                <a class="nav-link" th:href="@{${fugitive4.pdfLink}}" style="color:white">More info..</a>
+            </div>
+        </div>
+
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+</html>
