@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
-@Data
+@Getter
 @Component
 public class PrisonCapacity {
 
