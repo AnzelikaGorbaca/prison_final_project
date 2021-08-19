@@ -9,8 +9,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,27 +26,57 @@ class SaveUserServiceTest {
     @Mock
     public UserRepository userRepository;
     @Mock
-    public GetRoleService getRoleService;
+    public  GetRoleService getRoleService;
+    @Mock
+    private BCryptPasswordEncoder passwordEncoder;
 
     private Set<Role> getRolesUser() {
         Set<Role> user = new HashSet<>();
-        user.add(new Role(1L, "SITE_USER"));
+        user.add(new Role(1L, "ROLE_USER"));
         return user;
     }
 
-    User user = new User(1L, "username", "123", true,
+    User user = new User(1L, "username", "parolesnav", true,
             null);
 
     @Test
-    void saveUser() {
-        when(getRoleService.findByRoleName("SITE_USER")).thenReturn(new Role(1L, "SITE_USER"));
+    void saveUserWhenIsRole() {
+        when(getRoleService.findByRoleNameIgnoreCase("ROLE_USER")).thenReturn(Optional.of(new Role(1L, "ROLE_USER")));
+        when (passwordEncoder.encode(user.getPassword())).thenReturn("$2a$10$.g54npZpglNcSmIQEqeQmehcSR2VecRHBZ6OO6MtPSi08Nj96y1Z2");
+
+
         when(userRepository.save(user)).thenReturn(user);
 
-        User userResult = saveUserService.saveUser(user);
-        assertEquals(getRolesUser(), user.getRoles());
 
-        verify(getRoleService).findByRoleName("SITE_USER");
+        User userResult = saveUserService.saveUser(user);
+
+        assertEquals(user.getRoles(),userResult.getRoles());
+        assertEquals(user, userResult);
+
+        verify(getRoleService).findByRoleNameIgnoreCase("ROLE_USER");
         verify (userRepository).save(user);
+        verify(passwordEncoder).encode("parolesnav");
+
+    }
+
+
+    @Test
+    void saveUserWhenNoRoleInDatabase() {
+        when(getRoleService.findByRoleNameIgnoreCase("ROLE_USER")).thenReturn(Optional.of(new Role("ROLE_USER")));
+        when (passwordEncoder.encode(user.getPassword())).thenReturn("$2a$10$.g54npZpglNcSmIQEqeQmehcSR2VecRHBZ6OO6MtPSi08Nj96y1Z2");
+
+
+        when(userRepository.save(user)).thenReturn(user);
+
+
+        User userResult = saveUserService.saveUser(user);
+
+        assertEquals(user.getRoles(),userResult.getRoles());
+        assertEquals(user, userResult);
+
+        verify(getRoleService).findByRoleNameIgnoreCase("ROLE_USER");
+        verify (userRepository).save(user);
+        verify(passwordEncoder).encode("parolesnav");
 
     }
 

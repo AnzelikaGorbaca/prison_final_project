@@ -5,6 +5,7 @@ import com.prison.project.repository.RoleRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -13,8 +14,8 @@ public class GetRoleService {
 
     private final RoleRepository roleRepository;
 
-    public Role findByRoleName(String role) {
-        return roleRepository.findByRoleName(role);
+    public Optional<Role> findByRoleNameIgnoreCase(String roleName){
+        return roleRepository.findByRoleNameIgnoreCase(roleName);
     }
 
 }
