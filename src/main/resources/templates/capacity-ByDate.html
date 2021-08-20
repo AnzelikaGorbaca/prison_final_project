@@ -112,7 +112,9 @@
             <input type="date" th:field="*{distinctDate}" required class="form-control" id="exampleInputDistinctDate">
             <span th:if="${#fields.hasErrors('distinctDate')}" th:errors="*{distinctDate}" class="text-danger"></span>
         </div>
-        <button type="submit" class="btn btn-primary">Search</button>
+        <button type="submit" class="btn btn-primary btn-sm">Search</button>
+        <a class="btn btn-secondary btn-sm"  th:href="@{/prison-management-system}"
+           role="button">Cancel</a>
     </form>
 </div>
 <script>
@@ -132,6 +134,7 @@
 
 
 </script>
+
 
 </body>
 </html>

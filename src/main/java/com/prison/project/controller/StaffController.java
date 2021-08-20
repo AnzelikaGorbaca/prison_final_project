@@ -125,7 +125,7 @@ public class StaffController {
                               BindingResult result, Model model,
                               @RequestParam("image") MultipartFile multipartFile) {
         if (result.hasErrors()) {
-            editStaffById(id, model);
+            model.addAttribute("occupationList", occupationEnumSorting.getSortedList());
             return "staff-edit";
         }
 
@@ -136,7 +136,7 @@ public class StaffController {
                 if ((e.getCause().getCause()).getLocalizedMessage().contains("Duplicate entry")) {
                     String errorMessage = ((e.getCause().getCause()).getLocalizedMessage().substring(15, 30));
                     model.addAttribute("errorFromController", "Staff with personal code " + errorMessage + " already exists");
-                    editStaffById(id, model);
+                    model.addAttribute("occupationList", occupationEnumSorting.getSortedList());
                     return "staff-edit";
                 }
             }
@@ -145,7 +145,7 @@ public class StaffController {
         if (!multipartFile.isEmpty()) {
             if (photoServiceStaff.checkPhotoForErrorsAndUpload(id, staff, multipartFile)) {
                 model.addAttribute("PhotoError", "Maximum permitted size of photo is 1048576 bytes");
-                editStaffById(id, model);
+                model.addAttribute("occupationList", occupationEnumSorting.getSortedList());
                 return "staff-edit";
             }
         }

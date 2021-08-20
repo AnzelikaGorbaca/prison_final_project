@@ -97,6 +97,12 @@
 <h4 th:text="${closestDay}"></h4>
 <h4 th:text="${freePlacesOnClosestDate}"></h4>
 <br>
+<div class="text-left">
+
+    <a class="btn btn-primary btn-sm" th:href="@{/prison-management-system/capacities/capacity-otherDay}" >Search on distinct date</a>
+    <a class="btn btn-secondary btn-sm"  th:href="@{/prison-management-system}"
+       role="button">Cancel</a>
+</div>
 
 </body>
 </html>
