@@ -2,6 +2,19 @@
 <head>
     <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
+
+    <script type="application/javascript">
+        $(document).ready(function () {
+                var uploadField = document.getElementById("exampleInputPhoto");
+                uploadField.onchange = function () {
+                    if (this.files[0].size > 2097152) {
+                        alert("File is too big!");
+                        this.value = "";
+                    }
+                }
+            }
+        )
+    </script>
 </head>
 <body class="container">
 
