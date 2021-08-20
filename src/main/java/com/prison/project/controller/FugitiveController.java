@@ -19,7 +19,7 @@ public class FugitiveController {
 
     @GetMapping
     public String showFiveFugitives(Model model) {
-        List<Fugitive> fugitives = fugitiveService.getFiveFugitiveList(0);
+        List<Fugitive> fugitives = fugitiveService.getFiveFugitiveList(8);
 
         Fugitive fugitive = fugitives.get(0);
         Fugitive fugitive1 = fugitives.get(1);
