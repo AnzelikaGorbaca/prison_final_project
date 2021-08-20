@@ -86,6 +86,6 @@ public class Prisoner {
     }
 
     private Stream<Crime> emptyIfNullStream(List<Crime> crimes) {
-        return crimes.isEmpty() ? Stream.empty() : crimes.stream();
+        return crimes == null || crimes.isEmpty() ? Stream.empty() : crimes.stream();
     }
 }

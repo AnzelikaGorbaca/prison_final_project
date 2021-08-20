@@ -4,8 +4,8 @@ import com.prison.project.model.Crime;
 import com.prison.project.model.Prisoner;
 import com.prison.project.model.PrisonerSearch;
 import com.prison.project.model.Punishment;
-import com.prison.project.service.photo.PhotoServicePrisoner;
 import com.prison.project.service.crime.GetCrimeService;
+import com.prison.project.service.photo.PhotoServicePrisoner;
 import com.prison.project.service.prisonCapacity.PrisonCapacityCheck;
 import com.prison.project.service.prisoner.*;
 import com.prison.project.service.punishment.GetPunishmentService;
@@ -54,11 +54,7 @@ public class PrisonerController {
         }
         map.addAttribute("pageName", "Add New Prisoner");
 
-        List<Punishment> punishmentList = getPunishmentService.getAllPunishments();
-        List<Crime> crimeList = getCrimeService.getAllCrime();
-
-        map.addAttribute("crimeList", crimeList);
-        map.addAttribute("punishmentList", punishmentList);
+        prisonerRequiredFields(map);
 
         return "prisoner-add";
     }
@@ -140,11 +136,7 @@ public class PrisonerController {
         model.addAttribute("pageName", "Prisoner Profile");
 
         Prisoner prisoner = getPrisonerService.getPrisonerById(id);
-        List<Punishment> punishmentList = getPunishmentService.getAllPunishments();
-        List<Crime> crimeList = getCrimeService.getAllCrime();
-
-        model.addAttribute("crimeList", crimeList);
-        model.addAttribute("punishmentList", punishmentList);
+        prisonerRequiredFields(model);
         model.addAttribute("prisoner", prisoner);
         return "prisoner-profile";
     }
@@ -154,12 +146,7 @@ public class PrisonerController {
     public String updatePrisonerById(@PathVariable("id") Long id, Model model) {
         model.addAttribute("pageName", "Edit prisoner profile");
         Prisoner prisoner = getPrisonerService.getPrisonerById(id);
-        List<Punishment> punishmentList = getPunishmentService.getAllPunishments();
-        List<Crime> crimeList = getCrimeService.getAllCrime();
-
-
-        model.addAttribute("crimeList", crimeList);
-        model.addAttribute("punishmentList", punishmentList);
+        prisonerRequiredFields(model);
         model.addAttribute("prisoner", prisoner);
         return "prisoner-edit";
     }
@@ -170,13 +157,14 @@ public class PrisonerController {
                                  @Valid Prisoner prisoner,
                                  BindingResult result, Model model, @RequestParam("image") MultipartFile multipartFile) {
         if (result.hasErrors()) {
+            prefillPrisonerFields(id, prisoner, model);
             return "prisoner-edit";
         }
 
 
         if (prisoner.getCrimesJson() == null) {
+            prefillPrisonerFields(id, prisoner, model);
             model.addAttribute("errorForCrime", "Crime is required");
-//            updatePrisonerById(id, model);
             return "prisoner-edit";
         }
 
@@ -186,6 +174,7 @@ public class PrisonerController {
         try {
             updatePrisonerService.updatePrisoner(id, prisoner);
         } catch (RuntimeException e) {
+            prefillPrisonerFields(id, prisoner, model);
             if (e.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
                 if ((e.getCause().getCause()).getLocalizedMessage().contains("Duplicate entry")) {
                     String errorMessage = ((e.getCause().getCause()).getLocalizedMessage().substring(15, 30));
@@ -199,14 +188,34 @@ public class PrisonerController {
 
         if (!multipartFile.isEmpty()) {
             if (photoServicePrisoner.checkPhotoForErrorsAndUpload(id, prisoner, multipartFile)) {
+                prefillPrisonerFields(id, prisoner, model);
                 model.addAttribute("PhotoError", "Maximum permitted size of photo is 1048576 bytes");
 //                updatePrisonerById(id, model);
                 return "prisoner-edit";
             }
         }
 
+        return "redirect:/prison-management-system/prisoners/profile/" + id;
+    }
 
-        return "redirect:/prison-management-system/prisoners/profile/"+id;
+    private void prefillPrisonerFields(Long id, Prisoner prisoner, Model model) {
+        Prisoner prisoner1 = getPrisonerService.getPrisonerById(id);
+        prisoner.setCrimes(prisoner1.getCrimes());
+        prisoner.setCrimesJson(prisoner1.getCrimesJson());
+        prisoner.setPunishment(prisoner1.getPunishment());
+        prisoner.setId(prisoner1.getId());
+        prisoner.setPunishmentId(prisoner1.getPunishmentId());
+
+        model.addAttribute("prisoner", prisoner);
+        prisonerRequiredFields(model);
+    }
+
+    private void prisonerRequiredFields(Model model) {
+        List<Punishment> punishmentList = getPunishmentService.getAllPunishments();
+        List<Crime> crimeList = getCrimeService.getAllCrime();
+
+        model.addAttribute("crimeList", crimeList);
+        model.addAttribute("punishmentList", punishmentList);
     }
 
 }
