@@ -35,8 +35,9 @@ public class CapacityController {
             try {
                 LocalDate closestDayWithFreeSpaces = prisonCapacityCheck.getClosestDateWithFreePlaces();
                 map.addAttribute("closestDay", "Closest date with free places: " + closestDayWithFreeSpaces + "");
+                Long freePlacesOnTheClosestDay = prisonCapacityCheck.getNumberOfFreePlacesInClosestDate();
 
-                Long freePlacesOnTheClosestDay = prisonCapacityCheck.getNumberOfFreePlacesInClosestDate(closestDayWithFreeSpaces);
+              //  Long freePlacesOnTheClosestDay = prisonCapacityCheck.getNumberOfFreePlacesInClosestDate(closestDayWithFreeSpaces);
                 map.addAttribute("freePlacesOnClosestDate", "Number of free places on closest date: " + freePlacesOnTheClosestDay + "");
             } catch (NotFoundException n) {
                 map.addAttribute("noPrisonerExists", "There are no prisoners registered in the system");

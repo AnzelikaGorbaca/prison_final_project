@@ -97,22 +97,65 @@ public class CapacityCheckServiceTests {
         verify(prisonerRepository).findTopByEndDateGreaterThanOrderByEndDateAsc(localDate);
 
     }
+    @Test
+    void shouldReturnNumberOfFreePlacesOnClosestFreeDay(){
+        LocalDate localDate = LocalDate.now();
 
+        Prisoner samplePrisoner = new Prisoner();
+        when(prisonerRepository.findTopByEndDateGreaterThanOrderByEndDateAsc(localDate)).thenReturn(Optional.of(samplePrisoner));
+        samplePrisoner.setEndDate(localDate);
+
+        when(prisonerRepository.countByEndDateGreaterThan(localDate)).thenReturn(90L);
+        when(prisonCapacity.getCapacity()).thenReturn(100);
+
+
+        Long freeSpaces =prisonCapacityCheck.getNumberOfFreePlacesInClosestDate();
+
+        assertEquals(10L,freeSpaces);
+
+        verify(prisonerRepository).findTopByEndDateGreaterThanOrderByEndDateAsc(localDate);
+        verify(prisonerRepository).countByEndDateGreaterThan(localDate);
+
+
+    }
+
+    @Test
+    void shouldReturnZeroIfFreePlacesLessThan(){
+        LocalDate localDate = LocalDate.now();
+
+        Prisoner samplePrisoner = new Prisoner();
+        when(prisonerRepository.findTopByEndDateGreaterThanOrderByEndDateAsc(localDate)).thenReturn(Optional.of(samplePrisoner));
+        samplePrisoner.setEndDate(localDate);
+
+        when(prisonerRepository.countByEndDateGreaterThan(localDate)).thenReturn(100L);
+        when(prisonCapacity.getCapacity()).thenReturn(90);
+
+        Long freeSpaces =prisonCapacityCheck.getNumberOfFreePlacesInClosestDate();
+
+        assertEquals(0L,freeSpaces);
+
+        verify(prisonerRepository).findTopByEndDateGreaterThanOrderByEndDateAsc(localDate);
+        verify(prisonerRepository).countByEndDateGreaterThan(localDate);
+
+    }
 
     @Test
     void shouldThrowExceptionIfNoPrisonersWithEndDateFound() {
+        LocalDate localDate = LocalDate.now();
+
+        Prisoner samplePrisoner = new Prisoner();
+        samplePrisoner.setEndDate(localDate);
 
         try {
-            LocalDate localDate = LocalDate.now();
 
-            Long freePlaces = prisonCapacityCheck.getNumberOfFreePlacesInClosestDate(localDate);
-
+            Long freeSpaces =prisonCapacityCheck.getNumberOfFreePlacesInClosestDate();
             fail();
 
         } catch (NotFoundException e) {
             assertEquals("There are no prisoners registered in the system", e.getMessage());
         }
 
+        verify(prisonerRepository).findTopByEndDateGreaterThanOrderByEndDateAsc(localDate);
 
     }
 
