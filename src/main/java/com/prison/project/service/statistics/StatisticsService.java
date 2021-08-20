@@ -18,6 +18,12 @@ public class StatisticsService {
 
     public List<Prisoner> getListPrisonerWithCrimeCountForStatistics(){
         List<Prisoner> prisonerList = getPrisonerService.getAllWithStatus();
+        List<Prisoner> resultList = getPrisonerListSorted(prisonerList);
+
+        return resultList;
+    }
+
+    private List<Prisoner> getPrisonerListSorted(List<Prisoner> prisonerList) {
         Map<Prisoner, Integer> map = new HashMap<>();
         for (Prisoner p: prisonerList){
             map.put(p, p.getCrimes().size());
@@ -30,7 +36,6 @@ public class StatisticsService {
                         Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 
         List <Prisoner> resultList = new ArrayList(a.keySet());
-
         return resultList;
     }
 
