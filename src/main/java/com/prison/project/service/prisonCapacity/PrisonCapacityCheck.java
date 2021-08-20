@@ -38,8 +38,8 @@ public class PrisonCapacityCheck {
             throw new NotFoundException("There are no prisoners registered in the system");
         }
     }
-    public Long getNumberOfFreePlacesInClosestDate(LocalDate localDate) {
-        localDate = getClosestDateWithFreePlaces();
+    public Long getNumberOfFreePlacesInClosestDate() {
+        LocalDate localDate = getClosestDateWithFreePlaces();
         Long prisonerCount = prisonerRepository.countByEndDateGreaterThan(localDate.minusDays(1));
         Long freeSpaces = prisonCapacity.getCapacity() - prisonerCount;
 
@@ -48,8 +48,6 @@ public class PrisonCapacityCheck {
         }
         return 0L;
     }
-
-
 
 
 
