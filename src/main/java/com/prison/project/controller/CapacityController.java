@@ -2,8 +2,6 @@ package com.prison.project.controller;
 
 import com.prison.project.exception.NotFoundException;
 import com.prison.project.model.CapacityDate;
-import com.prison.project.model.Occupation;
-import com.prison.project.model.PrisonCapacity;
 import com.prison.project.service.prisonCapacity.PrisonCapacityCheck;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -37,7 +34,6 @@ public class CapacityController {
                 map.addAttribute("closestDay", "Closest date with free places: " + closestDayWithFreeSpaces + "");
                 Long freePlacesOnTheClosestDay = prisonCapacityCheck.getNumberOfFreePlacesInClosestDate();
 
-              //  Long freePlacesOnTheClosestDay = prisonCapacityCheck.getNumberOfFreePlacesInClosestDate(closestDayWithFreeSpaces);
                 map.addAttribute("freePlacesOnClosestDate", "Number of free places on closest date: " + freePlacesOnTheClosestDay + "");
             } catch (NotFoundException n) {
                 map.addAttribute("noPrisonerExists", "There are no prisoners registered in the system");
