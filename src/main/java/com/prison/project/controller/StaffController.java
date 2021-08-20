@@ -49,7 +49,7 @@ public class StaffController {
 
     @GetMapping("/delete/{id}")
     public String deleteStaffById(@PathVariable("id") Long id, Model model) {
-        photoServiceStaff.deletePhoto (id);
+        photoServiceStaff.deletePhoto(id);
         deleteStaffService.deleteStaff(id);
         return "redirect:/prison-management-system/staffs";
     }
@@ -115,7 +115,7 @@ public class StaffController {
             }
         }
 
-        photoServiceStaff.uploadPhotoRegister (staff, multipartFile);
+        photoServiceStaff.uploadPhotoRegister(staff, multipartFile);
         createStaffService.registerStaff(staff);
         return staffStart(model);
     }
@@ -123,8 +123,8 @@ public class StaffController {
     @PostMapping("/update/{id}")
     public String updateStaff(@PathVariable("id") Long id,
                               @Valid Staff staff,
-                              @RequestParam("image") MultipartFile multipartFile,
-                              BindingResult result, Model model) throws IOException {
+                              BindingResult result, Model model,
+                              @RequestParam("image") MultipartFile multipartFile) {
         if (result.hasErrors()) {
             model.addAttribute("occupationList", occupationEnumSorting.getSortedList());
             return "staff-edit";
