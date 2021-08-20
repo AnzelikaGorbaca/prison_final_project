@@ -176,7 +176,7 @@ public class PrisonerController {
 
         if (prisoner.getCrimesJson() == null) {
             model.addAttribute("errorForCrime", "Crime is required");
-            updatePrisonerById(id, model);
+//            updatePrisonerById(id, model);
             return "prisoner-edit";
         }
 
@@ -190,7 +190,7 @@ public class PrisonerController {
                 if ((e.getCause().getCause()).getLocalizedMessage().contains("Duplicate entry")) {
                     String errorMessage = ((e.getCause().getCause()).getLocalizedMessage().substring(15, 30));
                     model.addAttribute("errorFromController", "Prisoner with personal code " + errorMessage + " already exists");
-                    updatePrisonerById(id, model);
+//                    updatePrisonerById(id, model);
                     return "prisoner-edit";
                 }
             }
@@ -200,7 +200,7 @@ public class PrisonerController {
         if (!multipartFile.isEmpty()) {
             if (photoServicePrisoner.checkPhotoForErrorsAndUpload(id, prisoner, multipartFile)) {
                 model.addAttribute("PhotoError", "Maximum permitted size of photo is 1048576 bytes");
-                updatePrisonerById(id, model);
+//                updatePrisonerById(id, model);
                 return "prisoner-edit";
             }
         }
