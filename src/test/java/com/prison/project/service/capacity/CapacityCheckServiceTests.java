@@ -5,6 +5,7 @@ import com.prison.project.model.PrisonCapacity;
 import com.prison.project.model.Prisoner;
 import com.prison.project.repository.PrisonerRepository;
 import com.prison.project.service.prisonCapacity.PrisonCapacityCheck;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -72,7 +73,7 @@ public class CapacityCheckServiceTests {
         when(prisonerRepository.findTopByEndDateGreaterThanOrderByEndDateAsc(localDate)).thenReturn(Optional.of(samplePrisoner));
         samplePrisoner.setEndDate(localDate);
 
-        LocalDate closestDate = prisonCapacityCheck.getClosestDateWithFreePlaces(localDate);
+        LocalDate closestDate = prisonCapacityCheck.getClosestDateWithFreePlaces();
 
         assertEquals(localDate.plusDays(1), closestDate);
 
@@ -86,7 +87,8 @@ public class CapacityCheckServiceTests {
         when(prisonerRepository.findTopByEndDateGreaterThanOrderByEndDateAsc(localDate)).thenReturn(Optional.empty());
 
         try {
-            LocalDate closestDate = prisonCapacityCheck.getClosestDateWithFreePlaces(localDate);
+
+            LocalDate closestDate = prisonCapacityCheck.getClosestDateWithFreePlaces();
             fail();
         } catch (NotFoundException e) {
             assertEquals("There are no prisoners registered in the system", e.getMessage());
