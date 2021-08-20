@@ -41,8 +41,7 @@ class SearchPrisonerServiceTest {
     GetPrisonerService getPrisonerService;
     @Mock
     StatusPrisonerService statusPrisonerService;
-//    @Mock
-//    PrisonerSearch prisonerSearch;
+
 
 
     private LocalDate getStartDate() {

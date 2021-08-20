@@ -2,6 +2,7 @@
 <head>
     <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
     <script type="application/javascript">
         $(document).ready(function () {
@@ -138,7 +139,8 @@
         </div>
         <div class="mb-3">
             <label for="exampleInputPhoto" class="form-label">Change photo</label>
-            <input type="file" name="image" class="form-control" accept="image/jpeg" id="exampleInputPhoto">
+            <input type="file" name="image" class="form-control" accept="image/jpeg" id="exampleInputPhoto"
+                   aria-describedby="nameHelp">
         </div>
         <div class="mb-3">
             <label for="exampleInputPersonalCode" class="form-label">Personal Code</label>
