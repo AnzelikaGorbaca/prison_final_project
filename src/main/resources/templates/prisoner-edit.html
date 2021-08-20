@@ -13,6 +13,18 @@
     <link rel="stylesheet" type="text/css" th:href="@{~/css/jquery.dropdown.css}">
     <script th:src="@{~/js/jquery.dropdown.js}"></script>
 
+    <script type="application/javascript">
+        $(document).ready(function () {
+                var uploadField = document.getElementById("exampleInputPhoto");
+                uploadField.onchange = function () {
+                    if (this.files[0].size > 2097152) {
+                        alert("File is too big!");
+                        this.value = "";
+                    }
+                }
+            }
+        )
+    </script>
 </head>
 <body class="container">
 <div style="text-align: center;">
@@ -109,7 +121,7 @@
                 <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
                     <a class="nav-link" href="/register">Register</a>
                 </li>
-                <li class="nav-item" sec:authorize="isAuthenticated()" >
+                <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a class="nav-link" href="/logout">Log out</a>
                 </li>
             </ul>
@@ -197,8 +209,9 @@
         <br>
         <div class="text-left">
             <!--            <button class="btn btn-secondary" th:href = "@{/prison-management-system/prisoners}">Cancel</button>-->
-            <button class="btn btn-primary"  type="submit" >Submit</button>
-            <a class="btn btn-secondary"  th:href="@{/prison-management-system/prisoners/profile/{id}(id=${prisoner.id})}"
+            <button class="btn btn-primary" type="submit">Submit</button>
+            <a class="btn btn-secondary"
+               th:href="@{/prison-management-system/prisoners/profile/{id}(id=${prisoner.id})}"
                role="button">Cancel</a>
 
         </div>
