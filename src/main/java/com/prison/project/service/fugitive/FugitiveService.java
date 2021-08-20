@@ -1,6 +1,8 @@
 package com.prison.project.service.fugitive;
 
 import com.prison.project.model.Fugitive;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -9,18 +11,20 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
-import java.net.URL;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
+@AllArgsConstructor
+@NoArgsConstructor
 @Service
 public class FugitiveService {
 
@@ -28,34 +32,21 @@ public class FugitiveService {
     private String apiUrl;
 
     public JSONObject getConnection() {
+
         try {
-            URL url = new URL(apiUrl);
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(apiUrl))
+                    .header("Content-Type", "application/json; utf-8")
+                    .header("Accept", "application/json")
+                    .method("GET", HttpRequest.BodyPublishers.noBody())
+                    .build();
+            HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
-
-            con.setRequestProperty("Content-Type", "application/json; utf-8"); //header
-            con.setRequestProperty("Accept", "application/json");
-
-
-            int responseCode = con.getResponseCode();
-
-            if (responseCode != 200) {
-                throw new RuntimeException("HttpResponseCode: " + responseCode);
-            }
-
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
-                StringBuilder response = new StringBuilder();
-                String responseLine = null;
-                while ((responseLine = br.readLine()) != null) {
-                    response.append(responseLine.trim());
-                }
-//                System.out.println(response.toString());
+            if (response.statusCode() != 200) {
+                throw new RuntimeException("HttpResponseCode: " + response.statusCode());
+            } else {
                 JSONParser parser = new JSONParser();
-                JSONObject data = (JSONObject) parser.parse(response.toString());
-                return data;
-            } catch (ParseException e) {
-                e.printStackTrace();
+                return (JSONObject) parser.parse(response.body());
             }
 
         } catch (UnsupportedEncodingException e) {
@@ -65,6 +56,10 @@ public class FugitiveService {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
             e.printStackTrace();
         }
         return null;
@@ -90,9 +85,8 @@ public class FugitiveService {
             remarks = replace(remarks);
 
             JSONArray infoLinks = (JSONArray) fugitive.get("files");
-            JSONObject infoLink = (JSONObject)infoLinks.get(0);
+            JSONObject infoLink = (JSONObject) infoLinks.get(0);
             String pdfLink = (String) infoLink.get("url");
-
 
             result.add(new Fugitive(
                     (String) fugitive.get("title"),
@@ -107,21 +101,20 @@ public class FugitiveService {
             ));
         }
         return result;
-
     }
 
     private String replace(String fieldText) {
         if (fieldText != null) {
             fieldText = fieldText.replace("<p>", "")
                     .replace("</p>", "")
-                    .replace("<br/>",  "")
+                    .replace("<br/>", "")
                     .replace("<br />", "");
         }
         return fieldText;
     }
 
-    public List<Fugitive> getFiveFugitiveList(int indexStart){
-        int indexEnd = indexStart+5;
+    public List<Fugitive> getFiveFugitiveList(int indexStart) {
+        int indexEnd = indexStart + 5;
         return getFugitiveList().subList(indexStart, indexEnd);
     }
 }
