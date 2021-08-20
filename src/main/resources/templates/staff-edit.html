@@ -154,11 +154,13 @@
             <input type="text" th:field="*{address}" required class="form-control" id="exampleInputAddress">
             <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-danger"></span>
         </div>
+        <br>
         <div class="text-left">
             <a class="btn btn-secondary btn-sm" th:href="@{/prison-management-system/staffs/profile/{id}(id=${staff.id})}"
                role="button">Cancel</a>
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn btn-primary btn-sm">Save</button>
         </div>
+        <br>
     </form>
 </div>
 
