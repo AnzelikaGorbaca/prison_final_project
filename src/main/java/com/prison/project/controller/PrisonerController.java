@@ -190,6 +190,7 @@ public class PrisonerController {
                 if ((e.getCause().getCause()).getLocalizedMessage().contains("Duplicate entry")) {
                     String errorMessage = ((e.getCause().getCause()).getLocalizedMessage().substring(15, 30));
                     model.addAttribute("errorFromController", "Prisoner with personal code " + errorMessage + " already exists");
+                    updatePrisonerById(id, model);
                     return "prisoner-edit";
                 }
             }
