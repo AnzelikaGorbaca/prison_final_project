@@ -165,6 +165,8 @@
             <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-danger"></span>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
+        <a class="btn btn-secondary"  th:href="@{/prison-management-system}"
+           role="button">Cancel</a>
     </form>
 </div>
 
