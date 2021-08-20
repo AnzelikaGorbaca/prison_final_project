@@ -13,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
-import java.io.IOException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.*;
 
@@ -103,14 +102,14 @@ public class StaffController {
                                 @RequestParam("image") MultipartFile multipartFile) {
 
         if (result.hasErrors()) {
-            model.addAttribute("occupationList", occupationEnumSorting.getSortedList());
+            staffAdd(model,staff);
             return "staff-add";
         }
         List<Staff> staffList = getStaffService.findAllStaff();
         for (Staff s : staffList) {
             if (staff.getPersonalCode().contains(s.getPersonalCode())) {
                 model.addAttribute("errorFromController", "Staff member with personal code " + s.getPersonalCode() + " already exists");
-                model.addAttribute("occupationList", occupationEnumSorting.getSortedList());
+                staffAdd(model,staff);
                 return "staff-add";
             }
         }
@@ -126,7 +125,7 @@ public class StaffController {
                               BindingResult result, Model model,
                               @RequestParam("image") MultipartFile multipartFile) {
         if (result.hasErrors()) {
-            model.addAttribute("occupationList", occupationEnumSorting.getSortedList());
+            editStaffById(id, model);
             return "staff-edit";
         }
 
@@ -137,7 +136,7 @@ public class StaffController {
                 if ((e.getCause().getCause()).getLocalizedMessage().contains("Duplicate entry")) {
                     String errorMessage = ((e.getCause().getCause()).getLocalizedMessage().substring(15, 30));
                     model.addAttribute("errorFromController", "Staff with personal code " + errorMessage + " already exists");
-                    model.addAttribute("occupationList", occupationEnumSorting.getSortedList());
+                    editStaffById(id, model);
                     return "staff-edit";
                 }
             }
@@ -154,49 +153,3 @@ public class StaffController {
     }
 }
 
-// @PostMapping("/update/{id}")
-//    public String updateStaff(@PathVariable("id") Long id,
-//                              @Valid Staff staff,
-//                              @RequestParam("image") MultipartFile multipartFile,
-//                              BindingResult result, Model model) {
-//        if (result.hasErrors()) {
-//            occupationDropDownRestore.occupationDropDownList(model);
-//            return "staff-edit";
-//        }
-//
-//        try {
-//            updateStaffService.updateStaff(id, staff);
-//        } catch (RuntimeException e) {
-//            if (e.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
-//                if ((e.getCause().getCause()).getLocalizedMessage().contains("Duplicate entry")) {
-//                    String errorMessage = ((e.getCause().getCause()).getLocalizedMessage().substring(15, 30));
-//                    model.addAttribute("errorFromController", "Staff with personal code " + errorMessage + " already exists");
-//                    occupationDropDownRestore.occupationDropDownList(model);
-//                    return "staff-edit";
-//                }
-//            }
-//        }
-//        Staff savedStaff = updateStaffService.updateStaff(id, staff);
-//
-//        if (!multipartFile.isEmpty())
-//            FileUploadUtil.deleteFile(Paths.get("photos/" + "staff_" + id + "/" + savedStaff.getPhoto()));
-//        try {
-//            String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
-//            String uploadDir = "photos/" + "staff_" + id;
-//
-//            if (!fileName.isEmpty()) savedStaff.setPhoto(fileName);
-//            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-//            updateStaffService.updateStaff(id, staff);
-//        } catch (RuntimeException | IOException e) {
-//            if (e.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
-//                if ((e.getCause().getCause()).getLocalizedMessage().contains("Duplicate entry")) {
-//
-//                    String errorMessage = ((e.getCause().getCause()).getLocalizedMessage().substring(15, 30));
-//                    model.addAttribute("errorFromController", "Staff member with personal code " + errorMessage + " already exists");
-//                    occupationDropDownRestore.occupationDropDownList(model);
-//                    return "staff-edit";
-//                }
-//            }
-//        }
-//        return "redirect:/prison-management-system/staffs/profile/"+id;
-//    }
