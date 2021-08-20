@@ -29,7 +29,8 @@ public class PrisonCapacityCheck {
         return 0L;
     }
 
-    public LocalDate getClosestDateWithFreePlaces(LocalDate localDate) throws NotFoundException {
+    public LocalDate getClosestDateWithFreePlaces() throws NotFoundException {
+        LocalDate localDate = LocalDate.now();
         Optional<Prisoner> prisoner = prisonerRepository.findTopByEndDateGreaterThanOrderByEndDateAsc(localDate);
         if (prisoner.isPresent()) {
             return (prisoner.get().getEndDate()).plusDays(1);
@@ -37,10 +38,9 @@ public class PrisonCapacityCheck {
             throw new NotFoundException("There are no prisoners registered in the system");
         }
     }
-
     public Long getNumberOfFreePlacesInClosestDate(LocalDate localDate) {
-        localDate = getClosestDateWithFreePlaces(LocalDate.now().minusDays(1));
-        Long prisonerCount = prisonerRepository.countByEndDateGreaterThan(localDate);
+        localDate = getClosestDateWithFreePlaces();
+        Long prisonerCount = prisonerRepository.countByEndDateGreaterThan(localDate.minusDays(1));
         Long freeSpaces = prisonCapacity.getCapacity() - prisonerCount;
 
         if (freeSpaces > 0) {
@@ -48,6 +48,7 @@ public class PrisonCapacityCheck {
         }
         return 0L;
     }
+
 
 
 

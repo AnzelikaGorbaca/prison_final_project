@@ -33,7 +33,7 @@ public class CapacityController {
             map.addAttribute("errorFromController","Registering of new prisoners not possible because there are no free places in prison now");
 
             try {
-                LocalDate closestDayWithFreeSpaces = prisonCapacityCheck.getClosestDateWithFreePlaces(LocalDate.now());
+                LocalDate closestDayWithFreeSpaces = prisonCapacityCheck.getClosestDateWithFreePlaces();
                 map.addAttribute("closestDay", "Closest date with free places: " + closestDayWithFreeSpaces + "");
 
                 Long freePlacesOnTheClosestDay = prisonCapacityCheck.getNumberOfFreePlacesInClosestDate(closestDayWithFreeSpaces);
