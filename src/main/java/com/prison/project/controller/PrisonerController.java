@@ -88,7 +88,7 @@ public class PrisonerController {
         List<Crime> selectedCrimes = getCrimeService.getCrimesJson(prisoner.getCrimesJson());
         prisoner.setCrimes(selectedCrimes);
 
-        photoServicePrisoner.uploadPhotoRegister (prisoner, multipartFile);
+        photoServicePrisoner.uploadPhotoRegister(prisoner, multipartFile);
         createPrisonerService.registerPrisoner(prisoner);
 
         return prisonerIndex(model);
@@ -126,7 +126,7 @@ public class PrisonerController {
 
     @GetMapping("/delete/{id}")
     public String deletePrisonerById(@PathVariable("id") Long id, Model model) {
-        photoServicePrisoner.deletePhoto (id);
+        photoServicePrisoner.deletePhoto(id);
         deletePrisonerService.deletePrisoner(id);
         return "redirect:/prison-management-system/prisoners";
     }
@@ -179,20 +179,13 @@ public class PrisonerController {
                 if ((e.getCause().getCause()).getLocalizedMessage().contains("Duplicate entry")) {
                     String errorMessage = ((e.getCause().getCause()).getLocalizedMessage().substring(15, 30));
                     model.addAttribute("errorFromController", "Prisoner with personal code " + errorMessage + " already exists");
-//                    updatePrisonerById(id, model);
                     return "prisoner-edit";
                 }
             }
         }
 
-
         if (!multipartFile.isEmpty()) {
-            if (photoServicePrisoner.checkPhotoForErrorsAndUpload(id, prisoner, multipartFile)) {
-                prefillPrisonerFields(id, prisoner, model);
-                model.addAttribute("PhotoError", "Maximum permitted size of photo is 1048576 bytes");
-//                updatePrisonerById(id, model);
-                return "prisoner-edit";
-            }
+            photoServicePrisoner.uploadPhoto(id, prisoner, multipartFile);
         }
 
         return "redirect:/prison-management-system/prisoners/profile/" + id;
