@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
+
 @Transactional
 @Service
 @AllArgsConstructor
@@ -23,20 +24,19 @@ public class PhotoServiceStaff {
     private final PhotoServiceDeletePhoto photoServiceDeletePhoto;
     private final GetStaffService getStaffService;
 
-    public boolean checkPhotoForErrorsAndUpload(Long id, Staff staff, MultipartFile multipartFile) {
+    public void uploadPhoto(Long id, Staff staff, MultipartFile multipartFile) {
         Staff savedStaff = updateStaffService.updateStaff(id, staff);
         photoServiceDeletePhoto.deletePhoto(Paths.get("photos/" + "staff_" + id + "/" + savedStaff.getPhoto()));
-        try {
-            String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
-            String uploadDir = "photos/" + "staff_" + id;
-            if (!fileName.isEmpty()) savedStaff.setPhoto(fileName);
+
+        String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
+        String uploadDir = "photos/" + "staff_" + id;
+
+        if (!fileName.isEmpty()) savedStaff.setPhoto(fileName);
+        {
             photoServiceAddPhoto.savePhoto(uploadDir, fileName, multipartFile);
             updateStaffService.updateStaff(id, staff);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            return true;
         }
-        return false;
+
     }
 
 
@@ -49,7 +49,7 @@ public class PhotoServiceStaff {
     }
 
 
-    public void deletePhoto (Long id){
+    public void deletePhoto(Long id) {
         Path path = Paths.get("photos/" + "staff_" + id + "/" + getStaffService.findStaffById(id).getPhoto());
         photoServiceDeletePhoto.deletePhoto(path);
         Path dir = Paths.get("photos/" + "staff_" + id);

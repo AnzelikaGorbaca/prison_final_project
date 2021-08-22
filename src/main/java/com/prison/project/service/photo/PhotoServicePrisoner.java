@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.transaction.Transactional;
 import java.nio.file.*;
 import java.util.Objects;
+
 @Transactional
 @Service
 @AllArgsConstructor
@@ -24,21 +25,19 @@ public class PhotoServicePrisoner {
     private final PhotoServiceDeletePhoto photoServiceDeletePhoto;
     private final PhotoServiceAddPhoto photoServiceAddPhoto;
 
-    public boolean checkPhotoForErrorsAndUpload(Long id, Prisoner prisoner, MultipartFile multipartFile) {
+    public void uploadPhoto(Long id, Prisoner prisoner, MultipartFile multipartFile) {
 
         Prisoner savedPrisoner = updatePrisonerService.updatePrisoner(id, prisoner);
-          photoServiceDeletePhoto.deletePhoto(Paths.get("photos/" + "prisoner_" + id + "/" + savedPrisoner.getPhoto()));
-        try {
-            String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
-            String uploadDir = "photos/" + "prisoner_" + id;
+        photoServiceDeletePhoto.deletePhoto(Paths.get("photos/" + "prisoner_" + id + "/" + savedPrisoner.getPhoto()));
 
-            if (!fileName.isEmpty()) savedPrisoner.setPhoto(fileName);
-            photoServiceAddPhoto.savePhoto(uploadDir,fileName,multipartFile);
+        String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
+        String uploadDir = "photos/" + "prisoner_" + id;
+
+        if (!fileName.isEmpty()) savedPrisoner.setPhoto(fileName);
+        {
+            photoServiceAddPhoto.savePhoto(uploadDir, fileName, multipartFile);
             updatePrisonerService.updatePrisoner(id, prisoner);
-        } catch (RuntimeException e) {
-            return true;
         }
-        return false;
     }
 
     public void uploadPhotoRegister(Prisoner prisoner, MultipartFile multipartFile) {
@@ -49,13 +48,12 @@ public class PhotoServicePrisoner {
         photoServiceAddPhoto.savePhoto(uploadDir, fileName, multipartFile);
     }
 
-    public void deletePhoto (Long id){
+    public void deletePhoto(Long id) {
         Path path = Paths.get("photos/" + "prisoner_" + id + "/" + getPrisonerService.getPrisonerById(id).getPhoto());
         photoServiceDeletePhoto.deletePhoto(path);
         Path dir = Paths.get("photos/" + "prisoner_" + id);
         photoServiceDeletePhoto.deletePhoto(dir);
     }
-
 
 
 }

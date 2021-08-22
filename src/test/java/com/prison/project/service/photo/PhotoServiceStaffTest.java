@@ -88,7 +88,7 @@ class PhotoServiceStaffTest {
 
 
     @Test
-    void checkPhotoForErrorsAndUpload() {
+    void uploadPhoto() {
         Long id = 1L;
         when(updateStaffService.updateStaff(id, sampleStaff)).thenReturn(sampleStaff);
         doNothing().when(photoServiceDeletePhoto).deletePhoto(Paths.get("photos/" + "staff_" + id + "/" + sampleStaff.getPhoto()));
@@ -100,9 +100,9 @@ class PhotoServiceStaffTest {
         doNothing().when(photoServiceAddPhoto).savePhoto(uploadDir, fileName, multipartFile);
 
         when(updateStaffService.updateStaff(id, sampleStaff)).thenReturn(sampleStaff);
-        boolean check = photoServiceStaff.checkPhotoForErrorsAndUpload(id,sampleStaff, multipartFile);
+        photoServiceStaff.uploadPhoto(id,sampleStaff, multipartFile);
 
-        assertFalse(check);
+
         verify(updateStaffService, times(2)).updateStaff(id, sampleStaff);
         verify(photoServiceDeletePhoto).deletePhoto(Paths.get("photos/" + "staff_" + id + "/" + sampleStaff.getPhoto()));
         verify(photoServiceAddPhoto).savePhoto(uploadDir, fileName, multipartFile);

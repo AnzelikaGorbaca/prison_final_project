@@ -102,14 +102,14 @@ public class StaffController {
                                 @RequestParam("image") MultipartFile multipartFile) {
 
         if (result.hasErrors()) {
-            staffAdd(model,staff);
+            staffAdd(model, staff);
             return "staff-add";
         }
         List<Staff> staffList = getStaffService.findAllStaff();
         for (Staff s : staffList) {
             if (staff.getPersonalCode().contains(s.getPersonalCode())) {
                 model.addAttribute("errorFromController", "Staff member with personal code " + s.getPersonalCode() + " already exists");
-                staffAdd(model,staff);
+                staffAdd(model, staff);
                 return "staff-add";
             }
         }
@@ -143,12 +143,10 @@ public class StaffController {
         }
 
         if (!multipartFile.isEmpty()) {
-            if (photoServiceStaff.checkPhotoForErrorsAndUpload(id, staff, multipartFile)) {
-                model.addAttribute("PhotoError", "Maximum permitted size of photo is 1048576 bytes");
-                model.addAttribute("occupationList", occupationEnumSorting.getSortedList());
-                return "staff-edit";
-            }
+            photoServiceStaff.uploadPhoto(id, staff, multipartFile);
+
         }
+
         return "redirect:/prison-management-system/staffs/profile/" + id;
     }
 }

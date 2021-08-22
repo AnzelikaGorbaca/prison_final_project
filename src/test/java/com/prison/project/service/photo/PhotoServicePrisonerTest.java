@@ -103,7 +103,7 @@ class PhotoServicePrisonerTest {
 
 
     @Test
-    void checkPhotoForErrorsAndUploadWhenNoErrors() {
+    void uploadPhoto() {
         Long id = 27L;
         when(updatePrisonerService.updatePrisoner(id, prisoner)).thenReturn(prisoner);
         doNothing().when(photoServiceDeletePhoto).deletePhoto(Paths.get("photos/" + "prisoner_" + id + "/" + prisoner.getPhoto()));
@@ -113,9 +113,9 @@ class PhotoServicePrisonerTest {
         prisoner.setPhoto(fileName);
         doNothing().when(photoServiceAddPhoto).savePhoto(uploadDir, fileName, multipartFile);
         when(updatePrisonerService.updatePrisoner(id, prisoner)).thenReturn(prisoner);
-        boolean check = photoServicePrisoner.checkPhotoForErrorsAndUpload(id, prisoner, multipartFile);
+       photoServicePrisoner.uploadPhoto(id, prisoner, multipartFile);
 
-        assertFalse(check);
+
         verify(updatePrisonerService, times(2)).updatePrisoner(id, prisoner);
         verify(photoServiceDeletePhoto).deletePhoto(Paths.get("photos/" + "prisoner_" + id + "/" + prisoner.getPhoto()));
         verify(photoServiceAddPhoto).savePhoto(uploadDir, fileName, multipartFile);
