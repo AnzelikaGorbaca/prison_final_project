@@ -16,6 +16,7 @@ public class UpdatePrisonerService {
 
     private final PrisonerRepository prisonerRepository;
     private final PunishmentRepository punishmentRepository;
+    private final CreatePrisonerService createPrisonerService;
 
     public Prisoner updatePrisoner (Long id, Prisoner updatePrisoner) {
         Prisoner existingPrisoner = prisonerRepository.findById(id)
@@ -30,6 +31,8 @@ public class UpdatePrisonerService {
         existingPrisoner.setPunishmentId(updatePrisoner.getPunishmentId());
         existingPrisoner.setPunishment (punishment);
         existingPrisoner.setStartDate(updatePrisoner.getStartDate());
+        var endDate = createPrisonerService.calculateEndDate(updatePrisoner, punishment);
+        existingPrisoner.setEndDate(endDate);
 
 
         return prisonerRepository.save(existingPrisoner);

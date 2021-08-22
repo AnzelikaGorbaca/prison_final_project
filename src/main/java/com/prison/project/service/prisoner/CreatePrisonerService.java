@@ -29,7 +29,7 @@ public class CreatePrisonerService {
         return prisoner;
     }
 
-    private LocalDate calculateEndDate(Prisoner prisoner, Punishment punishment) {
+    public LocalDate calculateEndDate(Prisoner prisoner, Punishment punishment) {
         return prisoner.getStartDate().plusMonths(punishment.getImprisonmentMonths());
     }
 
