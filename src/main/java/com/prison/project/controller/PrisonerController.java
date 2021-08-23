@@ -204,7 +204,7 @@ public class PrisonerController {
     }
 
     private void prisonerRequiredFields(Model model) {
-        List<Punishment> punishmentList = getPunishmentService.getAllPunishments();
+        List<Punishment> punishmentList = getPunishmentService.getAllPunishmentsOrderedAsc();
         List<Crime> crimeList = getCrimeService.getAllCrime();
 
         model.addAttribute("crimeList", crimeList);
