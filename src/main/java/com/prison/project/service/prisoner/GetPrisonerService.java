@@ -21,7 +21,7 @@ public class GetPrisonerService {
     }
 
     public List<Prisoner> getAllWithStatus() {
-        List<Prisoner> prisoners = prisonerRepository.findAll();
+        List<Prisoner> prisoners = prisonerRepository.findAllByOrderByIdDesc();
         statusPrisonerService.checkIfInPrisonAndSetStatus(prisoners);
         return prisoners;
     }

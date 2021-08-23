@@ -83,26 +83,28 @@ class GetPrisonerServiceTest {
             verify(repository).findAll();
         }
 
-        @Test
-        void getAllWithStatus() {
 
-            List<Prisoner> prisoners = Arrays.asList(new Prisoner(2L, "Janis", "Ozolins", "310856 - 10605",
-                            "Rigas iela 4-5", getStartDate(), getEndDate(), "Janis.jpg",
-                            true, "In Prison", crimes1, punishment, punishment.getId(), "Murder, Robbery, Awful Cook"),
-                    (new Prisoner(3L, "Peteris", "Zarins", "190665 - 10005",
-                            "Rigas iela 4-5", getStartDate(), getEndDate(), "Peteris.jpg",
-                            true, "In Prison", crimes2, punishment, punishment.getId(), "Murder, Robbery")));
+    }
 
-            doNothing().when(statusPrisonerService).checkIfInPrisonAndSetStatus(prisoners);
-            List<Prisoner> prisonersActual = getPrisonerService.getAllWithStatus();
+    @Test
+    void getAllWithStatus() {
 
-            assertEquals(prisoners.get(0).getStatus(), prisonersActual.get(0).getStatus());
+        List<Prisoner> prisoners = Arrays.asList(new Prisoner(2L, "Janis", "Ozolins", "310856 - 10605",
+                        "Rigas iela 4-5", getStartDate(), getEndDate(), "Janis.jpg",
+                        true, "In Prison", crimes1, punishment, punishment.getId(), "Murder, Robbery, Awful Cook"),
+                (new Prisoner(3L, "Peteris", "Zarins", "190665 - 10005",
+                        "Rigas iela 4-5", getStartDate(), getEndDate(), "Peteris.jpg",
+                        true, "In Prison", crimes2, punishment, punishment.getId(), "Murder, Robbery")));
 
-            verify(repository).findAll();
-            verify(statusPrisonerService).checkIfInPrisonAndSetStatus(prisoners);
+        doNothing().when(statusPrisonerService).checkIfInPrisonAndSetStatus(prisoners);
+        when (repository.findAllByOrderByIdDesc ()).thenReturn(prisoners);
+        List<Prisoner> prisonersActual = getPrisonerService.getAllWithStatus();
 
+        assertEquals(prisoners.get(0).getStatus(), prisonersActual.get(0).getStatus());
 
-        }
+        verify(repository).findAllByOrderByIdDesc ();
+        verify(statusPrisonerService).checkIfInPrisonAndSetStatus(prisoners);
+
 
     }
 
@@ -124,7 +126,7 @@ class GetPrisonerServiceTest {
     @Test
     void getTopPrisonersByImprisonmentMonths() {
         Punishment punishment2 = new Punishment(2L, 10);
-        List <Prisoner> prisoners = Arrays.asList(new Prisoner(2L, "Janis", "Ozolins", "310856 - 10605",
+        List<Prisoner> prisoners = Arrays.asList(new Prisoner(2L, "Janis", "Ozolins", "310856 - 10605",
                         "Rigas iela 4-5", getStartDate(), getEndDate(), "Janis.jpg",
                         true, "In Prison", crimes1, punishment2, punishment2.getId(), "Murder, Robbery, Awful Cook"),
                 (new Prisoner(3L, "Peteris", "Zarins", "190665 - 10005",
@@ -133,12 +135,12 @@ class GetPrisonerServiceTest {
 
         when(repository.findTop10ByOrderByPunishment_ImprisonmentMonthsDesc()).thenReturn(prisoners);
         doNothing().when(statusPrisonerService).checkIfInPrisonAndSetStatus(prisoners);
-        List <Prisoner> prisonersActual = getPrisonerService.getTopPrisonersByImprisonmentMonths();
+        List<Prisoner> prisonersActual = getPrisonerService.getTopPrisonersByImprisonmentMonths();
 
         assertEquals(prisoners, prisonersActual);
-        assertNotEquals(prisonersActual.get(0),prisonersActual.get(1));
+        assertNotEquals(prisonersActual.get(0), prisonersActual.get(1));
 
-        verify (repository).findTop10ByOrderByPunishment_ImprisonmentMonthsDesc();
+        verify(repository).findTop10ByOrderByPunishment_ImprisonmentMonthsDesc();
         verify(statusPrisonerService).checkIfInPrisonAndSetStatus(prisoners);
     }
 
