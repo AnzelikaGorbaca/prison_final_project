@@ -2,10 +2,8 @@ package com.prison.project.service.statistics;
 
 import com.prison.project.model.Crime;
 import com.prison.project.model.Prisoner;
-import com.prison.project.repository.PrisonerRepository;
-import com.prison.project.service.fugitive.FugitiveService;
 import com.prison.project.service.prisoner.GetPrisonerService;
-import com.prison.project.service.prisoner.StatusPrisonerService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,10 +17,15 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class StatisticsServiceTest {
+
+    private Prisoner prisoner1;
+    private Prisoner prisoner2;
+    private Prisoner prisoner3;
 
     @InjectMocks
     private StatisticsService statisticsService;
@@ -34,9 +37,12 @@ class StatisticsServiceTest {
     private final List<Crime> list2 = Arrays.asList(new Crime(4L, "A"), new Crime(5L, "B"), new Crime(3L, "C"));
     private final List<Crime> list3 = Arrays.asList(new Crime(5L, "A"));
 
-    private Prisoner prisoner1 = new Prisoner();
-    private Prisoner prisoner2 = new Prisoner();
-    private Prisoner prisoner3 = new Prisoner();
+    @BeforeEach
+    void setUp() {
+        prisoner1 = new Prisoner();
+        prisoner2 = new Prisoner();
+        prisoner3 = new Prisoner();
+    }
 
     @Test
     void shouldReturnSortedListOfPrisonersByCrimeCount() {
@@ -71,6 +77,7 @@ class StatisticsServiceTest {
         List<Prisoner> expected = Arrays.asList(prisoner2, prisoner1, prisoner3);
         List<Prisoner> actual = (List<Prisoner>) method.invoke(statisticsService, prisoners);
 
+        assertNotNull(actual);
         assertEquals(expected, actual);
     }
 }

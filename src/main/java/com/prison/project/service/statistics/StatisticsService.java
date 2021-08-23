@@ -16,7 +16,7 @@ public class StatisticsService {
 
     private final GetPrisonerService getPrisonerService;
 
-    public List<Prisoner> getListPrisonerWithCrimeCountForStatistics(){
+    public List<Prisoner> getListPrisonerWithCrimeCountForStatistics() {
         List<Prisoner> prisonerList = getPrisonerService.getAllWithStatus();
         List<Prisoner> resultList = getPrisonerListSorted(prisonerList);
 
@@ -25,7 +25,7 @@ public class StatisticsService {
 
     private List<Prisoner> getPrisonerListSorted(List<Prisoner> prisonerList) {
         Map<Prisoner, Integer> map = new HashMap<>();
-        for (Prisoner p: prisonerList){
+        for (Prisoner p : prisonerList) {
             map.put(p, p.getCrimes().size());
         }
 
@@ -35,9 +35,7 @@ public class StatisticsService {
                 .collect(Collectors.toMap(
                         Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 
-        List <Prisoner> resultList = new ArrayList(a.keySet());
+        List<Prisoner> resultList = new ArrayList(a.keySet());
         return resultList;
     }
-
-
 }
