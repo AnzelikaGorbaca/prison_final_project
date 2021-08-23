@@ -30,7 +30,8 @@ class UpdatePrisonerServiceTest {
     PrisonerRepository prisonerRepository;
     @Mock
     PunishmentRepository punishmentRepository;
-
+    @Mock
+    CreatePrisonerService createPrisonerService;
 
     String start = "2021-08-13";
     LocalDate startDate = LocalDate.parse(start);
@@ -49,8 +50,7 @@ class UpdatePrisonerServiceTest {
             "Freed", newCrimes, newPunishment, 1L, "Robbery");
 
 
-
-    @Disabled
+    @Test
     void updatePrisonerWhenIsPrisoner() {
 
         when(punishmentRepository.getById(1L)).thenReturn(newPunishment);
@@ -63,16 +63,18 @@ class UpdatePrisonerServiceTest {
 
         when(prisonerRepository.findById(2L)).thenReturn(java.util.Optional.of(existingPrisoner));
         when(prisonerRepository.save(existingPrisoner)).thenReturn(existingPrisoner);
+        when (createPrisonerService.calculateEndDate(updatePrisoner,newPunishment)).thenReturn(endDate);
         Prisoner updatedPrisoner = updatePrisonerService.updatePrisoner(2L, updatePrisoner);
 
-        assertEquals(existingPrisoner,updatedPrisoner);
-        assertEquals(existingPrisoner.getPunishment(),updatedPrisoner.getPunishment());
+        assertEquals(existingPrisoner, updatedPrisoner);
+        assertEquals(existingPrisoner.getPunishment(), updatedPrisoner.getPunishment());
         assertEquals(existingPrisoner.getPhoto(), updatedPrisoner.getPhoto());
         assertEquals(1L, updatedPrisoner.getPunishmentId());
 
         verify(prisonerRepository).findById(2L);
         verify(punishmentRepository).getById(1L);
         verify(prisonerRepository).save(existingPrisoner);
+        verify(createPrisonerService).calculateEndDate(updatePrisoner,newPunishment);
 
     }
 
