@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,23 +30,25 @@ public class GetStaffServiceTest {
 
 
     @Test
-    void shouldReturnAllStaff(){
+    void shouldReturnAllStaffInReverseOrder(){
         List<Staff> sampleList = Arrays.asList(new Staff(1L,"Elvis","Presley","GUARD","123456-12345",
                         "+371212345678","AddressConsistingOf10","Moranto.jpg"),
                 new Staff(2L,"John","Walker","ACCOUNTANT","123456-00000",
                         "+371212345677","AddressConsistingOf11","Moranto1.jpg"));
+        Collections.reverse(sampleList);
 
-        when(staffRepository.findAll()).thenReturn(sampleList);
+        when(staffRepository.findAllByOrderByIdDesc()).thenReturn(sampleList);
 
         List<Staff> staff = getStaffService.findAllStaff();
 
+
         assertEquals(2, staff.size());
-        assertEquals("John", staff.get(1).getName());
-        assertTrue(staff.contains(new Staff(1L, "Elvis","Presley","GUARD","123456-12345",
-                "+371212345678","AddressConsistingOf10","Moranto.jpg")));
+        assertEquals("John", staff.get(0).getName());
+        assertEquals("Elvis", staff.get(1).getName());
         assertIterableEquals(staff,sampleList);
 
-        verify(staffRepository).findAll();
+
+        verify(staffRepository).findAllByOrderByIdDesc();
     }
 
     @Test

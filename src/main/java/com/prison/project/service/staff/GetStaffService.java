@@ -16,7 +16,7 @@ public class GetStaffService {
     private final StaffRepository staffRepository;
 
     public List<Staff> findAllStaff(){
-       return staffRepository.findAll();
+       return staffRepository.findAllByOrderByIdDesc();
     }
 
     public Staff findStaffById (Long id){
