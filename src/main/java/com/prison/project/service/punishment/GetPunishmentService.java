@@ -30,6 +30,7 @@ public class GetPunishmentService {
     }
 
     public List<Long> getPunishmentPrisoner(Long id) {
+
         return punishmentRepository.getPrisonerPunishment(id);
     }
 
