@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -121,6 +122,19 @@ class GetCrimeServiceTest {
         assertEquals(crimes, crimesResult);
 
         verify(repository).findAllById(ids);
+    }
+
+    @Test
+    void shouldReturnCrimesListForPrisoner(){
+        List<Long> ids = Arrays.asList(1L, 2L);
+
+        when(repository.getPrisonerCrimes(24L)).thenReturn(ids);
+        List<Long> crimeList = getCrimeService.getCrimePrisoner(24L);
+
+        assertEquals(ids,crimeList);
+
+        verify(repository).getPrisonerCrimes(24L);
+
     }
 
 }
