@@ -1,21 +1,15 @@
 package com.prison.project.service.photo;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 @ExtendWith(MockitoExtension.class)
 class PhotoServiceAddPhotoTest {
@@ -69,16 +63,14 @@ class PhotoServiceAddPhotoTest {
         }
     };
 
-   //CANNOT PASS WHEN IS NOT FAIL
     @Test
     void savePhotoWhenFailWithRuntimeException() {
 
         try {
             photoServiceAddPhoto.savePhoto(uploadDir, fileName, multipartFile);
             fail();
-        }catch (RuntimeException e){
-            assertEquals(e.getMessage(),"Could not save image file: " + fileName);
+        } catch (RuntimeException e) {
+            assertEquals(e.getMessage(), "Could not save image file: " + fileName);
         }
     }
-
 }

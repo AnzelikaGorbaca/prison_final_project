@@ -18,6 +18,7 @@
      content: counter(rowNumber) ". ";
      }
 
+
     </style>
 </head>
 <body class="container">
@@ -107,7 +108,8 @@
                         Statistics
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item active" style="background-color: #212529" href="/prison-management-system/statistics-duration">By
+                        <li><a class="dropdown-item active" style="background-color: #212529"
+                               href="/prison-management-system/statistics-duration">By
                             Imprisonment Duration</a></li>
                         <li><a class="dropdown-item" href="/prison-management-system/statistics-crimes">By Crimes
                             Committed</a></li>
@@ -118,7 +120,7 @@
                 <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
                     <a class="nav-link" href="/register">Register</a>
                 </li>
-                <li class="nav-item" sec:authorize="isAuthenticated()" >
+                <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a class="nav-link" href="/logout">Log out</a>
                 </li>
             </ul>
@@ -165,7 +167,7 @@
 </div>
 <div class="text-left">
 
-    <a class="btn btn-secondary"  th:href="@{/prison-management-system}"
+    <a class="btn btn-secondary" th:href="@{/prison-management-system}"
        role="button">Cancel</a>
 </div>
 </body>

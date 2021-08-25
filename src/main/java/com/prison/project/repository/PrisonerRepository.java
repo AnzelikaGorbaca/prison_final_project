@@ -14,6 +14,7 @@ import java.util.Optional;
 public interface PrisonerRepository extends JpaRepository<Prisoner, Long> {
 
     List<Prisoner> findAllByOrderByIdDesc();
+
     Optional<Prisoner> findTopByEndDateGreaterThanOrderByEndDateAsc(LocalDate localDate);
 
     Long countByEndDateGreaterThan(LocalDate localDate);

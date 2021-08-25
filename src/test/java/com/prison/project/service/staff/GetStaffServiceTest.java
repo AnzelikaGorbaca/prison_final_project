@@ -30,52 +30,48 @@ public class GetStaffServiceTest {
 
 
     @Test
-    void shouldReturnAllStaffInReverseOrder(){
-        List<Staff> sampleList = Arrays.asList(new Staff(1L,"Elvis","Presley","GUARD","123456-12345",
-                        "+371212345678","AddressConsistingOf10","Moranto.jpg"),
-                new Staff(2L,"John","Walker","ACCOUNTANT","123456-00000",
-                        "+371212345677","AddressConsistingOf11","Moranto1.jpg"));
+    void shouldReturnAllStaffInReverseOrder() {
+        List<Staff> sampleList = Arrays.asList(new Staff(1L, "Elvis", "Presley", "GUARD", "123456-12345",
+                        "+371212345678", "AddressConsistingOf10", "Moranto.jpg"),
+                new Staff(2L, "John", "Walker", "ACCOUNTANT", "123456-00000",
+                        "+371212345677", "AddressConsistingOf11", "Moranto1.jpg"));
         Collections.reverse(sampleList);
 
         when(staffRepository.findAllByOrderByIdDesc()).thenReturn(sampleList);
 
         List<Staff> staff = getStaffService.findAllStaff();
 
-
         assertEquals(2, staff.size());
         assertEquals("John", staff.get(0).getName());
         assertEquals("Elvis", staff.get(1).getName());
-        assertIterableEquals(staff,sampleList);
-
+        assertIterableEquals(staff, sampleList);
 
         verify(staffRepository).findAllByOrderByIdDesc();
     }
 
     @Test
-    void shouldReturnById(){
-        Staff sampleStaff = new Staff(1L,"Elvis","Presley","GUARD","123456-12345",
-                "+371212345678","AddressConsistingOf10","Moranto.jpg");
-        when (staffRepository.findById(1L)).thenReturn(Optional.of(sampleStaff));
+    void shouldReturnById() {
+        Staff sampleStaff = new Staff(1L, "Elvis", "Presley", "GUARD", "123456-12345",
+                "+371212345678", "AddressConsistingOf10", "Moranto.jpg");
+        when(staffRepository.findById(1L)).thenReturn(Optional.of(sampleStaff));
 
         Staff findStaff = getStaffService.findStaffById(1L);
 
-        assertEquals(sampleStaff,findStaff);
+        assertEquals(sampleStaff, findStaff);
         verify(staffRepository).findById(1L);
-
     }
 
     @Test
-    void shouldThrowExceptionIfNothingToReturnById(){
-        when (staffRepository.findById(any())).thenReturn(Optional.empty());
+    void shouldThrowExceptionIfNothingToReturnById() {
+        when(staffRepository.findById(any())).thenReturn(Optional.empty());
         try {
             getStaffService.findStaffById(any());
             fail();
         } catch (NotFoundException e) {
-            assertEquals("No Staff member with such id exists",e.getMessage());
+            assertEquals("No Staff member with such id exists", e.getMessage());
         }
 
         verify(staffRepository).findById(any());
-
     }
 }
 

@@ -13,7 +13,7 @@ public class CreateCrimeService {
 
     public final CrimeRepository crimeRepository;
 
-    public Crime registerCrime (Crime crime){
+    public Crime registerCrime(Crime crime) {
         crimeRepository.save(crime);
         return crime;
     }

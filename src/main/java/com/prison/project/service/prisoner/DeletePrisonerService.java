@@ -1,6 +1,5 @@
 package com.prison.project.service.prisoner;
 
-import com.prison.project.repository.CrimeRepository;
 import com.prison.project.repository.PrisonerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

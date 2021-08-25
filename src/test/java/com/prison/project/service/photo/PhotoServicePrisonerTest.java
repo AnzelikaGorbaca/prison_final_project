@@ -6,14 +6,11 @@ import com.prison.project.model.Punishment;
 import com.prison.project.service.prisoner.CreatePrisonerService;
 import com.prison.project.service.prisoner.GetPrisonerService;
 import com.prison.project.service.prisoner.UpdatePrisonerService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,9 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
 
 @ExtendWith(MockitoExtension.class)
 class PhotoServicePrisonerTest {
@@ -101,7 +96,6 @@ class PhotoServicePrisonerTest {
         }
     };
 
-
     @Test
     void uploadPhoto() {
         Long id = 27L;
@@ -113,8 +107,7 @@ class PhotoServicePrisonerTest {
         prisoner.setPhoto(fileName);
         doNothing().when(photoServiceAddPhoto).savePhoto(uploadDir, fileName, multipartFile);
         when(updatePrisonerService.updatePrisoner(id, prisoner)).thenReturn(prisoner);
-       photoServicePrisoner.uploadPhoto(id, prisoner, multipartFile);
-
+        photoServicePrisoner.uploadPhoto(id, prisoner, multipartFile);
 
         verify(updatePrisonerService, times(2)).updatePrisoner(id, prisoner);
         verify(photoServiceDeletePhoto).deletePhoto(Paths.get("photos/" + "prisoner_" + id + "/" + prisoner.getPhoto()));
@@ -126,11 +119,11 @@ class PhotoServicePrisonerTest {
         when(createPrisonerService.registerPrisoner(prisoner)).thenReturn(prisoner);
         String uploadDir = "photos/" + "prisoner_" + prisoner.getId();
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
-        doNothing().when(photoServiceAddPhoto).savePhoto(uploadDir, fileName,multipartFile);
+        doNothing().when(photoServiceAddPhoto).savePhoto(uploadDir, fileName, multipartFile);
 
-        photoServicePrisoner.uploadPhotoRegister(prisoner,multipartFile);
+        photoServicePrisoner.uploadPhotoRegister(prisoner, multipartFile);
         verify(createPrisonerService).registerPrisoner(prisoner);
-        verify(photoServiceAddPhoto).savePhoto(uploadDir, fileName,multipartFile);
+        verify(photoServiceAddPhoto).savePhoto(uploadDir, fileName, multipartFile);
     }
 
     @Test
@@ -145,10 +138,8 @@ class PhotoServicePrisonerTest {
 
         photoServicePrisoner.deletePhoto(id);
 
-
         verify(photoServiceDeletePhoto).deletePhoto(path);
         verify(photoServiceDeletePhoto).deletePhoto(dir);
         verify(getPrisonerService).getPrisonerById(27L);
-
     }
 }

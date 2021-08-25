@@ -32,7 +32,7 @@ public class GetPrisonerService {
 
     public List<Prisoner> getTopPrisonersByImprisonmentMonths() {
         List<Prisoner> resultList = prisonerRepository.findTop10ByOrderByPunishment_ImprisonmentMonthsDesc();
-            statusPrisonerService.checkIfInPrisonAndSetStatus(resultList);
+        statusPrisonerService.checkIfInPrisonAndSetStatus(resultList);
         return resultList;
     }
 }

@@ -1,6 +1,5 @@
 package com.prison.project.controller;
 
-
 import com.prison.project.model.Punishment;
 import com.prison.project.service.punishment.CreatePunishmentService;
 import com.prison.project.service.punishment.DeletePunishmentService;
@@ -27,31 +26,31 @@ public class PunishmentController {
     private final GetPunishmentService getPunishmentService;
 
     @GetMapping
-    public String punishmentIndex(Model model){
+    public String punishmentIndex(Model model) {
         model.addAttribute("pageName", "All Punishments");
         model.addAttribute("punishments", getPunishmentService.getAllPunishmentsOrderedAsc());
         return "punishment-index";
     }
 
     @GetMapping("/punishment-add")
-    public String addPunishment(Model map, Punishment punishment){
+    public String addPunishment(Model map, Punishment punishment) {
         return "punishment-add";
     }
 
     @PostMapping
-    public String registerPunishment(@Valid Punishment punishment, BindingResult result, Model model){
-        if(result.hasErrors()) {
+    public String registerPunishment(@Valid Punishment punishment, BindingResult result, Model model) {
+        if (result.hasErrors()) {
             return "punishment-add";
         }
 
-        if (punishment.getImprisonmentMonths()==0){
+        if (punishment.getImprisonmentMonths() == 0) {
             model.addAttribute("punishmentNot0", "Imprisonment cannot be shorter than 1 month");
             return "punishment-add";
         }
 
         List<Punishment> punishmentList = getPunishmentService.getAllPunishments();
-        for (Punishment p: punishmentList){
-            if (p.getImprisonmentMonths()==punishment.getImprisonmentMonths()){
+        for (Punishment p : punishmentList) {
+            if (p.getImprisonmentMonths().equals(punishment.getImprisonmentMonths())) {
                 model.addAttribute("punishmentError", "Punishment " + p.getImprisonmentMonths() + " already exists in the system");
                 return "punishment-add";
             }
@@ -62,13 +61,14 @@ public class PunishmentController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deletePunishment(@PathVariable("id") Long id, Model model){
+    public String deletePunishment(@PathVariable("id") Long id, Model model) {
         List<Long> punishmentList = getPunishmentService.getPunishmentPrisoner(id);
         if (!punishmentList.isEmpty()) {
             model.addAttribute("errorFromController", "Can't delete punishment with id: " + id + ". It is used for prisoner data!");
         } else {
             deletePunishmentService.deletePunishment(id);
-        }return punishmentIndex(model);
+        }
+        return punishmentIndex(model);
     }
 
 

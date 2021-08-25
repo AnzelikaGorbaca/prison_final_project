@@ -38,7 +38,6 @@ public class PrisonerController {
     private final PrisonCapacityCheck prisonCapacityCheck;
     private final PhotoServicePrisoner photoServicePrisoner;
 
-
     @GetMapping
     public String prisonerIndex(Model model) {
         model.addAttribute("pageName", "All Prisoners");
@@ -50,7 +49,6 @@ public class PrisonerController {
     public String signUp(Model map, Prisoner prisoner) {
         if (prisonCapacityCheck.getFreePlacesByDate(LocalDate.now()) < 1) {
             return "redirect:/prison-management-system/capacities/capacity-now";
-
         }
         map.addAttribute("pageName", "Add New Prisoner");
 
@@ -77,7 +75,6 @@ public class PrisonerController {
                 return "prisoner-add";
             }
         }
-
 
         if (prisoner.getCrimesJson() == null) {
             model.addAttribute("errorForCrime", "Crime is required");

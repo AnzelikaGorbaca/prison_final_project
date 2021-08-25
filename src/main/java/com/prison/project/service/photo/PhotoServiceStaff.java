@@ -39,7 +39,6 @@ public class PhotoServiceStaff {
 
     }
 
-
     public void uploadPhotoRegister(Staff staff, MultipartFile multipartFile) {
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
         staff.setPhoto(fileName);
@@ -47,7 +46,6 @@ public class PhotoServiceStaff {
         String uploadDir = "photos/" + "staff_" + savedStaff.getId();
         photoServiceAddPhoto.savePhoto(uploadDir, fileName, multipartFile);
     }
-
 
     public void deletePhoto(Long id) {
         Path path = Paths.get("photos/" + "staff_" + id + "/" + getStaffService.findStaffById(id).getPhoto());

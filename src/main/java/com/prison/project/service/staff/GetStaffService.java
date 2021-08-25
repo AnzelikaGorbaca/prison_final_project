@@ -15,11 +15,11 @@ import java.util.List;
 public class GetStaffService {
     private final StaffRepository staffRepository;
 
-    public List<Staff> findAllStaff(){
-       return staffRepository.findAllByOrderByIdDesc();
+    public List<Staff> findAllStaff() {
+        return staffRepository.findAllByOrderByIdDesc();
     }
 
-    public Staff findStaffById (Long id){
+    public Staff findStaffById(Long id) {
         return staffRepository.findById(id).orElseThrow(() -> new NotFoundException("No Staff member with such id exists"));
     }
 

@@ -63,7 +63,6 @@ class GetPunishmentServiceTest {
         verify(punishmentRepository).findById(expectedId);
     }
 
-
     @Test
     void shouldThrowExceptionWhenIdNotFound() {
         Long expectedId = 50L;

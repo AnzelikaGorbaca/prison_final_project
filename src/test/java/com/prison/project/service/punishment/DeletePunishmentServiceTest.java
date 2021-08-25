@@ -29,5 +29,4 @@ class DeletePunishmentServiceTest {
         verify(punishmentRepository).deleteById(15L);
         verify(punishmentRepository, Mockito.times(1)).deleteById(punishment.getId());
     }
-
 }

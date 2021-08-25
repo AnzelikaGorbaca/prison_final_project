@@ -5,7 +5,6 @@ import com.prison.project.model.Prisoner;
 import com.prison.project.model.Punishment;
 import com.prison.project.repository.PrisonerRepository;
 import com.prison.project.repository.PunishmentRepository;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,7 +16,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -63,7 +63,7 @@ class UpdatePrisonerServiceTest {
 
         when(prisonerRepository.findById(2L)).thenReturn(java.util.Optional.of(existingPrisoner));
         when(prisonerRepository.save(existingPrisoner)).thenReturn(existingPrisoner);
-        when (createPrisonerService.calculateEndDate(updatePrisoner,newPunishment)).thenReturn(endDate);
+        when(createPrisonerService.calculateEndDate(updatePrisoner, newPunishment)).thenReturn(endDate);
         Prisoner updatedPrisoner = updatePrisonerService.updatePrisoner(2L, updatePrisoner);
 
         assertEquals(existingPrisoner, updatedPrisoner);
@@ -74,8 +74,7 @@ class UpdatePrisonerServiceTest {
         verify(prisonerRepository).findById(2L);
         verify(punishmentRepository).getById(1L);
         verify(prisonerRepository).save(existingPrisoner);
-        verify(createPrisonerService).calculateEndDate(updatePrisoner,newPunishment);
-
+        verify(createPrisonerService).calculateEndDate(updatePrisoner, newPunishment);
     }
 
     @Test
@@ -92,6 +91,5 @@ class UpdatePrisonerServiceTest {
         }
 
         verify(prisonerRepository).findById(id);
-
     }
 }

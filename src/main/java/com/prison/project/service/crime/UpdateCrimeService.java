@@ -13,9 +13,9 @@ public class UpdateCrimeService {
 
     private final CrimeRepository crimeRepository;
 
-    public Crime updateCrime (Long id, Crime crime){
+    public Crime updateCrime(Long id, Crime crime) {
         Crime existingCrime = crimeRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Crime not found"));
+                .orElseThrow(() -> new RuntimeException("Crime not found"));
 
         existingCrime.setCrimeDescription(crime.getCrimeDescription());
         return crimeRepository.save(existingCrime);

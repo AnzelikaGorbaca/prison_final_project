@@ -1,6 +1,5 @@
 package com.prison.project.model;
 
-
 public enum Occupation {
 
     DIRECTOR,
@@ -12,7 +11,5 @@ public enum Occupation {
     ACCOUNTANT,
     VISITORS_COORDINATOR,
     ASSISTANT_MANAGEMENT;
-
-
 
 }

@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-
 @Data
 @Entity
 @Table
@@ -20,6 +19,6 @@ public class Punishment {
     @Column(name = "punishment_id")
     private Long id;
     @NotNull(message = "Imprisonment duration is required")
-    @Column(name="imprisonment_months")
+    @Column(name = "imprisonment_months")
     private Integer imprisonmentMonths;
 }

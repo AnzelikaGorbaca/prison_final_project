@@ -29,7 +29,6 @@ class GetCrimeServiceTest {
 
     private final List<Crime> crimes = Arrays.asList(new Crime(1L, "Murder"), new Crime(2L, "Robbery"));
 
-
     @Test
     void getAllCrime() {
         when(repository.findAll()).thenReturn(
@@ -82,8 +81,6 @@ class GetCrimeServiceTest {
 
         assertEquals(crime.getCrimeDescription(), "Murder");
         verify(repository).findByCrimeDescription("Murder");
-
-
     }
 
     @Test
@@ -105,7 +102,7 @@ class GetCrimeServiceTest {
     @Test
     void getCrimesJson() {
         String jsonString = "1,2";
-        when (getCrimeService.getCrimeByIds(Arrays.asList(1L,2L))).thenReturn(crimes);
+        when(getCrimeService.getCrimeByIds(Arrays.asList(1L, 2L))).thenReturn(crimes);
 
         List<Crime> crimeResult = getCrimeService.getCrimesJson(jsonString);
 
@@ -125,16 +122,14 @@ class GetCrimeServiceTest {
     }
 
     @Test
-    void shouldReturnCrimesListForPrisoner(){
+    void shouldReturnCrimesListForPrisoner() {
         List<Long> ids = Arrays.asList(1L, 2L);
 
         when(repository.getPrisonerCrimes(24L)).thenReturn(ids);
         List<Long> crimeList = getCrimeService.getCrimePrisoner(24L);
 
-        assertEquals(ids,crimeList);
+        assertEquals(ids, crimeList);
 
         verify(repository).getPrisonerCrimes(24L);
-
     }
-
 }

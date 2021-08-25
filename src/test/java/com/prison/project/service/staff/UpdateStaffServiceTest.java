@@ -12,7 +12,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 
-
 import java.util.Optional;
 
 import static org.mockito.Mockito.when;
@@ -25,7 +24,6 @@ public class UpdateStaffServiceTest {
 
     @InjectMocks
     private UpdateStaffService updateStaffService;
-
 
     @Test
     void shouldReturnUpdatedStaff() {
@@ -46,7 +44,6 @@ public class UpdateStaffServiceTest {
         verify(staffRepository).save(existing);
     }
 
-
     @Test
     void shouldThrowExceptionIfNoStaffByIdFound() {
         Staff existing = new Staff(1L, "Elvis", "Presley", "GUARD", "123456-12345",
@@ -60,10 +57,7 @@ public class UpdateStaffServiceTest {
             assertEquals("Invalid staff id " + id, e.getMessage());
 
         }
-
         verify(staffRepository).findById(1L);
     }
-
-
 }
 

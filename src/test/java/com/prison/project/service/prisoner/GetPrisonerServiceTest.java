@@ -4,8 +4,9 @@ import com.prison.project.model.Crime;
 import com.prison.project.model.Prisoner;
 import com.prison.project.model.Punishment;
 import com.prison.project.repository.PrisonerRepository;
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -14,9 +15,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -50,7 +51,6 @@ class GetPrisonerServiceTest {
         return LocalDate.parse(end);
     }
 
-
     @Nested
     class nestedClass {
 
@@ -71,7 +71,6 @@ class GetPrisonerServiceTest {
                             true, "In Prison", crimes2, punishment, punishment.getId(), "Murder, Robbery"))));
         }
 
-
         @Test
         void getAll() {
 
@@ -82,8 +81,6 @@ class GetPrisonerServiceTest {
 
             verify(repository).findAll();
         }
-
-
     }
 
     @Test
@@ -97,15 +94,13 @@ class GetPrisonerServiceTest {
                         true, "In Prison", crimes2, punishment, punishment.getId(), "Murder, Robbery")));
 
         doNothing().when(statusPrisonerService).checkIfInPrisonAndSetStatus(prisoners);
-        when (repository.findAllByOrderByIdDesc ()).thenReturn(prisoners);
+        when(repository.findAllByOrderByIdDesc()).thenReturn(prisoners);
         List<Prisoner> prisonersActual = getPrisonerService.getAllWithStatus();
 
         assertEquals(prisoners.get(0).getStatus(), prisonersActual.get(0).getStatus());
 
-        verify(repository).findAllByOrderByIdDesc ();
+        verify(repository).findAllByOrderByIdDesc();
         verify(statusPrisonerService).checkIfInPrisonAndSetStatus(prisoners);
-
-
     }
 
 
@@ -143,5 +138,4 @@ class GetPrisonerServiceTest {
         verify(repository).findTop10ByOrderByPunishment_ImprisonmentMonthsDesc();
         verify(statusPrisonerService).checkIfInPrisonAndSetStatus(prisoners);
     }
-
 }

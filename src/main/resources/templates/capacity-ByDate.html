@@ -1,4 +1,5 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
@@ -19,17 +20,19 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link"  href="/prison-management-system">Home</a>
+                    <a class="nav-link" href="/prison-management-system">Home</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle  active" aria-current="page" href="#" id="navbarDropdownPrisoner" role="button"
+                    <a class="nav-link dropdown-toggle  active" aria-current="page" href="#" id="navbarDropdownPrisoner"
+                       role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         Prisoner
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item  active"  href="/prison-management-system/prisoners/prisoner-add">Add
+                        <li><a class="dropdown-item  active" href="/prison-management-system/prisoners/prisoner-add">Add
                             Prisoner</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-search">Search Prisoner</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-search">Search
+                            Prisoner</a></li>
                         <li><a class="dropdown-item" href="/prison-management-system/prisoners">View all Prisoners</a>
                         </li>
                     </ul>
@@ -40,9 +43,12 @@
                         Staff
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-add">Add Staff Member</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-search">Search Staff Member</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/staffs">View All Staff Members</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-add">Add Staff
+                            Member</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs/staff-search">Search Staff
+                            Member</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/staffs">View All Staff Members</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -69,21 +75,28 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active" aria-current="page"  href="#" id="navbarDropdownCapacity" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle active" aria-current="page" href="#" id="navbarDropdownCapacity"
+                       role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Capacity
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-now">Check current</a></li>
-                        <li><a class="dropdown-item active" style="background-color: #212529" href="/prison-management-system/capacities/capacity-otherDay">Check on other date</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/capacities/capacity-now">Check
+                            current</a></li>
+                        <li><a class="dropdown-item active" style="background-color: #212529"
+                               href="/prison-management-system/capacities/capacity-otherDay">Check on other date</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStatistics" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStatistics" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         Statistics
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/prison-management-system/statistics-duration">By Imprisonment Duration</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/statistics-crimes">By Crimes Committed</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-duration">By
+                            Imprisonment Duration</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-crimes">By Crimes
+                            Committed</a></li>
                     </ul>
                 </li>
             </ul>
@@ -92,7 +105,7 @@
                 <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
                     <a class="nav-link" href="/register">Register</a>
                 </li>
-                <li class="nav-item" sec:authorize="isAuthenticated()" >
+                <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a class="nav-link" href="/logout">Log out</a>
                 </li>
             </ul>
@@ -106,14 +119,15 @@
 <br>
 <div class="col-md-3"></div>
 <div class="col-md-4">
-    <form th:object="${capacityDate}" method="post" th:action="@{/prison-management-system/capacities/capacity-otherDay}" >
+    <form th:object="${capacityDate}" method="post"
+          th:action="@{/prison-management-system/capacities/capacity-otherDay}">
         <div class="mb-3">
             <label for="exampleInputDistinctDate" class="form-label">Choose date for search</label>
             <input type="date" th:field="*{distinctDate}" required class="form-control" id="exampleInputDistinctDate">
             <span th:if="${#fields.hasErrors('distinctDate')}" th:errors="*{distinctDate}" class="text-danger"></span>
         </div>
         <button type="submit" class="btn btn-primary">Search</button>
-        <a class="btn btn-secondary"  th:href="@{/prison-management-system}"
+        <a class="btn btn-secondary" th:href="@{/prison-management-system}"
            role="button">Cancel</a>
     </form>
 </div>
@@ -134,7 +148,6 @@
 
 
 </script>
-
 
 </body>
 </html>

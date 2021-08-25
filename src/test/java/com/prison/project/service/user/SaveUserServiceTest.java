@@ -26,7 +26,7 @@ class SaveUserServiceTest {
     @Mock
     public UserRepository userRepository;
     @Mock
-    public  GetRoleService getRoleService;
+    public GetRoleService getRoleService;
     @Mock
     private BCryptPasswordEncoder passwordEncoder;
 
@@ -42,47 +42,41 @@ class SaveUserServiceTest {
     @Test
     void saveUserWhenIsRole() {
         when(getRoleService.findByRoleNameIgnoreCase("ROLE_USER")).thenReturn(Optional.of(new Role(1L, "ROLE_USER")));
-        when (passwordEncoder.encode(user.getPassword())).thenReturn("$2a$10$.g54npZpglNcSmIQEqeQmehcSR2VecRHBZ6OO6MtPSi08Nj96y1Z2");
-
+        when(passwordEncoder.encode(user.getPassword())).thenReturn("$2a$10$.g54npZpglNcSmIQEqeQmehcSR2VecRHBZ6OO6MtPSi08Nj96y1Z2");
 
         when(userRepository.save(user)).thenReturn(user);
 
-
         User userResult = saveUserService.saveUser(user);
 
-        assertEquals(user.getRoles(),userResult.getRoles());
+        assertEquals(user.getRoles(), userResult.getRoles());
         assertEquals(user, userResult);
 
         verify(getRoleService).findByRoleNameIgnoreCase("ROLE_USER");
-        verify (userRepository).save(user);
+        verify(userRepository).save(user);
         verify(passwordEncoder).encode("parolesnav");
-
     }
 
 
     @Test
     void saveUserWhenNoRoleInDatabase() {
         when(getRoleService.findByRoleNameIgnoreCase("ROLE_USER")).thenReturn(Optional.of(new Role("ROLE_USER")));
-        when (passwordEncoder.encode(user.getPassword())).thenReturn("$2a$10$.g54npZpglNcSmIQEqeQmehcSR2VecRHBZ6OO6MtPSi08Nj96y1Z2");
-
+        when(passwordEncoder.encode(user.getPassword())).thenReturn("$2a$10$.g54npZpglNcSmIQEqeQmehcSR2VecRHBZ6OO6MtPSi08Nj96y1Z2");
 
         when(userRepository.save(user)).thenReturn(user);
 
-
         User userResult = saveUserService.saveUser(user);
 
-        assertEquals(user.getRoles(),userResult.getRoles());
+        assertEquals(user.getRoles(), userResult.getRoles());
         assertEquals(user, userResult);
 
         verify(getRoleService).findByRoleNameIgnoreCase("ROLE_USER");
-        verify (userRepository).save(user);
+        verify(userRepository).save(user);
         verify(passwordEncoder).encode("parolesnav");
-
     }
 
     @Test
     void isUserAlreadyPresentTrue() {
-        when (userRepository.findByUserName(user.getUserName())).thenReturn(user);
+        when(userRepository.findByUserName(user.getUserName())).thenReturn(user);
         boolean foundUser = saveUserService.isUserAlreadyPresent(user);
 
         assertTrue(foundUser);
@@ -91,7 +85,7 @@ class SaveUserServiceTest {
 
     @Test
     void isUserAlreadyPresentFalse() {
-        when (userRepository.findByUserName(user.getUserName())).thenReturn(null);
+        when(userRepository.findByUserName(user.getUserName())).thenReturn(null);
         boolean foundUser = saveUserService.isUserAlreadyPresent(user);
 
         assertFalse(foundUser);

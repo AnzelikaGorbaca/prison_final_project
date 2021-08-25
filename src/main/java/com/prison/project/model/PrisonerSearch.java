@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.format.annotation.DateTimeFormat;;
-import javax.persistence.*;
-import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.util.List;
 

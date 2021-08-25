@@ -47,7 +47,6 @@ public class Prisoner {
     @Transient
     private String status;
 
-
     @ManyToMany
     @JoinTable(name = "prisoner_crime",
             joinColumns = @JoinColumn(
@@ -55,7 +54,6 @@ public class Prisoner {
             inverseJoinColumns = @JoinColumn(name = "crime_id"))
 
     private List<Crime> crimes;
-
 
     @OneToOne
     @JoinColumn(name = "punishment_id")

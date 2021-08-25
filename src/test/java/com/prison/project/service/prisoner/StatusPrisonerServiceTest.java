@@ -61,7 +61,6 @@ class StatusPrisonerServiceTest {
         assertEquals("Freed", prisoners.get(1).getStatus());
         assertFalse(prisoners.get(0).getInPrison());
         assertFalse(prisoners.get(1).getInPrison());
-
     }
 
 
