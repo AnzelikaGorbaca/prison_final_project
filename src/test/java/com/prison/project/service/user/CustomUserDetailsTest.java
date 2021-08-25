@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CustomUserDetailsTest {
 
-
     private Set<Role> getRoles() {
         Set<Role> user = new HashSet<>();
         user.add(new Role(1L, "SITE_USER"));
@@ -28,7 +27,6 @@ class CustomUserDetailsTest {
     @Test
     void getAuthorities() {
 
-
         Set<Role> roles = getRoles();
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
@@ -39,7 +37,6 @@ class CustomUserDetailsTest {
         Collection<? extends GrantedAuthority> authoritiesResult = customUserDetails.getAuthorities();
         assertEquals(authorities, authoritiesResult);
     }
-
 
     @Test
     void getPassword() {
@@ -52,7 +49,7 @@ class CustomUserDetailsTest {
     void getUsername() {
         String result = customUserDetails.getUsername();
         String username = user.getUserName();
-        assertEquals(username,result);
+        assertEquals(username, result);
     }
 
 

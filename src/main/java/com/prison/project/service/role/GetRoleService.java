@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -14,7 +13,7 @@ public class GetRoleService {
 
     private final RoleRepository roleRepository;
 
-    public Optional<Role> findByRoleNameIgnoreCase(String roleName){
+    public Optional<Role> findByRoleNameIgnoreCase(String roleName) {
         return roleRepository.findByRoleNameIgnoreCase(roleName);
     }
 

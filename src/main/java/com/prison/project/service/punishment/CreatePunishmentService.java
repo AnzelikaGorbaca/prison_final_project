@@ -13,7 +13,7 @@ public class CreatePunishmentService {
 
     private final PunishmentRepository punishmentRepository;
 
-    public Punishment registerPunishment (Punishment punishment){
+    public Punishment registerPunishment(Punishment punishment) {
         punishmentRepository.save(punishment);
         return punishment;
     }

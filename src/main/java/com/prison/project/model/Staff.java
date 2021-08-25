@@ -1,22 +1,17 @@
 package com.prison.project.model;
 
-import com.prison.project.exception.BadRequestException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.UniqueElements;
-
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-import java.util.List;
-
 
 @Data
 @Entity
-@Table(name="staff")
+@Table(name = "staff")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Staff {
@@ -52,6 +47,6 @@ public class Staff {
     public String getStaffPhotoImagePath() {
         if (photo == null || id == null) return null;
 
-        return "/photos/" +"staff_" + id + "/" + photo;
+        return "/photos/" + "staff_" + id + "/" + photo;
     }
 }

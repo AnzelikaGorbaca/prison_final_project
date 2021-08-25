@@ -41,6 +41,7 @@ public class GetCrimeService {
 
         return getCrimeByIds(crimeIds);
     }
+
     public List<Long> getCrimePrisoner(Long id) {
         return crimeRepository.getPrisonerCrimes(id);
     }

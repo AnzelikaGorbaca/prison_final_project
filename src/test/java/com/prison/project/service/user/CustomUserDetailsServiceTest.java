@@ -48,12 +48,12 @@ class CustomUserDetailsServiceTest {
     @Test
     void loadUserByUsernameWhenNull() {
         String username = "username";
-        when (userRepository.findByUserName(username)).thenReturn(null);
+        when(userRepository.findByUserName(username)).thenReturn(null);
 
         try {
             customUserDetailsService.loadUserByUsername(username);
             fail();
-        }catch (UsernameNotFoundException e) {
+        } catch (UsernameNotFoundException e) {
             assertEquals(e.getMessage(), "User not found");
         }
         verify(userRepository).findByUserName(username);

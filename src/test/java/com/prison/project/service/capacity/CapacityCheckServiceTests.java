@@ -32,7 +32,6 @@ public class CapacityCheckServiceTests {
     @Mock
     private PrisonCapacity prisonCapacity;
 
-
     @Test
     void shouldReturnFreeSpacesOnDistinctDate() {
         LocalDate localDate = LocalDate.now();
@@ -95,10 +94,10 @@ public class CapacityCheckServiceTests {
 
         }
         verify(prisonerRepository).findTopByEndDateGreaterThanOrderByEndDateAsc(localDate);
-
     }
+
     @Test
-    void shouldReturnNumberOfFreePlacesOnClosestFreeDay(){
+    void shouldReturnNumberOfFreePlacesOnClosestFreeDay() {
         LocalDate localDate = LocalDate.now();
 
         Prisoner samplePrisoner = new Prisoner();
@@ -109,18 +108,16 @@ public class CapacityCheckServiceTests {
         when(prisonCapacity.getCapacity()).thenReturn(100);
 
 
-        Long freeSpaces =prisonCapacityCheck.getNumberOfFreePlacesInClosestDate();
+        Long freeSpaces = prisonCapacityCheck.getNumberOfFreePlacesInClosestDate();
 
-        assertEquals(10L,freeSpaces);
+        assertEquals(10L, freeSpaces);
 
         verify(prisonerRepository).findTopByEndDateGreaterThanOrderByEndDateAsc(localDate);
         verify(prisonerRepository).countByEndDateGreaterThan(localDate);
-
-
     }
 
     @Test
-    void shouldReturnZeroIfFreePlacesLessThan(){
+    void shouldReturnZeroIfFreePlacesLessThan() {
         LocalDate localDate = LocalDate.now();
 
         Prisoner samplePrisoner = new Prisoner();
@@ -130,13 +127,12 @@ public class CapacityCheckServiceTests {
         when(prisonerRepository.countByEndDateGreaterThan(localDate)).thenReturn(100L);
         when(prisonCapacity.getCapacity()).thenReturn(90);
 
-        Long freeSpaces =prisonCapacityCheck.getNumberOfFreePlacesInClosestDate();
+        Long freeSpaces = prisonCapacityCheck.getNumberOfFreePlacesInClosestDate();
 
-        assertEquals(0L,freeSpaces);
+        assertEquals(0L, freeSpaces);
 
         verify(prisonerRepository).findTopByEndDateGreaterThanOrderByEndDateAsc(localDate);
         verify(prisonerRepository).countByEndDateGreaterThan(localDate);
-
     }
 
     @Test
@@ -148,7 +144,7 @@ public class CapacityCheckServiceTests {
 
         try {
 
-            Long freeSpaces =prisonCapacityCheck.getNumberOfFreePlacesInClosestDate();
+            Long freeSpaces = prisonCapacityCheck.getNumberOfFreePlacesInClosestDate();
             fail();
 
         } catch (NotFoundException e) {
@@ -156,8 +152,5 @@ public class CapacityCheckServiceTests {
         }
 
         verify(prisonerRepository).findTopByEndDateGreaterThanOrderByEndDateAsc(localDate);
-
     }
-
-
 }

@@ -10,7 +10,7 @@
 <body class="container">
 
 <div style="text-align: center;">
-    <h1>   Prison Management System   </h1>
+    <h1> Prison Management System </h1>
 </div>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -26,14 +26,16 @@
                     <a class="nav-link" href="/prison-management-system">Home</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active"  aria-current="page"  href="#" id="navbarDropdownPrisoner" role="button"
+                    <a class="nav-link dropdown-toggle active" aria-current="page" href="#" id="navbarDropdownPrisoner"
+                       role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         Prisoner
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/prison-management-system/prisoners/prisoner-add">Add
                             Prisoner</a></li>
-                        <li><a class="dropdown-item active" style="background-color: #212529" href="/prison-management-system/prisoners/prisoner-search">Search Prisoner</a></li>
+                        <li><a class="dropdown-item active" style="background-color: #212529"
+                               href="/prison-management-system/prisoners/prisoner-search">Search Prisoner</a></li>
                         <li><a class="dropdown-item" href="/prison-management-system/prisoners">View all Prisoners</a>
                         </li>
                     </ul>
@@ -88,12 +90,15 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStatistics" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStatistics" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         Statistics
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/prison-management-system/statistics-duration">By Imprisonment Duration</a></li>
-                        <li><a class="dropdown-item" href="/prison-management-system/statistics-crimes">By Crimes Committed</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-duration">By
+                            Imprisonment Duration</a></li>
+                        <li><a class="dropdown-item" href="/prison-management-system/statistics-crimes">By Crimes
+                            Committed</a></li>
                     </ul>
                 </li>
             </ul>
@@ -101,7 +106,7 @@
                 <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
                     <a class="nav-link" href="/register">Register</a>
                 </li>
-                <li class="nav-item" sec:authorize="isAuthenticated()" >
+                <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a class="nav-link" href="/logout">Log out</a>
                 </li>
             </ul>
@@ -114,39 +119,41 @@
 <h3 th:text="${nothingFound}"></h3>
 <div th:switch="${prisonerList}" class="container my-5">
     <div class="row">
-                <table class="table table-striped col-md-10">
-                    <thead>
-                    <tr>
-                        <th >Id</th>
-                        <th>Name</th>
-                        <th>Surname</th>
-                        <th>Personal Code</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Status</th>
-                        <th>View Profile</th>
-                    </tr>
-                    </thead>
+        <table class="table table-striped col-md-10">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Personal Code</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+                <th>View Profile</th>
+            </tr>
+            </thead>
 
-                    <tbody>
-                    <tr th:each="prisoner : ${prisonerList}">
-                        <td th:text="${prisoner.id}"></td>
-                        <td th:text="${prisoner.name}"></td>
-                        <td th:text="${prisoner.surname}"></td>
-                        <td th:text="${prisoner.personalCode}"></td>
-                        <td th:text="${prisoner.startDate}"></td>
-                        <td th:text="${prisoner.endDate}"></td>
-                        <td th:text="${prisoner.status}"></td>
-                        <td style="text-align:center"><a th:href="@{/prison-management-system/prisoners/profile/{id}(id=${prisoner.id})}" class="btn btn-primary"><i class="fas fa-address-card"></i></a></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+            <tbody>
+            <tr th:each="prisoner : ${prisonerList}">
+                <td th:text="${prisoner.id}"></td>
+                <td th:text="${prisoner.name}"></td>
+                <td th:text="${prisoner.surname}"></td>
+                <td th:text="${prisoner.personalCode}"></td>
+                <td th:text="${prisoner.startDate}"></td>
+                <td th:text="${prisoner.endDate}"></td>
+                <td th:text="${prisoner.status}"></td>
+                <td style="text-align:center"><a
+                        th:href="@{/prison-management-system/prisoners/profile/{id}(id=${prisoner.id})}"
+                        class="btn btn-primary"><i class="fas fa-address-card"></i></a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 <div class="text-left">
 
-    <a class="btn btn-primary" th:href="@{/prison-management-system/prisoners/prisoner-search}" >New Search</a>
-    <a class="btn btn-secondary"  th:href="@{/prison-management-system}"
+    <a class="btn btn-primary" th:href="@{/prison-management-system/prisoners/prisoner-search}">New Search</a>
+    <a class="btn btn-secondary" th:href="@{/prison-management-system}"
        role="button">Cancel</a>
 </div>
 </body>

@@ -16,7 +16,7 @@ class PhotoServiceDeletePhotoTest {
     @Test
     void deletePhoto() {
 
-        Path path =  Paths.get("photos/prisoner_27");
+        Path path = Paths.get("photos/prisoner_27");
         photoServiceDeletePhoto.deletePhoto(path);
     }
 }

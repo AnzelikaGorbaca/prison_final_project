@@ -16,7 +16,6 @@ import javax.validation.Valid;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.*;
 
-
 @RequiredArgsConstructor
 @Controller
 @RequestMapping(value = "/prison-management-system/staffs")
@@ -141,12 +140,10 @@ public class StaffController {
                 }
             }
         }
-
         if (!multipartFile.isEmpty()) {
             photoServiceStaff.uploadPhoto(id, staff, multipartFile);
 
         }
-
         return "redirect:/prison-management-system/staffs/profile/" + id;
     }
 }

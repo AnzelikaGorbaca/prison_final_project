@@ -5,13 +5,13 @@ import com.prison.project.service.prisoner.CreatePrisonerService;
 import com.prison.project.service.prisoner.GetPrisonerService;
 import com.prison.project.service.prisoner.UpdatePrisonerService;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
-import java.nio.file.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 @Transactional
@@ -54,7 +54,6 @@ public class PhotoServicePrisoner {
         Path dir = Paths.get("photos/" + "prisoner_" + id);
         photoServiceDeletePhoto.deletePhoto(dir);
     }
-
 
 }
 

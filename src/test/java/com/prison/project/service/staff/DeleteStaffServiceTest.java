@@ -21,15 +21,13 @@ public class DeleteStaffServiceTest {
     private DeleteStaffService deleteStaffService;
 
     @Test
-    void shouldDeleteStaff(){
-        Staff sampleStaff = new Staff(1L,"Elvis","Presley","GUARD","123456-12345",
-                "+371212345678","AddressConsistingOf10","Moranto.jpg");
+    void shouldDeleteStaff() {
+        Staff sampleStaff = new Staff(1L, "Elvis", "Presley", "GUARD", "123456-12345",
+                "+371212345678", "AddressConsistingOf10", "Moranto.jpg");
 
         doNothing().when(staffRepository).deleteById(1L);
         deleteStaffService.deleteStaff(1L);
 
         verify(staffRepository).deleteById(1L);
-
     }
-
 }

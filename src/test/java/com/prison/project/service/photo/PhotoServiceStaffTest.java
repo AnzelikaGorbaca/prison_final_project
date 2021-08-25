@@ -17,9 +17,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class PhotoServiceStaffTest {
@@ -39,8 +37,8 @@ class PhotoServiceStaffTest {
     private GetStaffService getStaffService;
 
 
-    Staff sampleStaff = new Staff(1L,"Elvis","Presley","GUARD","123456-12345",
-            "+371212345678","AddressConsistingOf10","5696649401_2_4_1.jpg");
+    Staff sampleStaff = new Staff(1L, "Elvis", "Presley", "GUARD", "123456-12345",
+            "+371212345678", "AddressConsistingOf10", "5696649401_2_4_1.jpg");
 
     MultipartFile multipartFile = new MultipartFile() {
         @Override
@@ -86,7 +84,6 @@ class PhotoServiceStaffTest {
         }
     };
 
-
     @Test
     void uploadPhoto() {
         Long id = 1L;
@@ -100,7 +97,7 @@ class PhotoServiceStaffTest {
         doNothing().when(photoServiceAddPhoto).savePhoto(uploadDir, fileName, multipartFile);
 
         when(updateStaffService.updateStaff(id, sampleStaff)).thenReturn(sampleStaff);
-        photoServiceStaff.uploadPhoto(id,sampleStaff, multipartFile);
+        photoServiceStaff.uploadPhoto(id, sampleStaff, multipartFile);
 
 
         verify(updateStaffService, times(2)).updateStaff(id, sampleStaff);
@@ -114,11 +111,11 @@ class PhotoServiceStaffTest {
         when(createStaffService.registerStaff(sampleStaff)).thenReturn(sampleStaff);
         String uploadDir = "photos/" + "staff_" + sampleStaff.getId();
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
-        doNothing().when(photoServiceAddPhoto).savePhoto(uploadDir, fileName,multipartFile);
+        doNothing().when(photoServiceAddPhoto).savePhoto(uploadDir, fileName, multipartFile);
 
-        photoServiceStaff.uploadPhotoRegister(sampleStaff,multipartFile);
+        photoServiceStaff.uploadPhotoRegister(sampleStaff, multipartFile);
         verify(createStaffService).registerStaff(sampleStaff);
-        verify(photoServiceAddPhoto).savePhoto(uploadDir, fileName,multipartFile);
+        verify(photoServiceAddPhoto).savePhoto(uploadDir, fileName, multipartFile);
     }
 
     @Test

@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 
 @Entity
 @Data
-@Table (name = "crimes")
+@Table(name = "crimes")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Crime {
@@ -19,9 +19,7 @@ public class Crime {
     @Column(name = "crime_id")
     private Long id;
     @NotBlank(message = "Crime Description required")
-    @Column (name = "Crime_description")
+    @Column(name = "Crime_description")
     private String crimeDescription;
-
-
 
 }

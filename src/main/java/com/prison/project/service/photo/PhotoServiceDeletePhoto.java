@@ -1,6 +1,5 @@
 package com.prison.project.service.photo;
 
-
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +11,6 @@ import java.nio.file.*;
 @Service
 @AllArgsConstructor
 public class PhotoServiceDeletePhoto {
-
 
     public void deletePhoto(Path path) {
 

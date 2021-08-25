@@ -1,8 +1,10 @@
 package com.prison.project.service.prisoner;
 
-import com.prison.project.model.*;
+import com.prison.project.model.Crime;
+import com.prison.project.model.Prisoner;
+import com.prison.project.model.PrisonerSearch;
+import com.prison.project.model.Punishment;
 import com.prison.project.repository.PrisonerRepository;
-import com.prison.project.repository.PunishmentRepository;
 import com.prison.project.service.crime.GetCrimeService;
 import com.prison.project.service.punishment.GetPunishmentService;
 import lombok.AllArgsConstructor;
@@ -10,9 +12,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.springframework.data.domain.ExampleMatcher.matchingAll;
 

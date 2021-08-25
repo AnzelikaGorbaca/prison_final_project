@@ -1,6 +1,5 @@
 package com.prison.project.service.photo;
 
-
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,13 +12,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-
-
 @Transactional
 @Service
 @AllArgsConstructor
 public class PhotoServiceAddPhoto {
-
 
     public void savePhoto(String uploadDir, String fileName,
                           MultipartFile multipartFile) {

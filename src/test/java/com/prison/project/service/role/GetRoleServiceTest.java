@@ -30,7 +30,7 @@ class GetRoleServiceTest {
         Optional<Role> roleResult = getRoleService.findByRoleNameIgnoreCase(roleName);
 
         assertEquals(Optional.of(new Role(1L, "ROLE_USER")), roleResult);
-        verify (roleRepository).findByRoleNameIgnoreCase(roleName);
+        verify(roleRepository).findByRoleNameIgnoreCase(roleName);
     }
 
 
@@ -41,6 +41,6 @@ class GetRoleServiceTest {
         Optional<Role> roleResult = getRoleService.findByRoleNameIgnoreCase(roleName);
 
         assertEquals(Optional.of(new Role("ROLE_USER")), roleResult);
-        verify (roleRepository).findByRoleNameIgnoreCase(roleName);
+        verify(roleRepository).findByRoleNameIgnoreCase(roleName);
     }
 }

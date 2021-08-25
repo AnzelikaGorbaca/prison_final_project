@@ -18,7 +18,7 @@ public class UpdatePrisonerService {
     private final PunishmentRepository punishmentRepository;
     private final CreatePrisonerService createPrisonerService;
 
-    public Prisoner updatePrisoner (Long id, Prisoner updatePrisoner) {
+    public Prisoner updatePrisoner(Long id, Prisoner updatePrisoner) {
         Prisoner existingPrisoner = prisonerRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Invalid prisoner id " + id));
         Punishment punishment = punishmentRepository.getById(updatePrisoner.getPunishmentId());
@@ -29,11 +29,10 @@ public class UpdatePrisonerService {
         existingPrisoner.setCrimesJson(updatePrisoner.getCrimesJson());
         existingPrisoner.setCrimes(updatePrisoner.getCrimes());
         existingPrisoner.setPunishmentId(updatePrisoner.getPunishmentId());
-        existingPrisoner.setPunishment (punishment);
+        existingPrisoner.setPunishment(punishment);
         existingPrisoner.setStartDate(updatePrisoner.getStartDate());
         var endDate = createPrisonerService.calculateEndDate(updatePrisoner, punishment);
         existingPrisoner.setEndDate(endDate);
-
 
         return prisonerRepository.save(existingPrisoner);
 

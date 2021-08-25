@@ -63,7 +63,6 @@ class CreatePrisonerServiceTest {
         LocalDate startDate = LocalDate.parse(start);
         LocalDate endDate = LocalDate.parse(end);
 
-
         Prisoner samplePrisoner = new Prisoner(2L, "Janis", "Ozolins", "310856 - 10605",
                 "Rigas iela 4-5", getStartDate(), null, "Change Color.jpg",
                 null, "In Prison", crimes, null, punishment.getId(), "Murder, Robbery, Awful Cook");
@@ -91,7 +90,6 @@ class CreatePrisonerServiceTest {
         verify(statusPrisonerService).checkIfInPrisonAndSetStatus(samplePrisoner);
         verify(prisonerRepository).save(samplePrisoner);
         verify(punishment).getId();
-
     }
 
     @Test
@@ -105,7 +103,7 @@ class CreatePrisonerServiceTest {
                 "Rigas iela 4-5", getStartDate(), null, "Change Color.jpg",
                 null, "In Prison", crimes, punishment, punishment.getId(), "Murder, Robbery, Awful Cook");
 
-        LocalDate result = (LocalDate) method.invoke(createPrisonerService,samplePrisoner,punishment);
+        LocalDate result = (LocalDate) method.invoke(createPrisonerService, samplePrisoner, punishment);
         assertEquals(result, getEndDate());
         verify(punishment).getId();
         verify(punishment).getImprisonmentMonths();

@@ -2,7 +2,6 @@ package com.prison.project.service.user;
 
 import com.prison.project.model.Role;
 import com.prison.project.model.User;
-import com.prison.project.repository.RoleRepository;
 import com.prison.project.repository.UserRepository;
 import com.prison.project.service.role.GetRoleService;
 import lombok.AllArgsConstructor;
@@ -18,8 +17,6 @@ public class SaveUserService {
     public final UserRepository userRepository;
     public final GetRoleService getRoleService;
     private final BCryptPasswordEncoder passwordEncoder;
-
-
 
     public User saveUser(User user) {
         String encodedPassword = passwordEncoder.encode(user.getPassword());

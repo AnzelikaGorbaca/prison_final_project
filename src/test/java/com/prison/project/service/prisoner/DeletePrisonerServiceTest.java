@@ -7,7 +7,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -19,12 +18,10 @@ class DeletePrisonerServiceTest {
     @Mock
     private PrisonerRepository repository;
 
-
-
     @Test
     public void deletePrisoner() {
         Long id = 1L;
-        when (repository.deletePrisonerCrimes(id)).thenReturn(0);
+        when(repository.deletePrisonerCrimes(id)).thenReturn(0);
         doNothing().when(repository).deleteById(id);
 
         deletePrisonerService.deletePrisoner(id);

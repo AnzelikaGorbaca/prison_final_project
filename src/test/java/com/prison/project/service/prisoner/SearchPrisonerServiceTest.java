@@ -18,12 +18,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-import static org.springframework.data.domain.ExampleMatcher.matchingAll;
 
 @ExtendWith(MockitoExtension.class)
 class SearchPrisonerServiceTest {
@@ -43,7 +41,6 @@ class SearchPrisonerServiceTest {
     StatusPrisonerService statusPrisonerService;
 
 
-
     private LocalDate getStartDate() {
         String start = "2021-08-13";
         return LocalDate.parse(start);
@@ -54,10 +51,8 @@ class SearchPrisonerServiceTest {
         return LocalDate.parse(end);
     }
 
-
     List<Crime> crimes = Arrays.asList(new Crime(1L, "Robbery"), new Crime(2L, "Murder"));
     Punishment punishment = new Punishment(1L, 5);
-
 
     @Test
     void searchPrisonerWhenAllDataArePassedInSearch() {
@@ -118,7 +113,6 @@ class SearchPrisonerServiceTest {
         assertNull(statusNullResult);
         assertTrue(statusInPrisonResult);
         assertFalse(statusFreedResult);
-
     }
 
     @Test
@@ -127,7 +121,6 @@ class SearchPrisonerServiceTest {
         Method method = SearchPrisonerService.class
                 .getDeclaredMethod("getPunishmentByID", Long.class);
         method.setAccessible(true);
-
 
         Long idNull = null;
         Long id = 24L;
@@ -141,6 +134,5 @@ class SearchPrisonerServiceTest {
         assertEquals(punishment, punishmentResult);
 
         verify(punishmentService).getPunishmentById(24L);
-
     }
 }

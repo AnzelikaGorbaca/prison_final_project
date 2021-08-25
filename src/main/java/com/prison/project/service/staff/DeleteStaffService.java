@@ -1,6 +1,5 @@
 package com.prison.project.service.staff;
 
-import com.prison.project.model.Staff;
 import com.prison.project.repository.StaffRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

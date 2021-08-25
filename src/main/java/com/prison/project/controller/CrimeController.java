@@ -88,6 +88,7 @@ public class CrimeController {
             model.addAttribute("errorFromController", "Can't delete crime with id: " + id + ". It is used for prisoner data!");
         } else {
             deleteCrimeService.deleteCrimeById(id);
-        }return crimeIndex(model);
+        }
+        return crimeIndex(model);
     }
 }

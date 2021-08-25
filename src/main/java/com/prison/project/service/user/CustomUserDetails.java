@@ -15,7 +15,7 @@ import java.util.Set;
 
 @Data
 @RequiredArgsConstructor
-public class CustomUserDetails implements  UserDetails{
+public class CustomUserDetails implements UserDetails {
     private User user;
 
     public CustomUserDetails(User user) {
@@ -30,8 +30,10 @@ public class CustomUserDetails implements  UserDetails{
         for (Role role : roles) {
             authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
 
-        } return authorities;
+        }
+        return authorities;
     }
+
     @Override
     public String getPassword() {
         return user.getPassword();

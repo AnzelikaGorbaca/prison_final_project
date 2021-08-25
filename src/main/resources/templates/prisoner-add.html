@@ -24,6 +24,7 @@
                 }
             }
         )
+
     </script>
 </head>
 <body class="container">
@@ -125,7 +126,7 @@
                 <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
                     <a class="nav-link" href="/register">Register</a>
                 </li>
-                <li class="nav-item" sec:authorize="isAuthenticated()" >
+                <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a class="nav-link" href="/logout">Log out</a>
                 </li>
             </ul>
@@ -209,7 +210,7 @@
             </div>
             <br>
             <button type="submit" class="btn btn-primary">Submit</button>
-            <a class="btn btn-secondary"  th:href="@{/prison-management-system}"
+            <a class="btn btn-secondary" th:href="@{/prison-management-system}"
                role="button">Cancel</a>
         </div>
     </form>
@@ -231,6 +232,7 @@
     document.getElementById("exampleInputStartDate").setAttribute("max", today);
 
 
+
 </script>
 <script>
     $('.dropdown-mul-1').dropdown({
@@ -241,6 +243,7 @@
         readOnly: true,
         input: '<input type="text" maxLength="20" placeholder="Search">'
     });
+
 
 
 </script>

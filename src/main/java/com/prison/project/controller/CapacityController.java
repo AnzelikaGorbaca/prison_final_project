@@ -19,7 +19,6 @@ public class CapacityController {
 
     private final PrisonCapacityCheck prisonCapacityCheck;
 
-
     @GetMapping("/capacity-now")
     public String capacityNow(Model map) {
 
@@ -27,7 +26,7 @@ public class CapacityController {
         map.addAttribute("prisonFreePlaces", "Prison currently has: " + freeSpaces + " free places");
 
         if (freeSpaces < 1) {
-            map.addAttribute("errorFromController","Registering of new prisoners not possible because there are no free places in prison now");
+            map.addAttribute("errorFromController", "Registering of new prisoners not possible because there are no free places in prison now");
 
             try {
                 LocalDate closestDayWithFreeSpaces = prisonCapacityCheck.getClosestDateWithFreePlaces();
@@ -56,11 +55,10 @@ public class CapacityController {
     @PostMapping("/capacity-otherDay")
     public String capacityDistinctDateShow(Model map, CapacityDate capacityDate) {
         Long freeSpaces = prisonCapacityCheck.getFreePlacesByDate(capacityDate.getDistinctDate().minusDays(1));
-        map.addAttribute("pageName1","There will be "+ freeSpaces+ " free places on the "+capacityDate.getDistinctDate()+ " by currently available data");
+        map.addAttribute("pageName1", "There will be " + freeSpaces + " free places on the " + capacityDate.getDistinctDate() + " by currently available data");
 
         return "capacity-byDate-result";
     }
-
 
 
 }

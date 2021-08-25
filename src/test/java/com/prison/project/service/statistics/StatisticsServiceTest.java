@@ -64,7 +64,7 @@ class StatisticsServiceTest {
     }
 
     @Test
-    void shouldSortTheList()throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    void shouldSortTheList() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Method method = StatisticsService.class
                 .getDeclaredMethod("getPrisonerListSorted", List.class);
         method.setAccessible(true);
@@ -73,7 +73,7 @@ class StatisticsServiceTest {
         prisoner2.setCrimes(list2);
         prisoner3.setCrimes(list3);
 
-        List<Prisoner> prisoners = Arrays.asList( prisoner1, prisoner2, prisoner3);
+        List<Prisoner> prisoners = Arrays.asList(prisoner1, prisoner2, prisoner3);
         List<Prisoner> expected = Arrays.asList(prisoner2, prisoner1, prisoner3);
         List<Prisoner> actual = (List<Prisoner>) method.invoke(statisticsService, prisoners);
 

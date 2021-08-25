@@ -32,10 +32,10 @@ public class StaffSearch {
     public String getPersonalCode() {
         return Strings.isNotBlank(personalCode) ? personalCode : null;
     }
+
     public String getPhoneNumber() {
         return Strings.isNotBlank(phoneNumber) ? phoneNumber : null;
     }
-
 
     public String getAddress() {
         return Strings.isNotBlank(address) ? address : null;

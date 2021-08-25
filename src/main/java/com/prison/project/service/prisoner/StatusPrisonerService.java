@@ -7,12 +7,9 @@ import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
-
 @Transactional
 @Service
 public class StatusPrisonerService {
-
-
 
     public void checkIfInPrisonAndSetStatus(List<Prisoner> prisoners) {
         for (Prisoner p : prisoners) {
