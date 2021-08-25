@@ -63,12 +63,12 @@ public class PunishmentController {
 
     @GetMapping("/delete/{id}")
     public String deletePunishment(@PathVariable("id") Long id, Model model){
-        List<Long> punishmentList = deletePunishmentService.getPunishmentPrisoner(id);
+        List<Long> punishmentList = getPunishmentService.getPunishmentPrisoner(id);
         if (!punishmentList.isEmpty()) {
             model.addAttribute("errorFromController", "Can't delete punishment with id: " + id + ". It is used for prisoner data!");
-        }
-        deletePunishmentService.deletePunishment(id);
-        return punishmentIndex(model);
+        } else {
+            deletePunishmentService.deletePunishment(id);
+        }return punishmentIndex(model);
     }
 
 

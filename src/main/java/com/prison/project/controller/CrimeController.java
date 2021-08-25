@@ -83,11 +83,11 @@ public class CrimeController {
 
     @GetMapping("/delete/{id}")
     public String deleteCrime(@PathVariable("id") Long id, Model model) {
-        List<Long> crimeList = deleteCrimeService.getCrimePrisoner(id);
+        List<Long> crimeList = getCrimeService.getCrimePrisoner(id);
         if (!crimeList.isEmpty()) {
             model.addAttribute("errorFromController", "Can't delete crime with id: " + id + ". It is used for prisoner data!");
-        }
-        deleteCrimeService.deleteCrimeById(id);
-        return crimeIndex(model);
+        } else {
+            deleteCrimeService.deleteCrimeById(id);
+        }return crimeIndex(model);
     }
 }
