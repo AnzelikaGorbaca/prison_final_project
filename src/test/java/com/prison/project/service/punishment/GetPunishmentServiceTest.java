@@ -101,4 +101,17 @@ class GetPunishmentServiceTest {
 
         verify(punishmentRepository).findAllByOrderByImprisonmentMonthsAsc();
     }
+
+    @Test
+    void shouldReturnPunishmentIdsListWhenAssignedToAnyPrisoner() {
+        List<Long> expected = List.of(15L, 15L);
+        when(punishmentRepository.getPrisonerPunishment(15L)).thenReturn(expected);
+
+        List<Long> actual = getPunishmentService.getPunishmentPrisoner(15L);
+
+        assertNotNull(actual);
+        assertEquals(expected, actual);
+
+        verify(punishmentRepository).getPrisonerPunishment(15L);
+    }
 }
